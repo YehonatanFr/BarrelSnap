@@ -14,8 +14,8 @@ as this is the very first page the user will see!
 
 */
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePageBusiness extends StatelessWidget {
+  const HomePageBusiness({super.key});
 
   @override
   Widget build(BuildContext context) {

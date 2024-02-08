@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import
+
 import 'components/my_bottom_nav_bar.dart';
 import 'components/my_drawer.dart';
-import 'pages/home_page.dart';
-import 'pages/profile_page.dart';
-import 'pages/setting_page.dart';
-import 'pages/shop_page.dart';
+import 'home_page_business.dart';
+import 'profile_page_business.dart';
+import 'setting_page_business.dart';
+import 'shop_page_business.dart';
 
 /*
 
@@ -22,14 +22,14 @@ the app screen to the any of the ones in the 'pages' folder:
 
 */
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class MainPageBusiness extends StatefulWidget {
+  const MainPageBusiness({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<MainPageBusiness> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPageBusiness> {
   // This selected index is to control the bottom nav bar
   int _selectedIndex = 0;
 
@@ -44,16 +44,16 @@ class _MainPageState extends State<MainPage> {
   // pages to display
   final List<Widget> _pages = [
     // home page
-    const HomePage(),
+    const HomePageBusiness(),
 
     // shop page
-    const ShopPage(),
+    const ShopPageBusiness(),
 
     // profile page
-    const ProfilePage(),
+    const ProfilePageBusiness(),
 
     // setting page
-    const SettingPage(),
+    const SettingPageBusiness(),
   ];
 
   @override

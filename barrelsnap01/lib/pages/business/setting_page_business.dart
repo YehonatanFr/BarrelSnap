@@ -12,8 +12,8 @@ depending on what your app does.
 
 */
 
-class SettingPage extends StatelessWidget {
-  const SettingPage({super.key});
+class SettingPageBusiness extends StatelessWidget {
+  const SettingPageBusiness({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; 
-import '../client/profile_page.dart';
-import '../main_page.dart';
+import 'package:intl/intl.dart';
+import 'package:startertemplate/pages/client/main_page_client.dart'; 
+import '../client/profile_page_client.dart';
 
 class ClientSingIn extends StatefulWidget {
   @override
@@ -178,7 +178,7 @@ class _ClientSingInState extends State<ClientSingIn> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MainPage(),
+                              builder: (context) => MainPageClient(),
                             ),
                           );
 
@@ -186,7 +186,7 @@ class _ClientSingInState extends State<ClientSingIn> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ProfilePage(userId: userId),
+                              builder: (context) => ProfilePageClient(userId: userId),
                             ),
                           );
                         },

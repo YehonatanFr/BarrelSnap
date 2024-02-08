@@ -12,8 +12,8 @@ to give any feedback about the app.
 
 */
 
-class AboutPage extends StatelessWidget {
-  const AboutPage({super.key});
+class AboutPageBusiness extends StatelessWidget {
+  const AboutPageBusiness({super.key});
 
   @override
   Widget build(BuildContext context) {

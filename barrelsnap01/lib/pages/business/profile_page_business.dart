@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../business/business_register.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePageBusiness extends StatefulWidget {
   final String? userId;
 
-  const ProfilePage({Key? key, this.userId}) : super(key: key);
+  const ProfilePageBusiness({Key? key, this.userId}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -14,7 +14,7 @@ class ProfilePage extends StatefulWidget {
 
 
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePageBusiness> {
   final TextEditingController fnameController = TextEditingController();
   final TextEditingController lnameController = TextEditingController();
   final TextEditingController birthdateController = TextEditingController();

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../client/client_register.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePageClient extends StatefulWidget {
   final String? userId;
 
-  const ProfilePage({Key? key, this.userId}) : super(key: key);
+  const ProfilePageClient({Key? key, this.userId}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -14,7 +14,7 @@ class ProfilePage extends StatefulWidget {
 
 
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePageClient> {
   final TextEditingController fnameController = TextEditingController();
   final TextEditingController lnameController = TextEditingController();
   final TextEditingController birthdateController = TextEditingController();

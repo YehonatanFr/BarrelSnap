@@ -12,8 +12,8 @@ that the user can buy $
 
 */
 
-class ShopPage extends StatelessWidget {
-  const ShopPage({super.key});
+class ShopPageBusiness extends StatelessWidget {
+  const ShopPageBusiness({super.key});
 
   @override
   Widget build(BuildContext context) {
