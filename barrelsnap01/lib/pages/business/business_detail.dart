@@ -5,10 +5,10 @@ class ManagerDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Manager Details'),
+        title: Text('Business Details'),
       ),
       body: Center(
-        child: Text('Manager Details Screen'),
+        child: Text('Business Details Screen'),
       ),
     );
   }
