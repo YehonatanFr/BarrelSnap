@@ -17,8 +17,10 @@ class _ClientSingInState extends State<ClientSingIn> {
   final cityController = TextEditingController();
   final streetController = TextEditingController();
   final streetnumberController = TextEditingController();
-  
+
   String? userId; // Variable to store the document ID
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Method to calculate age from date of birth
   int calculateAge(DateTime birthDate) {
@@ -28,9 +30,9 @@ class _ClientSingInState extends State<ClientSingIn> {
   }
 
   // Function to show date picker
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate() async {
     final DateTime? picked = await showDatePicker(
-      context: context,
+      context: scaffoldKey.currentContext!,
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
@@ -44,7 +46,7 @@ class _ClientSingInState extends State<ClientSingIn> {
       } else {
         // Show an error message indicating the user is under 18 years old
         showDialog(
-          context: context,
+          context: scaffoldKey.currentContext!,
           builder: (context) => AlertDialog(
             title: const Text('Error'),
             content: const Text('You must be over 18 years old.'),
@@ -66,6 +68,7 @@ class _ClientSingInState extends State<ClientSingIn> {
       debugShowCheckedModeBanner: false,
       title: 'Wine Barrel Form',
       home: Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           title: const Text(
             'Sign In',
@@ -117,9 +120,7 @@ class _ClientSingInState extends State<ClientSingIn> {
                       TextFormField(
                         readOnly: true,
                         controller: birthdateController,
-                        onTap: () {
-                          _selectDate(context);
-                        },
+                        onTap: _selectDate,
                         decoration: const InputDecoration(
                           labelStyle: TextStyle(color: Colors.white),
                           labelText: 'Date of Birth',
@@ -172,24 +173,33 @@ class _ClientSingInState extends State<ClientSingIn> {
                           });
                           // Get the document ID
                           userId = docRef.id;
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile created successfully')));
+                          ScaffoldMessenger.of(scaffoldKey.currentContext!).showSnackBar(SnackBar(content: Text('Profile created successfully')));
 
-                          // Navigate to MainPage after submitting the form
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MainPageClient(),
-                            ),
-                          );
+                          try {
+                            // Navigate to MainPage after submitting the form
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MainPageClient(),
+                              ),
+                            );
+                          } catch (e) {
+                            print('Error navigating to MainPage: $e');
+                          }
 
-                          // Navigate to ProfilePage with userId
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProfilePageClient(userId: userId),
-                            ),
-                          );
+                          // // Navigate to ProfilePage with userId
+                          // Navigator.push(
+                          //   scaffoldKey.currentContext!,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => ProfilePageClient(userId: userId),
+                          //   ),
+                          // );
                         },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.transparent, // Button background color
+                          side: BorderSide(color: Colors.white), // Border color
+                        ),
                         child: const Text('Submit'),
                       ),
                     ],

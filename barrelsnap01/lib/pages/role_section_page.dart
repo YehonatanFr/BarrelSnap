@@ -9,7 +9,7 @@ class RoleSelectionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Sign In Options',
+          'Register Options',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.transparent, // Make app bar transparent
@@ -35,9 +35,13 @@ class RoleSelectionScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => ClientSingIn()),
                   );
                 },
+                style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.transparent, // Text color
+                  side: BorderSide(color: Colors.white), // Border color
+                ),
                 child: const Text('Register as Client'),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 25),
               ElevatedButton(
                 onPressed: () {
                   // Navigate to manager details screen
@@ -46,6 +50,10 @@ class RoleSelectionScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => BusinessSignIn()),
                   );
                 },
+                style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.transparent, // Text color
+                  side: BorderSide(color: Colors.white), // Border color
+                ),
                 child: const Text('Register as Business'),
               ),
             ],
