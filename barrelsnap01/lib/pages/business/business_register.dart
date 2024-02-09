@@ -109,6 +109,11 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                     SizedBox(height: 20.0),
                     ElevatedButton(
                       onPressed: _submitForm, // Call the function to save form data
+                      style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.transparent, // Button background color
+                      side: BorderSide(color: Colors.white), // Border color
+                      ),
                       child: Text('Submit'),
                     ),
                   ],
