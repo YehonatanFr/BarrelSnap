@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "487529716430",
+    "project_id": "barrelsnap-8b4a6",
+    "storage_bucket": "barrelsnap-8b4a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487529716430:android:9e1a632e77784e081d8e9f",
+        "android_client_info": {
+          "package_name": "com.starcrew.barrelsnap01"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMksQwdj3z2j26wwP4fAqV2OUWsOn75w8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

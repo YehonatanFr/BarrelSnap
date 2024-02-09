@@ -47,7 +47,7 @@ dependencies:
   web: ^0.3.0 
 
   google_nav_bar: ^5.0.6
-  firebase_auth: ^4.17.3
+  firebase_auth: ^4.17.4
   firebase_core: ^2.25.3
   google_sign_in: ^6.2.1
   cloud_firestore: ^4.15.4  
