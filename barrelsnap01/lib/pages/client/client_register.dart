@@ -160,48 +160,18 @@ class _ClientSingInState extends State<ClientSingIn> {
                         style: TextStyle(color: Colors.white),
                       ),
                       ElevatedButton(
-                        onPressed: () async {
-                          CollectionReference collRef = FirebaseFirestore.instance.collection('customer');
-                          DocumentReference docRef = await collRef.add({
-                            'fname': fnameController.text,
-                            'lname': lnameController.text,
-                            'Date of birth': birthdateController.text,
-                            'Phone number': phonenumberController.text,
-                            'City': cityController.text,
-                            'Street': streetController.text,
-                            'Street number': streetnumberController.text,
-                          });
-                          // Get the document ID
-                          userId = docRef.id;
-                          ScaffoldMessenger.of(scaffoldKey.currentContext!).showSnackBar(SnackBar(content: Text('Profile created successfully')));
-
-                          try {
-                            // Navigate to MainPage after submitting the form
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MainPageClient(),
-                              ),
-                            );
-                          } catch (e) {
-                            print('Error navigating to MainPage: $e');
-                          }
-
-                          // // Navigate to ProfilePage with userId
-                          // Navigator.push(
-                          //   scaffoldKey.currentContext!,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => ProfilePageClient(userId: userId),
-                          //   ),
-                          // );
+                      onPressed: () async {
+                        // Navigate to MainPageClient after submitting the form
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MainPageClient(),
+                          ),
+                        );
                         },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.transparent, // Button background color
-                          side: BorderSide(color: Colors.white), // Border color
-                        ),
                         child: const Text('Submit'),
                       ),
+
                     ],
                   ),
                 ),
