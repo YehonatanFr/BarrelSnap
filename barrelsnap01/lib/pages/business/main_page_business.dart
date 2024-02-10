@@ -82,7 +82,7 @@ class _MainPageState extends State<MainPageBusiness> {
           style: TextStyle(color: Colors.grey.shade800),
         ),
       ),
-      drawer: const MyDrawer(),
+      drawer: MyDrawer(),
       body: _pages[_selectedIndex],
       bottomNavigationBar: MyBottomNavBar(
         onTabChange: (index) => navigateBottomBar(index),

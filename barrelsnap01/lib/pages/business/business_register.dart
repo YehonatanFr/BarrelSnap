@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart'; 
+import 'package:intl/intl.dart';
+import 'package:startertemplate/pages/business/main_page_business.dart';
+import 'package:startertemplate/services/auth.dart'; 
 
 class BusinessSignIn extends StatefulWidget {
   @override
@@ -15,6 +17,18 @@ class _BusinessSignInState extends State<BusinessSignIn> {
   final cityController = TextEditingController();
   final streetController = TextEditingController();
   final streetNumberController = TextEditingController();
+  final emailAdress = TextEditingController();
+  final passwordBusiness = TextEditingController();
+
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
+
+  String email = '';
+  String password = '';
+  String error = '';
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Function to save form data to Firestore
   Future<void> _submitForm() async {
@@ -26,6 +40,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
       'city': cityController.text,
       'street': streetController.text,
       'street_number': streetNumberController.text,
+
     });
   }
 
@@ -106,16 +121,78 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                         labelText: 'Building Number',
                       ),
                     ),
-                    SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: _submitForm, // Call the function to save form data
-                      style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.transparent, // Button background color
-                      side: BorderSide(color: Colors.white), // Border color
+                    TextFormField(
+                      // controller: emailAdress,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Email Adress',
                       ),
-                      child: Text('Submit'),
                     ),
+                     TextFormField(
+                      // controller: password,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Password',
+                      ),
+                      obscureText: true
+                    ),
+                    SizedBox(height: 20.0),
+                        TextFormField(
+                          onChanged: (value) {
+                            setState(() => email = value);
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Enter an email';
+                            }
+                            return null; // Return null if the input is valid
+                          },
+
+                          decoration: const InputDecoration(
+                            labelStyle: TextStyle(color: Colors.white),
+                            labelText: 'E-Mail',
+                          ),
+                          obscureText: false,
+                        ),
+                        TextFormField(
+                          onChanged: (value) {
+                            setState(() => password = value);
+                          },
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            labelStyle: TextStyle(color: Colors.white),
+                            labelText: 'Password',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.length < 6) {
+                              return 'Enter a password 6+ chars long';
+                            }
+                            return null; // Return null if the input is valid
+                          },
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                              if (result == null) {
+                                setState(() => error = 'Please supply a valid email');
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MainPageBusiness(),
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                          child: const Text('Submit'),
+                        ),
+                        SizedBox(height: 12.0),
+                        Text(
+                        error,
+                        style: TextStyle(color: Colors.red, fontSize: 14.0),  
+                        )
                   ],
                 ),
               ),

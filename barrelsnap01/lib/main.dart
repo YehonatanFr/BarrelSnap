@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart'; // Import Firebase Core
+import 'package:provider/provider.dart';
 import 'package:startertemplate/pages/login_page.dart';
 import 'package:startertemplate/pages/wrapper.dart';
+import 'package:startertemplate/services/auth.dart';
 import 'firebase_options.dart'; // Assuming you have this file with Firebase options
+import 'models/user.dart';
 
 void main() async {
   // Initialize Firebase before running the app
@@ -20,9 +23,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoginPage(),
-      debugShowCheckedModeBanner: false,
+    return StreamProvider<UserUid?>.value(
+      value: AuthService().user,
+      initialData: null, // Add initial data if needed
+      child: MaterialApp(
+        home: Wrapper(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

@@ -29,13 +29,47 @@ Stream<UserUid?> get user {
     }
   }
 
-  // sign in email & password
+  // sign in with email and password
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      User? user = result.user;
+     return _userFromFirebase(user);
+    } catch (error) {
+      print(error.toString());
+      return null;
+    } 
+  }
+
+
 
   // sign with google
 
   // register with email & password
 
+  Future registerWithEmailAndPassword(String email, String password) async {
+    try{
+      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      User? user =  result.user;
+      return _userFromFirebase(user);
+    } catch(e) {
+      print(e.toString());
+      return null;
+
+    }
+  }
+
   // register with google
 
   // sign out
+  Future signOut() async{
+    try{
+      print('logout succes');
+      return await _auth.signOut();
+      
+    } catch (e){
+      print(e.toString());
+      return null;
+    }
+  }
 }

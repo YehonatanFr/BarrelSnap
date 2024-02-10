@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:startertemplate/pages/login_page.dart';
+import 'package:startertemplate/services/auth.dart';
 import '../pages/business/about_page_business.dart';
 import '../pages/client/about_page_client.dart';
 // import  '../login_page.dart';
@@ -23,22 +24,9 @@ so you include only the absolutely necessary pages and functionality to your app
 */
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+  MyDrawer({Key? key});
 
-  // method to log user out
-  void logUserOut(BuildContext context) {
-    // pop drawer
-    Navigator.pop(context);
-    // pop app
-    Navigator.pop(context);
-    // go back to login page
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LoginPage(),
-      ),
-    );
-  }
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +74,14 @@ class MyDrawer extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: ListTile(
               leading: const Icon(Icons.logout),
-              onTap: () => logUserOut(context),
+              onTap: () async {
+                try {
+                  await _auth.signOut();
+                  print('Logout successful');
+                } catch (e) {
+                  print('Logout failed: $e');
+                }
+              },
               title: Text(
                 "L O G O U T",
                 style: TextStyle(color: Colors.grey[700]),
@@ -98,3 +93,4 @@ class MyDrawer extends StatelessWidget {
     );
   }
 }
+
