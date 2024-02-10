@@ -15,6 +15,10 @@ class _BusinessSignInState extends State<BusinessSignIn> {
   final cityController = TextEditingController();
   final streetController = TextEditingController();
   final streetNumberController = TextEditingController();
+  final emailAdress = TextEditingController();
+  final password = TextEditingController();
+
+
 
   // Function to save form data to Firestore
   Future<void> _submitForm() async {
@@ -26,6 +30,8 @@ class _BusinessSignInState extends State<BusinessSignIn> {
       'city': cityController.text,
       'street': streetController.text,
       'street_number': streetNumberController.text,
+      'email_adress' : emailAdress.text,
+      'password' : password.text,
     });
   }
 
@@ -104,6 +110,20 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                       decoration: InputDecoration(
                         labelStyle: TextStyle(color: Colors.white),
                         labelText: 'Building Number',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: emailAdress,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Email Adress',
+                      ),
+                    ),
+                     TextFormField(
+                      controller: password,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Password',
                       ),
                     ),
                     SizedBox(height: 20.0),

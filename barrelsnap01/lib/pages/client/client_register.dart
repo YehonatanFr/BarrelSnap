@@ -17,6 +17,8 @@ class _ClientSingInState extends State<ClientSingIn> {
   final cityController = TextEditingController();
   final streetController = TextEditingController();
   final streetnumberController = TextEditingController();
+  final emailAdress = TextEditingController();
+  final password = TextEditingController();
 
   String? userId; // Variable to store the document ID
 
@@ -159,6 +161,20 @@ class _ClientSingInState extends State<ClientSingIn> {
                         ),
                         style: TextStyle(color: Colors.white),
                       ),
+                                          TextFormField(
+                      controller: emailAdress,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Email Adress',
+                      ),
+                    ),
+                     TextFormField(
+                      controller: password,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Password',
+                      ),
+                    ),
                       ElevatedButton(
                       onPressed: () async {
                         // Navigate to MainPageClient after submitting the form
