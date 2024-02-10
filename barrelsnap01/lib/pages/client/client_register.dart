@@ -169,6 +169,10 @@ class _ClientSingInState extends State<ClientSingIn> {
                           ),
                         );
                         },
+                        style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white, backgroundColor: Colors.transparent, // Text color
+                        side: BorderSide(color: Colors.white), // Border color
+                        ),
                         child: const Text('Submit'),
                       ),
 
