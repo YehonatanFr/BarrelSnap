@@ -38,11 +38,14 @@ class ShopPageClient extends StatelessWidget {
                 crossAxisCount: 2,
               ),
               itemBuilder: (context, index) => Container(
-                height: 200,
+                height: 600,
                 margin: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  color: Colors.grey[200], // Adjust opacity as needed
+                  image: DecorationImage(
+                    image: AssetImage('lib/images/photo_$index.png'), 
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),
