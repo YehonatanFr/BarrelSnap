@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:startertemplate/pages/client/main_page_client.dart';
 import 'package:startertemplate/services/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ClientSingIn extends StatefulWidget {
   @override
@@ -88,6 +89,24 @@ class _ClientSingInState extends State<ClientSingIn> {
             ),
           );
         }
+      }
+    }
+
+    Future<void> _saveUserDataToFirestore() async {
+      try {
+        final CollectionReference usersCollection =
+            FirebaseFirestore.instance.collection('users');
+        await usersCollection.add({
+          'fname': fnameController.text,
+          'lname': lnameController.text,
+          'birthdate': birthdateController.text,
+          'phonenumber': phonenumberController.text,
+          'city': cityController.text,
+          'street': streetController.text,
+          'streetnumber': streetnumberController.text,
+        });
+      } catch (e) {
+        print('Error saving user data to Firestore: $e');
       }
     }
 
