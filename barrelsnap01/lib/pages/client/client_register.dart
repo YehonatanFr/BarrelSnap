@@ -42,7 +42,8 @@ class _ClientSingInState extends State<ClientSingIn> {
       lastDate: DateTime.now(),
     );
     if (picked != null && picked != DateTime.now()) {
-      final DateTime eighteenYearsAgo = DateTime.now().subtract(Duration(days: 18 * 365));
+      final DateTime eighteenYearsAgo =
+          DateTime.now().subtract(Duration(days: 18 * 365));
       if (picked.isBefore(eighteenYearsAgo)) {
         setState(() {
           birthdateController.text = DateFormat('yyyy-MM-dd').format(picked);
@@ -199,14 +200,19 @@ class _ClientSingInState extends State<ClientSingIn> {
                         ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState?.validate() ?? false) {
-                              dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                              dynamic result =
+                                  await _auth.registerWithEmailAndPassword(
+                                      email, password);
                               if (result == null) {
-                                setState(() => error = 'Please supply a valid email');
+                                setState(() =>
+                                    error = 'Please supply a valid email');
                               } else {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => MainPageClient(),
+                                    builder: (context) => MainPageClient(
+                                      email: email,
+                                    ),
                                   ),
                                 );
                               }
@@ -216,8 +222,8 @@ class _ClientSingInState extends State<ClientSingIn> {
                         ),
                         SizedBox(height: 12.0),
                         Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),  
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14.0),
                         )
                       ],
                     ),

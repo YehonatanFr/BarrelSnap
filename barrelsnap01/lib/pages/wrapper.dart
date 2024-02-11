@@ -6,16 +6,16 @@ import 'package:startertemplate/pages/home.dart';
 import 'package:provider/provider.dart';
 import 'package:startertemplate/pages/login_page.dart';
 
-
-class Wrapper extends StatelessWidget{
+class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserUid?>(context);
-    if(user == null){
+    if (user == null) {
       return LoginPage();
-    }   else {
-      return MainPageClient();
+    } else {
+      return MainPageClient(
+        email: user.email,
+      );
     } // return either Home - client or business, or Authenticate widget
-
   }
 }

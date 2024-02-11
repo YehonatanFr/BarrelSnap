@@ -38,7 +38,8 @@ class _LoginPageState extends State<LoginPage> {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Form( // Wrap your content in a Form widget
+            child: Form(
+              // Wrap your content in a Form widget
               key: _formKey, // Assign the form key
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -128,18 +129,20 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () async {
                           // Validate the form
                           if (_formKey.currentState!.validate()) {
-                            dynamic result =
-                                await _auth.signInWithEmailAndPassword(email, password);
+                            dynamic result = await _auth
+                                .signInWithEmailAndPassword(email, password);
                             if (result == null) {
-                              setState(() =>
-                                  error = 'Could not sign in with these credentials');
+                              setState(() => error =
+                                  'Could not sign in with these credentials');
                             } else {
                               print('User: ${_auth.user}');
                               // If sign-in is successful, navigate to the MainPageClient
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => MainPageClient(),
+                                  builder: (context) => MainPageClient(
+                                    email: email,
+                                  ),
                                 ),
                               );
                             }
@@ -147,14 +150,14 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: const Text('Sign in'),
                       ),
-
                       SizedBox(height: 12.0),
                       Text(
                         error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),  
+                        style: TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 50.0),
                         child: ElevatedButton(
                           child: Text('Sign in anon'),
                           onPressed: () async {
