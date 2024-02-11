@@ -28,6 +28,45 @@ class _ClientSingInState extends State<ClientSingIn> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+bool checkValidPhoneNumber(String phoneNumber) {
+  if (phoneNumber.length != 10) {
+    print('Phone number must be 10 digits long');
+    return false;
+  }
+
+  for (int i = 0; i < phoneNumber.length; i++) {
+    int? digit = int.tryParse(phoneNumber[i]);
+    if (digit == null) {
+      print('Phone number must contain only numeric digits');
+      return false;
+    }
+  }
+  String prefix = phoneNumber.substring(0, 3);
+
+  if (!isValidPrefix(prefix)) {
+    print('Invalid prefix');
+    return false;
+  }
+
+  return true;
+}
+
+bool isValidPrefix(String prefix) {
+  switch (prefix) {
+    case '050':
+    case '052':
+    case '053':
+    case '054':
+    case '055':
+    case '057':
+    case '058':
+      return true;
+    default:
+      return false;
+  }
+}
+
+
   int calculateAge(DateTime birthDate) {
     final now = DateTime.now();
     final difference = now.difference(birthDate);
@@ -63,6 +102,23 @@ class _ClientSingInState extends State<ClientSingIn> {
         );
       }
     }
+  }
+
+  InputDecoration _buildInputDecoration(String labelText) {
+    return InputDecoration(
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.shade400),
+      ),
+      fillColor: Colors.grey.shade900,
+      filled: true,
+      labelText: labelText,
+      labelStyle: TextStyle(color: Colors.white),
+      hintText: labelText,
+      hintStyle: TextStyle(color: Colors.grey[500]),
+    );
   }
 
   @override
@@ -108,60 +164,77 @@ class _ClientSingInState extends State<ClientSingIn> {
                       children: [
                         TextFormField(
                           controller: fnameController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Private Name',
-                          ),
+                          decoration: _buildInputDecoration('Private Name'),
                           style: TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Private name';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: lnameController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Family Name',
-                          ),
+                          decoration: _buildInputDecoration('Family Name'),
                           style: TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Family name';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           readOnly: true,
                           controller: birthdateController,
                           onTap: _selectDate,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Date of Birth',
-                          ),
+                          decoration: _buildInputDecoration('Date of Birth'),
                           style: TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Age over 18';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: phonenumberController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Phone Number',
-                          ),
+                          decoration: _buildInputDecoration('Phone Number'),
                           style: TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Phone Number';
+                            } else if (!checkValidPhoneNumber(phonenumberController.text)) {
+                              return 'Invalid Phone Number';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: cityController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'City',
-                          ),
+                          decoration: _buildInputDecoration('City'),
                           style: TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter City';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: streetController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Street',
-                          ),
+                          decoration: _buildInputDecoration('Street'),
                           style: TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Street';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: streetnumberController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Building Number',
-                          ),
+                          decoration: _buildInputDecoration('Building Number'),
                           style: TextStyle(color: Colors.white),
                         ),
                         TextFormField(
@@ -172,12 +245,9 @@ class _ClientSingInState extends State<ClientSingIn> {
                             if (value == null || value.isEmpty) {
                               return 'Enter an email';
                             }
-                            return null; // Return null if the input is valid
+                            return null;
                           },
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'E-Mail',
-                          ),
+                          decoration: _buildInputDecoration('E-Mail'),
                           obscureText: false,
                         ),
                         TextFormField(
@@ -185,10 +255,7 @@ class _ClientSingInState extends State<ClientSingIn> {
                             setState(() => password = value);
                           },
                           obscureText: true,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Password',
-                          ),
+                          decoration: _buildInputDecoration('Password'),
                           validator: (value) {
                             if (value == null || value.length < 6) {
                               return 'Enter a password 6+ chars long';
@@ -216,8 +283,8 @@ class _ClientSingInState extends State<ClientSingIn> {
                         ),
                         SizedBox(height: 12.0),
                         Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),  
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14.0),
                         )
                       ],
                     ),

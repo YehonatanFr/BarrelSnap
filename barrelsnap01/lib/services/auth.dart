@@ -43,12 +43,7 @@ Stream<UserUid?> get user {
     } 
   }
 
-
-
-  // sign with google
-
   // register with email & password
-
   Future registerWithEmailAndPassword(String email, String password) async {
     try{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -61,7 +56,6 @@ Stream<UserUid?> get user {
     }
   }
 
-  // register with google
 
   // sign out
   Future signOut() async{
@@ -72,6 +66,18 @@ Stream<UserUid?> get user {
     } catch (e){
       print(e.toString());
       return null;
+    }
+  }
+
+  // forgot password
+
+  Future forgotPassword({required String email}) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      } on FirebaseAuthException catch (err) {
+      throw Exception(err.message.toString());
+      } catch (err) {
+      throw Exception(err.toString());
     }
   }
 }

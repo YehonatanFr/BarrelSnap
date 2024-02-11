@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:startertemplate/models/user.dart';
 import 'package:startertemplate/pages/business/home_page_business.dart';
 import 'package:startertemplate/pages/client/main_page_client.dart';
-import 'package:startertemplate/pages/home.dart';
 import 'package:provider/provider.dart';
 import 'package:startertemplate/pages/login_page.dart';
 

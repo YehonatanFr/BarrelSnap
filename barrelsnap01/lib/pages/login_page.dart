@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:startertemplate/pages/client/main_page_client.dart';
 import 'package:startertemplate/services/auth.dart';
-import '/components/my_login_button.dart';
-import '/components/my_square_tile.dart';
-import '/components/my_textfield.dart';
 import '/pages/role_section_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,9 +11,6 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-
-final usernameController = TextEditingController();
-final passwordController = TextEditingController();
 
 class _LoginPageState extends State<LoginPage> {
   final AuthService _auth = AuthService();
@@ -38,8 +32,8 @@ class _LoginPageState extends State<LoginPage> {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Form( // Wrap your content in a Form widget
-              key: _formKey, // Assign the form key
+            child: Form( 
+              key: _formKey, 
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SingleChildScrollView(
@@ -100,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderSide: BorderSide(color: Colors.white),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey.shade400),
+                            borderSide: BorderSide(color: Colors.red),
                           ),
                           fillColor: Colors.grey.shade200,
                           filled: true,
@@ -109,45 +103,84 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         obscureText: true,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      const SizedBox(height: 25),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(
-                              'Forgot Password?',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 255, 253, 253),
+                            GestureDetector(
+                              onTap: () async {
+                                // Implement your forgot password logic here
+                                try {
+                                  // Call the forgotPassword function
+                                  dynamic result = await _auth.forgotPassword(email: email);
+                                  // Show a confirmation message
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("Password reset email sent!"),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                } catch (error) {
+                                  // Handle any errors that occur during password reset
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(error.toString()),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              },
+                              child: Text(
+                                'Forgot Password?',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
+
                       const SizedBox(height: 25),
-                      ElevatedButton(
-                        onPressed: () async {
+                      GestureDetector(
+                        onTap: () async {
                           // Validate the form
                           if (_formKey.currentState!.validate()) {
-                            dynamic result =
-                                await _auth.signInWithEmailAndPassword(email, password);
+                            dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                             if (result == null) {
-                              setState(() =>
-                                  error = 'Could not sign in with these credentials');
+                              setState(() => error = 'Could not sign in with these credentials');
                             } else {
-                              print('User: ${_auth.user}');
-                              // If sign-in is successful, navigate to the MainPageClient
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => MainPageClient(),
+                                  builder: (context) => const MainPageClient(),
                                 ),
                               );
                             }
                           }
                         },
-                        child: const Text('Sign in'),
+                        child: Container(
+                          padding: const EdgeInsets.all(25),
+                          margin: const EdgeInsets.symmetric(horizontal: 25),
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "Sign In",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-
                       SizedBox(height: 12.0),
                       Text(
                         error,
@@ -213,7 +246,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text(
                               'Not a member? \n Register now',
                               style: TextStyle(
-                                color: Color.fromARGB(255, 254, 255, 255),
+                                color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
