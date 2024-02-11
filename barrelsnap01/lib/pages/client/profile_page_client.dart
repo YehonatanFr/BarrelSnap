@@ -12,8 +12,6 @@ class ProfilePageClient extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-
-
 class _ProfilePageState extends State<ProfilePageClient> {
   final TextEditingController fnameController = TextEditingController();
   final TextEditingController lnameController = TextEditingController();
@@ -38,7 +36,6 @@ class _ProfilePageState extends State<ProfilePageClient> {
               TextFormField(
                 controller: fnameController,
                 decoration: InputDecoration(labelText: 'First Name'),
-                
               ),
               TextFormField(
                 controller: lnameController,
@@ -71,7 +68,7 @@ class _ProfilePageState extends State<ProfilePageClient> {
                 onPressed: () {
                   _updateProfile();
                 },
-                child: Text('Update Profile'),
+                child: Text('Update Profilee'),
               ),
             ],
           ),
@@ -96,7 +93,8 @@ class _ProfilePageState extends State<ProfilePageClient> {
 
   Future<void> _updateProfile() async {
     try {
-      final CollectionReference collRef = FirebaseFirestore.instance.collection('customer');
+      final CollectionReference collRef =
+          FirebaseFirestore.instance.collection('customer');
       final docSnapshot = await collRef.doc(widget.userId).get();
       print(widget.userId);
 
@@ -110,14 +108,16 @@ class _ProfilePageState extends State<ProfilePageClient> {
           'street': streetController.text,
           'streetnumber': streetnumberController.text,
         });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile updated successfully')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Profile updated successfully')));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile does not exist')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Profile does not exist')));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profile')));
-    // }
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Failed to update profile')));
+      // }
+    }
   }
-  }
-
 }
