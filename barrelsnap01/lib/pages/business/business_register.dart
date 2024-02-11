@@ -40,7 +40,6 @@ class _BusinessSignInState extends State<BusinessSignIn> {
       'city': cityController.text,
       'street': streetController.text,
       'street_number': streetNumberController.text,
-
     });
   }
 

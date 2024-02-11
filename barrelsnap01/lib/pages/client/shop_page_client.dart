@@ -13,27 +13,44 @@ that the user can buy $
 */
 
 class ShopPageClient extends StatelessWidget {
-  const ShopPageClient({super.key});
+  const ShopPageClient({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: GridView.builder(
-          itemCount: 10,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
-          itemBuilder: (context, index) => Container(
-            height: 200,
-            margin: const EdgeInsets.all(10),
+      body: Stack(
+        children: [
+          // Background image or color
+          Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: Colors.grey[200],
+              image: DecorationImage(
+                image: AssetImage('lib/images/backgroung1.jpg'), // Replace with your background image
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: GridView.builder(
+              itemCount: 10,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemBuilder: (context, index) => Container(
+                height: 600,
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  image: DecorationImage(
+                    image: AssetImage('lib/images/photo_$index.png'), 
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

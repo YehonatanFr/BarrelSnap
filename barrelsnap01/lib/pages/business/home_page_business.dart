@@ -21,19 +21,32 @@ class HomePageBusiness extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) => Container(
-            height: 200,
-            margin: const EdgeInsets.all(10),
+      body: Stack(
+        children: [
+          // Background image or color
+          Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: Colors.grey[200],
+              image: DecorationImage(
+                image: AssetImage('lib/images/backgroung1.jpg'), 
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) => Container(
+                height: 200,
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Colors.grey[200], // Adjust opacity as needed
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
