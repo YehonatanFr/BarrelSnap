@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                                   await collRefUsers.doc(user!.uid).get();
 
                               final docSnapshotBusiness =
-                                  await collRefBusiness.doc(user!.uid).get();
+                                  await collRefBusiness.doc(user.uid).get();
 
                               if (docSnapshotUser.exists) {
                                 Navigator.push(
