@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:startertemplate/pages/client/main_page_client.dart';
 import 'package:startertemplate/services/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ClientSingIn extends StatefulWidget {
   @override
@@ -62,6 +63,23 @@ class _ClientSingInState extends State<ClientSingIn> {
           ),
         );
       }
+    }
+  }
+
+  Future<void> _saveUserDataToFirestore() async {
+    try {
+      final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+      await usersCollection.add({
+        'fname': fnameController.text,
+        'lname': lnameController.text,
+        'birthdate': birthdateController.text,
+        'phonenumber': phonenumberController.text,
+        'city': cityController.text,
+        'street': streetController.text,
+        'streetnumber': streetnumberController.text,
+      });
+    } catch (e) {
+      print('Error saving user data to Firestore: $e');
     }
   }
 
@@ -199,6 +217,7 @@ class _ClientSingInState extends State<ClientSingIn> {
                         ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState?.validate() ?? false) {
+                              await _saveUserDataToFirestore();
                               dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                               if (result == null) {
                                 setState(() => error = 'Please supply a valid email');
@@ -216,8 +235,8 @@ class _ClientSingInState extends State<ClientSingIn> {
                         ),
                         SizedBox(height: 12.0),
                         Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),  
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14.0),
                         )
                       ],
                     ),
