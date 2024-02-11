@@ -78,6 +78,12 @@ class MyDrawer extends StatelessWidget {
                 try {
                   await _auth.signOut();
                   print('Logout successful');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                       builder: (context) => LoginPage(),
+                    ),
+                  );
                 } catch (e) {
                   print('Logout failed: $e');
                 }

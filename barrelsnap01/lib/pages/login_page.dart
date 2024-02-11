@@ -127,14 +127,15 @@ class _LoginPageState extends State<LoginPage> {
                       ElevatedButton(
                         onPressed: () async {
                           // Validate the form
-                          if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+                          if (_formKey.currentState!.validate()) {
                             dynamic result =
                                 await _auth.signInWithEmailAndPassword(email, password);
                             if (result == null) {
                               setState(() =>
                                   error = 'Could not sign in with these credentials');
                             } else {
-                              // If registration is successful, navigate to the MainPageClient
+                              print('User: ${_auth.user}');
+                              // If sign-in is successful, navigate to the MainPageClient
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -146,6 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: const Text('Sign in'),
                       ),
+
                       SizedBox(height: 12.0),
                       Text(
                         error,
