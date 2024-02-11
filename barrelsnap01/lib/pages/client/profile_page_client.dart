@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../client/client_register.dart';
@@ -95,7 +96,8 @@ class _ProfilePageState extends State<ProfilePageClient> {
     try {
       final CollectionReference collRef =
           FirebaseFirestore.instance.collection('users');
-      final docSnapshot = await collRef.doc(widget.userId).get();
+      User? user = FirebaseAuth.instance.currentUser;
+      final docSnapshot = await collRef.doc(user!.uid).get();
       print(widget.userId);
 
       if (docSnapshot.exists) {
