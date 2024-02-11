@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:startertemplate/pages/client/main_page_client.dart';
 import 'package:startertemplate/services/auth.dart';
-import '/components/my_login_button.dart';
-import '/components/my_square_tile.dart';
-import '/components/my_textfield.dart';
 import '/pages/role_section_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key});

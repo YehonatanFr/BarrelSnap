@@ -34,6 +34,7 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+
       User? user = result.user;
       print(_userFromFirebase(user));
       return _userFromFirebase(user);
