@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePageClient> {
                 onPressed: () {
                   _updateProfile();
                 },
-                child: Text('Update Profilee'),
+                child: Text('Update Profile'),
               ),
             ],
           ),
