@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:startertemplate/pages/client/main_page_client.dart';
 import 'package:startertemplate/services/auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ClientSingIn extends StatefulWidget {
   @override
@@ -239,9 +238,7 @@ class _ClientSingInState extends State<ClientSingIn> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => MainPageClient(
-                                      email: email,
-                                    ),
+                                    builder: (context) => MainPageClient(),
                                   ),
                                 );
                               }

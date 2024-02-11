@@ -14,9 +14,7 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return LoginPage();
     } else {
-      return MainPageClient(
-        email: user.displayName,
-      );
+      return MainPageClient();
     } // return either Home - client or business, or Authenticate widget
   }
 }

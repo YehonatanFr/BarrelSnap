@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../client/client_register.dart';
 
 class ProfilePageClient extends StatefulWidget {
   final String? userId;
@@ -21,6 +20,36 @@ class _ProfilePageState extends State<ProfilePageClient> {
   final TextEditingController cityController = TextEditingController();
   final TextEditingController streetController = TextEditingController();
   final TextEditingController streetnumberController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _populateTextControllers();
+  }
+
+  Future<void> _populateTextControllers() async {
+    try {
+      final CollectionReference collRef =
+          FirebaseFirestore.instance.collection('users');
+      User? user = FirebaseAuth.instance.currentUser;
+      final docSnapshot = await collRef.doc(user!.uid).get();
+
+      if (docSnapshot.exists) {
+        var userData = docSnapshot.data() as Map<String, dynamic>;
+        setState(() {
+          fnameController.text = userData['fname'];
+          lnameController.text = userData['lname'];
+          birthdateController.text = userData['birthdate'];
+          phonenumberController.text = userData['phonenumber'];
+          cityController.text = userData['city'];
+          streetController.text = userData['street'];
+          streetnumberController.text = userData['streetnumber'];
+        });
+      }
+    } catch (e) {
+      print('Failed to populate text controllers: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,10 +127,10 @@ class _ProfilePageState extends State<ProfilePageClient> {
           FirebaseFirestore.instance.collection('users');
       User? user = FirebaseAuth.instance.currentUser;
       final docSnapshot = await collRef.doc(user!.uid).get();
-      print(widget.userId);
+      print(user.uid);
 
       if (docSnapshot.exists) {
-        await collRef.doc(widget.userId).update({
+        await collRef.doc(user.uid).update({
           'fname': fnameController.text,
           'lname': lnameController.text,
           'birthdate': birthdateController.text,
