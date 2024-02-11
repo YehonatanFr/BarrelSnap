@@ -94,7 +94,7 @@ class _ProfilePageState extends State<ProfilePageClient> {
   Future<void> _updateProfile() async {
     try {
       final CollectionReference collRef =
-          FirebaseFirestore.instance.collection('customer');
+          FirebaseFirestore.instance.collection('users');
       final docSnapshot = await collRef.doc(widget.userId).get();
       print(widget.userId);
 

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:startertemplate/pages/client/main_page_client.dart';
@@ -32,6 +33,24 @@ class _ClientSingInState extends State<ClientSingIn> {
     final now = DateTime.now();
     final difference = now.difference(birthDate);
     return (difference.inDays / 365).floor();
+  }
+
+  Future<void> _saveUserDataToFirestore() async {
+    try {
+      final CollectionReference usersCollection =
+          FirebaseFirestore.instance.collection('users');
+      await usersCollection.add({
+        'fname': fnameController.text,
+        'lname': lnameController.text,
+        'birthdate': birthdateController.text,
+        'phonenumber': phonenumberController.text,
+        'city': cityController.text,
+        'street': streetController.text,
+        'streetnumber': streetnumberController.text,
+      });
+    } catch (e) {
+      print('Error saving user data to Firestore: $e');
+    }
   }
 
   Future<void> _selectDate() async {
@@ -203,10 +222,12 @@ class _ClientSingInState extends State<ClientSingIn> {
                               dynamic result =
                                   await _auth.registerWithEmailAndPassword(
                                       email, password);
+
                               if (result == null) {
                                 setState(() =>
                                     error = 'Please supply a valid email');
                               } else {
+                                await _saveUserDataToFirestore();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
