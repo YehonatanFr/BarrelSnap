@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:startertemplate/pages/business/main_page_business.dart';
 import 'package:startertemplate/pages/client/main_page_client.dart';
 import 'package:startertemplate/services/auth.dart';
 import '/pages/role_section_page.dart';
@@ -130,16 +133,42 @@ class _LoginPageState extends State<LoginPage> {
                               setState(() => error =
                                   'Could not sign in with these credentials');
                             } else {
-                              print('User: ${_auth.user}');
                               // If sign-in is successful, navigate to the MainPageClient
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MainPageClient(
-                                    email: email,
+                              final CollectionReference collRefBusiness =
+                                  FirebaseFirestore.instance
+                                      .collection('business');
+                              final CollectionReference collRefUsers =
+                                  FirebaseFirestore.instance
+                                      .collection('users');
+
+                              User? user = FirebaseAuth.instance.currentUser;
+                              final docSnapshotUser =
+                                  await collRefUsers.doc(user!.uid).get();
+
+                              final docSnapshotBusiness =
+                                  await collRefBusiness.doc(user.uid).get();
+
+                              if (docSnapshotUser.exists) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MainPageClient(),
                                   ),
-                                ),
-                              );
+                                );
+                              } else if (docSnapshotBusiness.exists) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MainPageBusiness(),
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Failed to login in')));
+                              }
                             }
                           }
                         },

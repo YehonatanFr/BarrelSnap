@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:startertemplate/models/user.dart';
 import 'package:startertemplate/pages/business/home_page_business.dart';
@@ -9,13 +10,11 @@ import 'package:startertemplate/pages/login_page.dart';
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserUid?>(context);
+    final user = Provider.of<User?>(context);
     if (user == null) {
       return LoginPage();
     } else {
-      return MainPageClient(
-        email: user.email,
-      );
+      return MainPageClient();
     } // return either Home - client or business, or Authenticate widget
   }
 }

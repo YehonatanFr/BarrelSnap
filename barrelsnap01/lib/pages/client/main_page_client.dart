@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:startertemplate/components/my_bottom_nav_bar.dart';
 import 'package:startertemplate/components/my_drawer.dart';
@@ -22,19 +23,19 @@ the app screen to the any of the ones in the 'pages' folder:
 */
 
 class MainPageClient extends StatefulWidget {
-  final String? email;
-
-  const MainPageClient({super.key, required this.email});
+  const MainPageClient({
+    super.key,
+  });
 
   @override
-  State<MainPageClient> createState() => _MainPageState(email);
+  State<MainPageClient> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPageClient> {
-  _MainPageState(this.email);
+  _MainPageState();
   // This selected index is to control the bottom nav bar
   int _selectedIndex = 0;
-  String? email;
+
   // This method will update our selected index
   // when the user taps on the bottom nav bar
   void navigateBottomBar(int index) {
@@ -81,7 +82,7 @@ class _MainPageState extends State<MainPageClient> {
           ),
         ),
         title: Text(
-          'Hello $email',
+          'Hello ',
           style: TextStyle(color: Colors.grey.shade800),
         ),
       ),

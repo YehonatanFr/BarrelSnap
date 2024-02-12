@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:startertemplate/pages/client/main_page_client.dart';
 import 'package:startertemplate/services/auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ClientSingIn extends StatefulWidget {
   @override
@@ -37,10 +37,18 @@ class _ClientSingInState extends State<ClientSingIn> {
   }
 
   Future<void> _saveUserDataToFirestore() async {
-    try {
-      final CollectionReference usersCollection =
-          FirebaseFirestore.instance.collection('users');
-      await usersCollection.add({
+    final CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('users');
+
+    // Get the current user
+    User? user = FirebaseAuth.instance.currentUser;
+
+    // Check if the user is authenticated
+    if (user != null) {
+      // Add user data along with the user ID
+      await usersCollection.doc(user.uid).set({
+        'uid': user.uid,
+        'email': user.email,
         'fname': fnameController.text,
         'lname': lnameController.text,
         'birthdate': birthdateController.text,
@@ -49,8 +57,6 @@ class _ClientSingInState extends State<ClientSingIn> {
         'street': streetController.text,
         'streetnumber': streetnumberController.text,
       });
-    } catch (e) {
-      print('Error saving user data to Firestore: $e');
     }
   }
 
@@ -83,23 +89,6 @@ class _ClientSingInState extends State<ClientSingIn> {
           ),
         );
       }
-    }
-  }
-
-  Future<void> _saveUserDataToFirestore() async {
-    try {
-      final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-      await usersCollection.add({
-        'fname': fnameController.text,
-        'lname': lnameController.text,
-        'birthdate': birthdateController.text,
-        'phonenumber': phonenumberController.text,
-        'city': cityController.text,
-        'street': streetController.text,
-        'streetnumber': streetnumberController.text,
-      });
-    } catch (e) {
-      print('Error saving user data to Firestore: $e');
     }
   }
 
@@ -241,7 +230,6 @@ class _ClientSingInState extends State<ClientSingIn> {
                                   await _auth.registerWithEmailAndPassword(
                                       email, password);
 
-
                               if (result == null) {
                                 setState(() =>
                                     error = 'Please supply a valid email');
@@ -250,9 +238,7 @@ class _ClientSingInState extends State<ClientSingIn> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => MainPageClient(
-                                      email: email,
-                                    ),
+                                    builder: (context) => MainPageClient(),
                                   ),
                                 );
                               }
