@@ -159,6 +159,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                         labelStyle: TextStyle(color: Colors.white),
                         labelText: 'E-Mail',
                       ),
+                      style: TextStyle(color: Colors.white),
                       obscureText: false,
                     ),
                     TextFormField(
@@ -170,6 +171,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                         labelStyle: TextStyle(color: Colors.white),
                         labelText: 'Password',
                       ),
+                      style: TextStyle(color: Colors.white),
                       validator: (value) {
                         if (value == null || value.length < 6) {
                           return 'Enter a password 6+ chars long';

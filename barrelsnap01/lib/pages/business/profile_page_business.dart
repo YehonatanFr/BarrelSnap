@@ -23,56 +23,95 @@ class _ProfilePageState extends State<ProfilePageBusiness> {
   final TextEditingController streetnumberController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _populateTextControllers();
+  }
+
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                controller: fnameController,
-                decoration: InputDecoration(labelText: 'First Name'),
-              ),
-              TextFormField(
-                controller: lnameController,
-                decoration: InputDecoration(labelText: 'Last Name'),
-              ),
-              TextFormField(
-                readOnly: true,
-                controller: birthdateController,
-                decoration: InputDecoration(labelText: 'Date of Birth'),
-                onTap: () => _selectDate(context),
-              ),
-              TextFormField(
-                controller: phonenumberController,
-                decoration: InputDecoration(labelText: 'Phone Number'),
-              ),
-              TextFormField(
-                controller: cityController,
-                decoration: InputDecoration(labelText: 'City'),
-              ),
-              TextFormField(
-                controller: streetController,
-                decoration: InputDecoration(labelText: 'Street'),
-              ),
-              TextFormField(
-                controller: streetnumberController,
-                decoration: InputDecoration(labelText: 'Building Number'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  _updateProfile();
-                },
-                child: Text('Update Profile'),
-              ),
-            ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('lib/images/backgroung1.jpg'), // Replace with your image path
+            fit: BoxFit.cover,
           ),
+        ),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      controller: fnameController,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'First Name'),
+                        style: TextStyle(color: Colors.white),
+                    ),
+                    TextFormField(
+                      controller: lnameController,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Last Name'),
+                        style: TextStyle(color: Colors.white),
+
+                    ),
+                    TextFormField(
+                      readOnly: true,
+                      controller: birthdateController,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Date of Birth'),
+                      onTap: () => _selectDate(context),
+                    ),
+                    TextFormField(
+                      controller: phonenumberController,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Phone Number'),
+                        style: TextStyle(color: Colors.white),
+                    ),
+                    TextFormField(
+                      controller: cityController,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'City'),
+                        style: TextStyle(color: Colors.white),
+                    ),
+                    TextFormField(
+                      controller: streetController,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Street'),
+                        style: TextStyle(color: Colors.white),
+                    ),
+                    TextFormField(
+                      controller: streetnumberController,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.white),
+                        labelText: 'Building Number'),
+                        style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        _updateProfile();
+                      },
+                      child: Text('Update Profile'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
