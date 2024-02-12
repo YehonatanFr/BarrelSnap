@@ -15,6 +15,7 @@ to give any feedback about the app.
 class AboutPageBusiness extends StatelessWidget {
   const AboutPageBusiness({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +27,109 @@ class AboutPageBusiness extends StatelessWidget {
           style: TextStyle(color: Colors.grey[800]),
         ),
       ),
-      body: const Center(child: Text('this app was designed for..')),
+      body: Stack(
+        children: [
+          // Background image
+          Image.asset(
+            'lib/images/backgroung1.jpg', // Adjust the path to your background image
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          Container(
+            color: Colors.black.withOpacity(0.5), // Adjust opacity as needed
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 50),
+                Text(
+                  'About',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'This app was designed to provide a comprehensive platform for both wineries and wine enthusiasts.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Features:',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  '- Customers and winery owners can track the wine production process from grape stage to bottle purchase.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  '- Users can purchase wine bottles directly through the app.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  '- Information about wine festivals and events at wineries is available.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Benefits:',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  '- Wineries can showcase their products and events to a wider audience, increasing sales and visibility.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  '- Customers have easy access to information about different wines and can make purchases conveniently.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  '- The app promotes the wine industry and facilitates connections between producers and consumers.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

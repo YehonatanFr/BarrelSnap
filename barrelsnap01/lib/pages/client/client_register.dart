@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:startertemplate/pages/client/main_page_client.dart';
-import 'package:startertemplate/services/auth.dart';
+import 'package:BarrelSnap/pages/client/main_page_client.dart';
+import 'package:BarrelSnap/services/auth.dart';
 
 class ClientSingIn extends StatefulWidget {
   @override
@@ -16,8 +18,8 @@ class _ClientSingInState extends State<ClientSingIn> {
   final cityController = TextEditingController();
   final streetController = TextEditingController();
   final streetnumberController = TextEditingController();
-  final emailAdress = TextEditingController();
-  final passwordClient = TextEditingController();
+  // final emailAdress = TextEditingController();
+  // final passwordClient = TextEditingController();
 
   final _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
@@ -81,7 +83,7 @@ bool isValidPrefix(String prefix) {
       lastDate: DateTime.now(),
     );
     if (picked != null && picked != DateTime.now()) {
-      final DateTime eighteenYearsAgo = DateTime.now().subtract(Duration(days: 18 * 365));
+      final DateTime eighteenYearsAgo = DateTime.now().subtract(const Duration(days: 18 * 365));
       if (picked.isBefore(eighteenYearsAgo)) {
         setState(() {
           birthdateController.text = DateFormat('yyyy-MM-dd').format(picked);
@@ -104,6 +106,30 @@ bool isValidPrefix(String prefix) {
     }
   }
 
+  Future<void> _saveUserDataToFirestore() async {
+    final CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('customer');
+
+    // Get the current user
+    User? user = FirebaseAuth.instance.currentUser;
+
+    // Check if the user is authenticated
+    if (user != null) {
+      // Add user data along with the user ID
+      await usersCollection.doc(user.uid).set({
+        'uid': user.uid,
+        'email': user.email,
+        'fname': fnameController.text,
+        'lname': lnameController.text,
+        'birthdate': birthdateController.text,
+        'phonenumber': phonenumberController.text,
+        'city': cityController.text,
+        'street': streetController.text,
+        'streetnumber': streetnumberController.text,
+      });
+    }
+  }
+
   InputDecoration _buildInputDecoration(String labelText) {
     return InputDecoration(
       enabledBorder: const OutlineInputBorder(
@@ -115,7 +141,7 @@ bool isValidPrefix(String prefix) {
       fillColor: Colors.grey.shade900,
       filled: true,
       labelText: labelText,
-      labelStyle: TextStyle(color: Colors.white),
+      labelStyle: const TextStyle(color: Colors.white),
       hintText: labelText,
       hintStyle: TextStyle(color: Colors.grey[500]),
     );
@@ -130,7 +156,7 @@ bool isValidPrefix(String prefix) {
         key: scaffoldKey,
         appBar: AppBar(
           title: const Text(
-            'Sign In',
+            'Client Register',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.transparent,
@@ -165,7 +191,7 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: fnameController,
                           decoration: _buildInputDecoration('Private Name'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Private name';
@@ -176,7 +202,7 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: lnameController,
                           decoration: _buildInputDecoration('Family Name'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Family name';
@@ -189,7 +215,7 @@ bool isValidPrefix(String prefix) {
                           controller: birthdateController,
                           onTap: _selectDate,
                           decoration: _buildInputDecoration('Date of Birth'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Age over 18';
@@ -200,7 +226,7 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: phonenumberController,
                           decoration: _buildInputDecoration('Phone Number'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Phone Number';
@@ -213,7 +239,7 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: cityController,
                           decoration: _buildInputDecoration('City'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter City';
@@ -224,7 +250,7 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: streetController,
                           decoration: _buildInputDecoration('Street'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Street';
@@ -235,12 +261,13 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: streetnumberController,
                           decoration: _buildInputDecoration('Building Number'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         TextFormField(
                           onChanged: (value) {
                             setState(() => email = value);
                           },
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Enter an email';
@@ -254,6 +281,7 @@ bool isValidPrefix(String prefix) {
                           onChanged: (value) {
                             setState(() => password = value);
                           },
+                          style: const TextStyle(color: Colors.white),
                           obscureText: true,
                           decoration: _buildInputDecoration('Password'),
                           validator: (value) {
@@ -266,10 +294,15 @@ bool isValidPrefix(String prefix) {
                         ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState?.validate() ?? false) {
-                              dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                              dynamic result =
+                                  await _auth.registerWithEmailAndPassword(
+                                      email, password);
+
                               if (result == null) {
-                                setState(() => error = 'Please supply a valid email');
+                                setState(() =>
+                                    error = 'Please supply a valid email');
                               } else {
+                                await _saveUserDataToFirestore();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

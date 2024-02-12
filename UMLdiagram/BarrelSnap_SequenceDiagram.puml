@@ -1,0 +1,22 @@
+@startuml BarrelSnap_SequenceDiagram
+
+participant User
+participant App
+participant Client
+participant Manager
+
+User -> App: Start Application
+App -> User: Display Login Screen
+User -> App: Login (with credentials)
+App -> App: Determine Role (Client/Manager)
+App -> User: Display Main Page
+User -> App: View Available Wines
+App -> User: Display Wine List
+User -> App: Buy Wines
+App -> User: Purchase Confirmation
+User -> App: Follow Wine Newsletter
+App -> User: Subscription Confirmation
+User -> App: Logout
+App -> User: End Application
+
+@enduml

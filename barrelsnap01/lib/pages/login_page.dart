@@ -1,6 +1,9 @@
+import 'package:BarrelSnap/pages/business/main_page_business.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:startertemplate/pages/client/main_page_client.dart';
-import 'package:startertemplate/services/auth.dart';
+import 'package:BarrelSnap/pages/client/main_page_client.dart';
+import 'package:BarrelSnap/services/auth.dart';
+import 'package:path/path.dart';
 import '/pages/role_section_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,10 +17,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>(); // Add form key
+  final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
   String error = '';
+  // double screenWidth = MediaQuery.of(context).size.width;
+  // double screenHeight = MediaQuery.of(context).size.height;
+
+  // bool isDesktop(BuildContext context) =>
+  //   MediaQuery.of(context).size.width >= 600;
+  
+  // bool isMoile(BuildContext context) =>
+  //   MediaQuery.of(context).size.width < 600;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +43,8 @@ class _LoginPageState extends State<LoginPage> {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Form( 
-              key: _formKey, 
+            child: Form(
+              key: _formKey,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SingleChildScrollView(
@@ -63,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (value == null || value.isEmpty) {
                             return 'Enter an email';
                           }
-                          return null; // Return null if the input is valid
+                          return null;
                         },
                         decoration: InputDecoration(
                           enabledBorder: const OutlineInputBorder(
@@ -87,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (value == null || value.length < 6) {
                             return 'Enter a password 6+ chars long';
                           }
-                          return null; // Return null if the input is valid
+                          return null;
                         },
                         decoration: InputDecoration(
                           enabledBorder: const OutlineInputBorder(
@@ -111,11 +122,8 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             GestureDetector(
                               onTap: () async {
-                                // Implement your forgot password logic here
                                 try {
-                                  // Call the forgotPassword function
                                   dynamic result = await _auth.forgotPassword(email: email);
-                                  // Show a confirmation message
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text("Password reset email sent!"),
@@ -123,7 +131,6 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   );
                                 } catch (error) {
-                                  // Handle any errors that occur during password reset
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(error.toString()),
@@ -143,45 +150,52 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-
                       const SizedBox(height: 25),
-                      GestureDetector(
-                        onTap: () async {
+                      ElevatedButton(
+                        onPressed: () async {
                           // Validate the form
                           if (_formKey.currentState!.validate()) {
                             dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                             if (result == null) {
                               setState(() => error = 'Could not sign in with these credentials');
                             } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const MainPageClient(),
-                                ),
-                              );
+                              // If sign-in is successful, navigate to the MainPageClient
+                              final CollectionReference collRefBusiness = FirebaseFirestore.instance.collection('business');
+                              final CollectionReference collRefUsers = FirebaseFirestore.instance.collection('customer');
+
+                              User? user = FirebaseAuth.instance.currentUser;
+                              final docSnapshotUser = await collRefUsers.doc(user!.uid).get();
+
+                              final docSnapshotBusiness = await collRefBusiness.doc(user.uid).get();
+
+                              if (docSnapshotUser.exists) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainPageClient(),
+                                  ),
+                                );
+                              } else if (docSnapshotBusiness.exists) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainPageBusiness(),
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to login in')));
+                              }
                             }
                           }
                         },
-                        child: Container(
-                          padding: const EdgeInsets.all(25),
-                          margin: const EdgeInsets.symmetric(horizontal: 25),
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Sign In",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
+                        child: const Text('Sign in'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue, // background color
+                          onPrimary: Colors.white, // text color
+                          textStyle: TextStyle(fontSize: 16), // button text style
                         ),
                       ),
-                      SizedBox(height: 12.0),
+                      const SizedBox(height: 12.0),
                       Text(
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0),  
@@ -264,3 +278,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+

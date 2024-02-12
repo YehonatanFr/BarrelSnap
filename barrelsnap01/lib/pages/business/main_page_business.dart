@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import'package:startertemplate/components/my_bottom_nav_bar.dart';
-import'package:startertemplate/components/my_drawer.dart';
+import'package:BarrelSnap/components/my_bottom_nav_bar.dart';
+import'package:BarrelSnap/components/my_drawer.dart';
 import 'home_page_business.dart';
 import 'profile_page_business.dart';
 import 'setting_page_business.dart';

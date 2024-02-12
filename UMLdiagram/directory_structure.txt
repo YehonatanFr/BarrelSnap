@@ -2,9 +2,7 @@ lib/
 ├── components/
 │   ├── my_bottom_nav_bar.dart
 │   ├── my_drawer.dart
-│   ├── my_login_button.dart
 │   ├── my_square_tile.dart
-│   └── my_textfield.dart
 ├── images/
 │   ├── apple.png
 │   ├── backgroung.jpg
@@ -18,7 +16,7 @@ lib/
 │   ├── business/
 │   │   ├── about_page_business.dart
 │   │   ├── business_detail.dart
-│   │   ├── business_register.dart  <-- Create this file
+│   │   ├── business_register.dart
 │   │   ├── home_page_business.dart
 │   │   ├── main_page_business.dart
 │   │   ├── profile_page_business.dart

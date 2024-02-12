@@ -1,0 +1,51 @@
+@startuml BarrelSnap_ObjectDiagram
+
+object LoginPage
+object AuthService
+object GlobalKeyFormState
+object StringEmail
+object StringPassword
+object StringError
+
+
+object AboutPageClient
+
+object ClientSignIn
+
+object HomePageClient
+
+object MainPageClient
+
+object MyDrawer
+
+object MyBottomNavBar
+
+object ProfilePageClient
+
+object SettingPageClient
+
+object ShopPageClient
+
+LoginPage --> AuthService
+LoginPage --> GlobalKeyFormState
+LoginPage --> StringEmail
+LoginPage --> StringPassword
+LoginPage --> StringError
+
+LoginPage --> AboutPage
+
+LoginPage --> ClientSignIn
+LoginPage --> HomePageClient
+LoginPage --> MainPageClient
+LoginPage --> MyDrawer
+LoginPage --> MyBottomNavBar
+LoginPage --> ProfilePageClient
+LoginPage --> SettingPageClient
+LoginPage --> ShopPageClient
+
+MainPageClient --> HomePageClient
+MainPageClient --> ShopPageClient
+MainPageClient --> ProfilePageClient
+MainPageClient --> SettingPageClient
+
+@enduml

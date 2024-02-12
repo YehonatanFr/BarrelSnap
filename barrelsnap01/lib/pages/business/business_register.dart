@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:startertemplate/pages/business/main_page_business.dart';
-import 'package:startertemplate/pages/client/main_page_client.dart';
-import 'package:startertemplate/services/auth.dart';
+import 'package:BarrelSnap/pages/business/main_page_business.dart';
+import 'package:BarrelSnap/pages/client/main_page_client.dart';
+import 'package:BarrelSnap/services/auth.dart';
 
 class BusinessSignIn extends StatefulWidget {
   @override
@@ -13,6 +15,7 @@ class _BusinessSignInState extends State<BusinessSignIn> {
   final businessNameController = TextEditingController();
   final managerNameController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final birthdateController = TextEditingController();
   final cityController = TextEditingController();
   final streetController = TextEditingController();
   final streetNumberController = TextEditingController();
@@ -68,6 +71,39 @@ bool isValidPrefix(String prefix) {
 }
 
 
+  Future<void> _selectDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: scaffoldKey.currentContext!,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != DateTime.now()) {
+      final DateTime eighteenYearsAgo = DateTime.now().subtract(const Duration(days: 18 * 365));
+      if (picked.isBefore(eighteenYearsAgo)) {
+        setState(() {
+          birthdateController.text = DateFormat('yyyy-MM-dd').format(picked);
+        });
+      } else {
+        showDialog(
+          context: scaffoldKey.currentContext!,
+          builder: (context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text('You must be over 18 years old.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
+
+
+
   InputDecoration _buildInputDecoration(String labelText) {
     return InputDecoration(
       enabledBorder: const OutlineInputBorder(
@@ -85,6 +121,30 @@ bool isValidPrefix(String prefix) {
     );
   }
 
+  Future<void> _saveUserDataToFirestore() async {
+    final CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('business');
+
+    // Get the current user
+    User? user = FirebaseAuth.instance.currentUser;
+
+    // Check if the user is authenticated
+    if (user != null) {
+      // Add user data along with the user ID
+      await usersCollection.doc(user.uid).set({
+        'uid': user.uid,
+        'email': user.email,
+        'business_name': businessNameController.text,
+        'manager_name': managerNameController.text,
+        'phone_number': phoneNumberController.text,
+        'city': cityController.text,
+        'street': streetController.text,
+        'street_number': streetNumberController.text,
+      });
+    }
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -94,7 +154,7 @@ bool isValidPrefix(String prefix) {
         key: scaffoldKey,
         appBar: AppBar(
           title: const Text(
-            'Business Sign In',
+            'Business Register',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.transparent,
@@ -162,6 +222,20 @@ bool isValidPrefix(String prefix) {
                           },
                         ),
                         TextFormField(
+                          readOnly: true,
+                          controller: birthdateController,
+                          onTap: _selectDate,
+                          decoration: _buildInputDecoration('Date of Birth'),
+                          style: const TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Age over 18';
+                            }
+                            return null;
+                          },
+                        ),
+
+                        TextFormField(
                           controller: cityController,
                           decoration: _buildInputDecoration('City'),
                           style: TextStyle(color: Colors.white),
@@ -216,28 +290,31 @@ bool isValidPrefix(String prefix) {
                             return null;
                           },
                         ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState?.validate() ?? false) {
-                              dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                              if (result == null) {
-                                setState(() => error = 'Please supply a valid email');
-                              } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MainPageBusiness(),
-                                  ),
-                                );
-                              }
-                            }
-                          },
-                          child: const Text('Submit'),
-                        ),
-                        SizedBox(height: 12.0),
-                        Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),  
+                    ElevatedButton(
+                      onPressed: () async {
+                        // if (_formKey.currentState?.validate() ?? false) {
+                        dynamic result = await _auth
+                            .registerWithEmailAndPassword(email, password);
+
+                        if (result == null) {
+                          setState(() => error = 'Please supply a valid email');
+                        } else {
+                          await _saveUserDataToFirestore();
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MainPageBusiness(),
+                            ),
+                          );
+                        }
+                      },
+                      child: const Text('Submit'),
+                    ),
+                    SizedBox(height: 12.0),
+                    Text(
+                      error,
+                      style: TextStyle(color: Colors.red, fontSize: 14.0),
                         )
                       ],
                     ),

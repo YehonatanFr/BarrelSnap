@@ -1,0 +1,131 @@
+@startuml BarrelSnap_ClassDiagram
+
+class LoginPage {
+  - final AuthService _auth
+  - final GlobalKey<FormState> _formKey
+  - String email
+  - String password
+  - String error
+  <<constructor>> + LoginPage()
+  # Widget build(BuildContext context)
+}
+
+class _LoginPageState {
+  - final AuthService _auth
+  - final GlobalKey<FormState> _formKey
+  - String email
+  - String password
+  - String error
+  <<constructor>> + _LoginPageState()
+  # Widget build(BuildContext context)
+}
+
+class AboutPage {
+  <<constructor>> + AboutPage()
+  # Widget build(BuildContext context)
+}
+
+class ClientDetailsScreen {
+  <<constructor>> + ClientDetailsScreen()
+  # Widget build(BuildContext context)
+}
+
+class ClientSingIn {
+  - final TextEditingController lnameController
+  - final TextEditingController fnameController
+  - final TextEditingController birthdateController
+  - final TextEditingController phonenumberController
+  - final TextEditingController cityController
+  - final TextEditingController streetController
+  - final TextEditingController streetnumberController
+  - final TextEditingController emailAdress
+  - final TextEditingController passwordClient
+  - final AuthService _auth
+  - final GlobalKey<FormState> _formKey
+  - String email
+  - String password
+  - String error
+  <<constructor>> + ClientSingIn()
+  # bool checkValidPhoneNumber(String phoneNumber)
+  # bool isValidPrefix(String prefix)
+  # int calculateAge(DateTime birthDate)
+  # Future<void> _selectDate()
+  # InputDecoration _buildInputDecoration(String labelText)
+  # Widget build(BuildContext context)
+}
+
+class HomePageClient {
+  <<constructor>> + HomePageClient()
+  # Widget build(BuildContext context)
+}
+
+class MainPageClient {
+  - int _selectedIndex
+  - List<Widget> _pages
+  <<constructor>> + MainPageClient()
+  # void navigateBottomBar(int index)
+  # Widget build(BuildContext context)
+}
+
+class MyDrawer {
+  <<constructor>> + MyDrawer()
+  # Widget build(BuildContext context)
+}
+
+class MyBottomNavBar {
+  <<constructor>> + MyBottomNavBar({onTabChange})
+  # final Function(int) onTabChange
+  # Widget build(BuildContext context)
+}
+
+class ProfilePageClient {
+  - final TextEditingController fnameController
+  - final TextEditingController lnameController
+  - final TextEditingController birthdateController
+  - final TextEditingController phonenumberController
+  - final TextEditingController cityController
+  - final TextEditingController streetController
+  - final TextEditingController streetnumberController
+  <<constructor>> + ProfilePageClient()
+  # Widget build(BuildContext context)
+  # Future<void> _selectDate(BuildContext context)
+  # Future<void> _updateProfile()
+}
+
+class SettingPageClient {
+  <<constructor>> + SettingPageClient()
+  # Widget build(BuildContext context)
+}
+
+class ShopPageClient {
+  <<constructor>> + ShopPageClient()
+  # Widget build(BuildContext context)
+}
+
+LoginPage --> _LoginPageState
+LoginPage --> AuthService
+_LoginPageState --> AuthService
+LoginPage --> AboutPage
+LoginPage --> ClientSingIn
+LoginPage --> HomePageClient
+LoginPage --> MainPageClient
+LoginPage --> MyDrawer
+LoginPage --> MyBottomNavBar
+LoginPage --> ProfilePageClient
+LoginPage --> SettingPageClient
+LoginPage --> ShopPageClient
+ClientSingIn --> AuthService
+ClientSingIn --> TextEditingController
+ClientSingIn --> GlobalKey
+ProfilePageClient --> TextEditingController
+ProfilePageClient --> DateFormat
+ProfilePageClient --> FirebaseFirestore
+ProfilePageClient --> DateFormat
+ProfilePageClient --> GlobalKey
+ProfilePageClient --> SnackBar
+MainPageClient --> HomePageClient
+MainPageClient --> ShopPageClient
+MainPageClient --> ProfilePageClient
+MainPageClient --> SettingPageClient
+
+@enduml

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../client/client_register.dart';
@@ -24,11 +25,38 @@ class _ProfilePageState extends State<ProfilePageClient> {
   final TextEditingController streetnumberController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _populateTextControllers();
+  }
+
+Future<void> _populateTextControllers() async {
+  try {
+    final CollectionReference collRef =
+        FirebaseFirestore.instance.collection('customer');
+    User? user = FirebaseAuth.instance.currentUser;
+    final docSnapshot = await collRef.doc(user!.uid).get();
+
+    if (docSnapshot.exists) {
+      var userData = docSnapshot.data() as Map<String, dynamic>;
+      setState(() {
+        fnameController.text = userData['lname'] ?? '';
+        lnameController.text = userData['fname'] ?? '';
+        birthdateController.text = userData['birthdate'] ?? '';
+        phonenumberController.text = userData['phonenumber'] ?? '';
+        cityController.text = userData['city'] ?? '';
+        streetController.text = userData['street'] ?? '';
+        streetnumberController.text = userData['streetnumber'] ?? '';
+      });
+    }
+  } catch (e) {
+    print('Failed to populate text controllers: $e');
+  }
+}
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -38,7 +66,6 @@ class _ProfilePageState extends State<ProfilePageClient> {
               TextFormField(
                 controller: fnameController,
                 decoration: InputDecoration(labelText: 'First Name'),
-                
               ),
               TextFormField(
                 controller: lnameController,
@@ -96,9 +123,11 @@ class _ProfilePageState extends State<ProfilePageClient> {
 
   Future<void> _updateProfile() async {
     try {
-      final CollectionReference collRef = FirebaseFirestore.instance.collection('customer');
-      final docSnapshot = await collRef.doc(widget.userId).get();
-      print(widget.userId);
+      final CollectionReference collRef =
+          FirebaseFirestore.instance.collection('customer');
+      User? user = FirebaseAuth.instance.currentUser;
+      final docSnapshot = await collRef.doc(user!.uid).get();
+      print(user.uid);
 
       if (docSnapshot.exists) {
         await collRef.doc(widget.userId).update({
