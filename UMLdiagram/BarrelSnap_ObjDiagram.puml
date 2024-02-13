@@ -1,51 +1,129 @@
 @startuml BarrelSnap_ObjectDiagram
 
-object LoginPage
-object AuthService
-object GlobalKeyFormState
-object StringEmail
-object StringPassword
-object StringError
+object LoginPage {
+  _auth: AuthService
+  _formKey: GlobalKey<FormState>
+  email: String
+  password: String
+  error: String
+}
 
+object _LoginPageState {
+  _auth: AuthService
+  _formKey: GlobalKey<FormState>
+  email: String
+  password: String
+  error: String
+}
 
-object AboutPageClient
+object AboutPageClient {
+}
 
-object ClientSignIn
+object ClientSingIn {
+  lnameController: TextEditingController
+  fnameController: TextEditingController
+  birthdateController: TextEditingController
+  phonenumberController: TextEditingController
+  cityController: TextEditingController
+  streetController: TextEditingController
+  streetnumberController: TextEditingController
+  emailAdress: TextEditingController
+  passwordClient: TextEditingController
+  _auth: AuthService
+  _formKey: GlobalKey<FormState>
+  email: String
+  password: String
+  error: String
+}
 
-object HomePageClient
+object HomePageClient {
+}
 
-object MainPageClient
+object MainPageClient {
+  _selectedIndex: int
+  _pages: List<Widget>
+}
 
-object MyDrawer
+object MyDrawer {
+}
 
-object MyBottomNavBar
+object MyBottomNavBar {
+  onTabChange: Function(int)
+}
 
-object ProfilePageClient
+object ProfilePageClient {
+  fnameController: TextEditingController
+  lnameController: TextEditingController
+  birthdateController: TextEditingController
+  phonenumberController: TextEditingController
+  cityController: TextEditingController
+  streetController: TextEditingController
+  streetnumberController: TextEditingController
+}
 
-object SettingPageClient
+object SettingPageClient {
+}
 
-object ShopPageClient
+object ShopPageClient {
+}
 
+object BusinessSingIn {
+  businessNameController: TextEditingController
+  managerNameController: TextEditingController
+  birthdateController: TextEditingController
+  phonenumberController: TextEditingController
+  cityController: TextEditingController
+  streetController: TextEditingController
+  streetnumberController: TextEditingController
+  _auth: AuthService
+  _formKey: GlobalKey<FormState>
+  passwordBusiness: final
+  email: String
+  password: String
+  error: String
+}
+
+object ProfilePageBusiness {
+  businessNameController: TextEditingController
+  managerNameController: TextEditingController
+  birthdateController: TextEditingController
+  phonenumberController: TextEditingController
+  cityController: TextEditingController
+  streetController: TextEditingController
+  streetnumberController: TextEditingController
+}
+
+object HomePageBusiness {
+}
+
+object SettingPageBusiness {
+}
+
+object ShopPageBusiness {
+}
+
+object MainPageBusiness {
+  _selectedIndex: int
+  _pages: List<Widget>
+}
+
+LoginPage --> _LoginPageState
 LoginPage --> AuthService
-LoginPage --> GlobalKeyFormState
-LoginPage --> StringEmail
-LoginPage --> StringPassword
-LoginPage --> StringError
-
-LoginPage --> AboutPage
-
-LoginPage --> ClientSignIn
-LoginPage --> HomePageClient
-LoginPage --> MainPageClient
+_LoginPageState --> AuthService
+LoginPage --> ClientSingIn
+LoginPage --> BusinessSingIn
 LoginPage --> MyDrawer
 LoginPage --> MyBottomNavBar
-LoginPage --> ProfilePageClient
-LoginPage --> SettingPageClient
-LoginPage --> ShopPageClient
-
+ClientSingIn --> MainPageClient
+BusinessSingIn --> MainPageBusiness
 MainPageClient --> HomePageClient
 MainPageClient --> ShopPageClient
 MainPageClient --> ProfilePageClient
 MainPageClient --> SettingPageClient
+MainPageClient --> AboutPageClient
+MainPageBusiness --> HomePageBusiness
+MainPageBusiness --> ShopPageBusiness
+MainPageBusiness --> ProfilePageBusiness
+MainPageBusiness --> SettingPageBusiness
 
 @enduml
