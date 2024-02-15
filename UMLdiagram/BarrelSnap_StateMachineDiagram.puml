@@ -1,20 +1,16 @@
 @startuml BarrelSnap_StateMachineDiagram
 
-[*] --> NotRegistered
-NotRegistered --> Registered: Register
-Registered --> LoggedIn: Login
-LoggedIn --> ClientHomePage: Role: Client
-LoggedIn --> ManagerHomePage: Role: Manager
-ClientHomePage --> BuyWines: Buy Wines
-ClientHomePage --> FollowNewsletter: Follow Wine Newsletter
-ManagerHomePage --> ManageWinery: Manage Winery
-ManagerHomePage --> SellWines: Sell Wines
-ManagerHomePage --> AddWines: Add Wines for Sell
-BuyWines --> ClientHomePage: Return
-FollowNewsletter --> ClientHomePage: Return
-ManageWinery --> ManagerHomePage: Return
-SellWines --> ManagerHomePage: Return
-AddWines --> ManagerHomePage: Return
-LoggedIn --> [*]: Logout
+
+[*] -->  BuyWine: Click to Buy Wine
+BuyWine --> InStock: Wine in Stock?
+BuyWine --> OutOfStock: Wine out of Stock
+
+InStock --> PaymentPage: Proceed to Payment
+OutOfStock --> PromptMessage: Show Prompt Message
+
+PaymentPage --> DeleteWine: delete wine from stock
+
+DeleteWine --> [*]
+PromptMessage --> [*]
 
 @enduml

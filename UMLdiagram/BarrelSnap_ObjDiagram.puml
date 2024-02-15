@@ -3,45 +3,36 @@
 object LoginPage {
   _auth: AuthService
   _formKey: GlobalKey<FormState>
-  email: String
-  password: String
-  error: String
+  email: "example@example.com"
+  password: "examplePassword"
+  error: ""
 }
 
-object _LoginPageState {
+object ClientRegister {
+  lnameController: "Doe"
+  fnameController: "John"
+  birthdateController: "1990-01-01"
+  phonenumberController: "+1234567890"
+  cityController: "New York"
+  streetController: "Main Street"
+  streetnumberController: "123"
+  emailAdress: "john@example.com"
+  passwordClient: "securePassword"
   _auth: AuthService
   _formKey: GlobalKey<FormState>
-  email: String
-  password: String
-  error: String
-}
-
-object AboutPageClient {
-}
-
-object ClientSingIn {
-  lnameController: TextEditingController
-  fnameController: TextEditingController
-  birthdateController: TextEditingController
-  phonenumberController: TextEditingController
-  cityController: TextEditingController
-  streetController: TextEditingController
-  streetnumberController: TextEditingController
-  emailAdress: TextEditingController
-  passwordClient: TextEditingController
-  _auth: AuthService
-  _formKey: GlobalKey<FormState>
-  email: String
-  password: String
-  error: String
+  email: "john@example.com"
+  password: "securePassword"
+  error: ""
 }
 
 object HomePageClient {
+  _selectedIndex: 0
+  _pages: [Widget1, Widget2, Widget3]  // Example list of widgets/pages
 }
 
 object MainPageClient {
-  _selectedIndex: int
-  _pages: List<Widget>
+  _selectedIndex: 0
+  _pages: [Widget1, Widget2, Widget3]  // Example list of widgets/pages
 }
 
 object MyDrawer {
@@ -52,13 +43,13 @@ object MyBottomNavBar {
 }
 
 object ProfilePageClient {
-  fnameController: TextEditingController
-  lnameController: TextEditingController
-  birthdateController: TextEditingController
-  phonenumberController: TextEditingController
-  cityController: TextEditingController
-  streetController: TextEditingController
-  streetnumberController: TextEditingController
+  fnameController: "John"
+  lnameController: "Doe"
+  birthdateController: "1990-01-01"
+  phonenumberController: "+1234567890"
+  cityController: "New York"
+  streetController: "Main Street"
+  streetnumberController: "123"
 }
 
 object SettingPageClient {
@@ -67,63 +58,15 @@ object SettingPageClient {
 object ShopPageClient {
 }
 
-object BusinessSingIn {
-  businessNameController: TextEditingController
-  managerNameController: TextEditingController
-  birthdateController: TextEditingController
-  phonenumberController: TextEditingController
-  cityController: TextEditingController
-  streetController: TextEditingController
-  streetnumberController: TextEditingController
-  _auth: AuthService
-  _formKey: GlobalKey<FormState>
-  passwordBusiness: final
-  email: String
-  password: String
-  error: String
-}
-
-object ProfilePageBusiness {
-  businessNameController: TextEditingController
-  managerNameController: TextEditingController
-  birthdateController: TextEditingController
-  phonenumberController: TextEditingController
-  cityController: TextEditingController
-  streetController: TextEditingController
-  streetnumberController: TextEditingController
-}
-
-object HomePageBusiness {
-}
-
-object SettingPageBusiness {
-}
-
-object ShopPageBusiness {
-}
-
-object MainPageBusiness {
-  _selectedIndex: int
-  _pages: List<Widget>
-}
-
-LoginPage --> _LoginPageState
-LoginPage --> AuthService
-_LoginPageState --> AuthService
-LoginPage --> ClientSingIn
-LoginPage --> BusinessSingIn
+LoginPage --> ClientRegister
 LoginPage --> MyDrawer
 LoginPage --> MyBottomNavBar
-ClientSingIn --> MainPageClient
-BusinessSingIn --> MainPageBusiness
+
+ClientRegister --> MainPageClient
+
 MainPageClient --> HomePageClient
 MainPageClient --> ShopPageClient
 MainPageClient --> ProfilePageClient
 MainPageClient --> SettingPageClient
-MainPageClient --> AboutPageClient
-MainPageBusiness --> HomePageBusiness
-MainPageBusiness --> ShopPageBusiness
-MainPageBusiness --> ProfilePageBusiness
-MainPageBusiness --> SettingPageBusiness
 
 @enduml
