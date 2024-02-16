@@ -3,10 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:BarrelSnap/pages/client/main_page_client.dart';
 import 'package:BarrelSnap/services/auth.dart';
-import 'package:path/path.dart';
 import '/pages/role_section_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key});
@@ -97,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                           enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.red),
                           ),
                           fillColor: Colors.grey.shade200,
@@ -118,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                 try {
                                   dynamic result = await _auth.forgotPassword(email: email);
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       content: Text("Password reset email sent!"),
                                       backgroundColor: Colors.green,
                                     ),
@@ -132,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                   );
                                 }
                               },
-                              child: Text(
+                              child: const Text(
                                 'Forgot Password?',
                                 style: TextStyle(
                                   color: Colors.blue,
@@ -143,9 +141,9 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(25.0),
-                        child: const SizedBox(height: 10),
+                      const Padding(
+                        padding: EdgeInsets.all(25.0),
+                        child: SizedBox(height: 10),
                       ),
                       ElevatedButton(
                         onPressed: () async {
@@ -177,25 +175,25 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 );
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to login in')));
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to login in')));
                               }
                             }
                           }
                         },
                         child: const Text('Sign in'),
                         style: ElevatedButton.styleFrom(
-                          textStyle: TextStyle(fontSize: 16), // button text style
+                          textStyle: const TextStyle(fontSize: 16), // button text style
                         ),
                       ),
                       const SizedBox(height: 5.0),
                       Text(
                         error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),  
+                        style: const TextStyle(color: Colors.red, fontSize: 14.0),  
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                         child: ElevatedButton(
-                          child: Text('Sign in anon'),
+                          child: const Text('Sign in anon'),
                           onPressed: () async {
                             dynamic result = await _auth.signInAnon();
                             if (result == null) {
@@ -239,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(width: 25),
+                          const SizedBox(width: 25),
                           TextButton(
                             onPressed: () {
                               Navigator.push(

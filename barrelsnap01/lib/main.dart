@@ -4,16 +4,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:BarrelSnap/pages/wrapper.dart';
 import 'package:BarrelSnap/services/auth.dart';
-import 'firebase_options.dart'; // Assuming you have this file with Firebase options
+import 'firebase_options.dart';
 
 void main() async {
-  // Initialize Firebase before running the app
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Run the app
   runApp(const MyApp());
 }
 
@@ -24,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider<User?>.value(
       value: AuthService().user,
-      initialData: null, // Add initial data if needed
+      initialData: null,
       child: MaterialApp(
         home: Wrapper(),
         debugShowCheckedModeBanner: false,
