@@ -51,8 +51,6 @@ class _MainPageState extends State<MainPageClient> {
     // profile page
     const ProfilePageClient(),
 
-    // setting page
-    const SettingPageClient(),
   ];
 
   @override

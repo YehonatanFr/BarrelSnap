@@ -120,17 +120,28 @@ Future<void> _populateTextControllers() async {
       });
     }
   }
+  
+    Future<void> _updateProfile() async {
+  try {
+    final CollectionReference collRef =
+        FirebaseFirestore.instance.collection('customer');
+    User? user = FirebaseAuth.instance.currentUser;
+    
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User not logged in')));
+      return;
+    }
 
-  Future<void> _updateProfile() async {
-    try {
-      final CollectionReference collRef =
-          FirebaseFirestore.instance.collection('customer');
-      User? user = FirebaseAuth.instance.currentUser;
-      final docSnapshot = await collRef.doc(user!.uid).get();
-      print(user.uid);
+    final docSnapshot = await collRef.doc(user.uid).get();
 
-      if (docSnapshot.exists) {
-        await collRef.doc(widget.userId).update({
+    if (!docSnapshot.exists) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Profile does not exist')));
+      return;
+    }
+
+    await collRef.doc(user.uid).update({
           'fname': fnameController.text,
           'lname': lnameController.text,
           'birthdate': birthdateController.text,
@@ -138,15 +149,40 @@ Future<void> _populateTextControllers() async {
           'city': cityController.text,
           'street': streetController.text,
           'streetnumber': streetnumberController.text,
-        });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile updated successfully')));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile does not exist')));
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profile')));
-    // }
-  }
-  }
+    });
 
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Profile updated successfully')));
+  } catch (e) {
+    print('Error updating profile: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to update profile: $e')));
+  }
+}
+  // Future<void> _updateProfile() async {
+  //   try {
+  //     final CollectionReference collRef =
+  //         FirebaseFirestore.instance.collection('customer');
+  //     User? user = FirebaseAuth.instance.currentUser;
+  //     final docSnapshot = await collRef.doc(user!.uid).get();
+  //     print(user.uid);
+
+  //     if (docSnapshot.exists) {
+  //       await collRef.doc(widget.userId).update({
+  //         'fname': fnameController.text,
+  //         'lname': lnameController.text,
+  //         'birthdate': birthdateController.text,
+  //         'phonenumber': phonenumberController.text,
+  //         'city': cityController.text,
+  //         'street': streetController.text,
+  //         'streetnumber': streetnumberController.text,
+  //       });
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile updated successfully')));
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile does not exist')));
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profile')));
+  //   }
+  // }
 }

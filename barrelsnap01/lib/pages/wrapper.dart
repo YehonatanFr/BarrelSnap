@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:BarrelSnap/models/user.dart';
+import 'package:BarrelSnap/models/wines.dart';
 import 'package:BarrelSnap/pages/business/home_page_business.dart';
 import 'package:BarrelSnap/pages/client/main_page_client.dart';
 import 'package:provider/provider.dart';

@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 50),
                       const Icon(
                         Icons.lock,
-                        size: 75,
+                        size: 90,
                         color: Color.fromARGB(255, 198, 193, 193),
                       ),
                       const SizedBox(height: 30),
@@ -150,16 +150,17 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 25),
+                      Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: const SizedBox(height: 10),
+                      ),
                       ElevatedButton(
                         onPressed: () async {
-                          // Validate the form
                           if (_formKey.currentState!.validate()) {
                             dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                             if (result == null) {
                               setState(() => error = 'Could not sign in with these credentials');
                             } else {
-                              // If sign-in is successful, navigate to the MainPageClient
                               final CollectionReference collRefBusiness = FirebaseFirestore.instance.collection('business');
                               final CollectionReference collRefUsers = FirebaseFirestore.instance.collection('customer');
 
@@ -190,12 +191,10 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: const Text('Sign in'),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.blue, // background color
-                          onPrimary: Colors.white, // text color
                           textStyle: TextStyle(fontSize: 16), // button text style
                         ),
                       ),
-                      const SizedBox(height: 12.0),
+                      const SizedBox(height: 5.0),
                       Text(
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0),  

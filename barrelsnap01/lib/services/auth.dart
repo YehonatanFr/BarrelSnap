@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:BarrelSnap/models/user.dart';
+import 'package:BarrelSnap/models/wines.dart';
 
 class AuthService {
 

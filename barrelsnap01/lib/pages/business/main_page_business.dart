@@ -51,8 +51,6 @@ class _MainPageState extends State<MainPageBusiness> {
     // profile page
     const ProfilePageBusiness(),
 
-    // setting page
-    const SettingPageBusiness(),
   ];
 
   @override

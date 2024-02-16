@@ -113,10 +113,10 @@ Future<void> _populateTextControllers() async {
         businessNameController.text = userData['business_name'] ?? '';
         managerNameController.text = userData['manager_name'] ?? '';
         birthdateController.text = userData['birthdate'] ?? '';
-        phoneNumberController.text = userData['phonenumber'] ?? '';
+        phoneNumberController.text = userData['phone_number'] ?? '';
         cityController.text = userData['city'] ?? '';
         streetController.text = userData['street'] ?? '';
-        streetNumberController.text = userData['streetnumber'] ?? '';
+        streetNumberController.text = userData['street_number'] ?? '';
       });
     }
   } catch (e) {
@@ -124,32 +124,72 @@ Future<void> _populateTextControllers() async {
   }
 }
 
-
   Future<void> _updateProfile() async {
-    try {
-      final CollectionReference collRef =
-          FirebaseFirestore.instance.collection('business');
-      User? user = FirebaseAuth.instance.currentUser;
-      final docSnapshot = await collRef.doc(user!.uid).get();
+  try {
+    final CollectionReference collRef =
+        FirebaseFirestore.instance.collection('business');
+    User? user = FirebaseAuth.instance.currentUser;
+    
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User not logged in')));
+      return;
+    }
 
-      if (docSnapshot.exists) {
-        await collRef.doc(widget.userId).update({
-          'business_name': businessNameController.text,
-          'manager_name': managerNameController.text,
-          'birthdate': birthdateController.text,
-          'phonenumber': phoneNumberController.text,
-          'city': cityController.text,
-          'street': streetController.text,
-          'streetnumber': streetNumberController.text,
-        });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile updated successfully')));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile does not exist')));
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profile')));
-    // }
-  }
-  }
+    final docSnapshot = await collRef.doc(user.uid).get();
 
+    if (!docSnapshot.exists) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Profile does not exist')));
+      return;
+    }
+
+    // Perform the update
+    await collRef.doc(user.uid).update({
+      'business_name': businessNameController.text,
+      'manager_name': managerNameController.text,
+      'birthdate': birthdateController.text,
+      'phone_number': phoneNumberController.text,
+      'city': cityController.text,
+      'street': streetController.text,
+      'street_number': streetNumberController.text,
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Profile updated successfully')));
+  } catch (e) {
+    print('Error updating profile: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to update profile: $e')));
+  }
+}
+
+
+  // Future<void> _updateProfile() async {
+  //   try {
+  //     final CollectionReference collRef =
+  //         FirebaseFirestore.instance.collection('business');
+  //     User? user = FirebaseAuth.instance.currentUser;
+  //     final docSnapshot = await collRef.doc(user!.uid).get();
+
+  //     print(docSnapshot);
+
+  //     if (docSnapshot.exists) {
+  //       await collRef.doc(widget.userId).update({
+  //           'business_name': businessNameController.text,
+  //           'manager_name': managerNameController.text,
+  //           'birthdate': birthdateController.text,
+  //           'phonenumber': phoneNumberController.text,
+  //           'city': cityController.text,
+  //           'street': streetController.text,
+  //           'streetnumber': streetNumberController.text,
+  //         });
+  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile updated successfully')));
+  //     } else {
+  //        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile does not exist')));
+  //     }
+  //   } catch (e) {
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profile')));
+  //   }
+  // }
 }

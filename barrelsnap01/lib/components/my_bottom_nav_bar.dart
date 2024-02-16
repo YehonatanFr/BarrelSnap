@@ -43,10 +43,10 @@ class MyBottomNavBar extends StatelessWidget {
             icon: Icons.person,
             text: 'Profile',
           ),
-          GButton(
-            icon: Icons.settings,
-            text: 'Settings',
-          ),
+          // GButton(
+          //   icon: Icons.settings,
+          //   text: 'Settings',
+          // ),
         ],
       ),
     );
