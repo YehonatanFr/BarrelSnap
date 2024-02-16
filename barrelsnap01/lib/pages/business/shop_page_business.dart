@@ -96,7 +96,10 @@ Widget _buildWineForm(BuildContext context) {
           height: 40,
           child: TextFormField(
             controller: _nameController,
-            decoration: const InputDecoration(labelText: 'Name'),
+            decoration: InputDecoration(
+              hintText: 'Name', 
+              border: OutlineInputBorder(),
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter the name';
@@ -109,7 +112,10 @@ Widget _buildWineForm(BuildContext context) {
           height: 40,
           child: TextFormField(
             controller: _kindOfGrapeController,
-            decoration: const InputDecoration(labelText: 'Kind of Grape'),
+            decoration: InputDecoration(
+              hintText: 'Kind of grape', 
+              border: OutlineInputBorder(),
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter the kind of grape';
@@ -122,7 +128,10 @@ Widget _buildWineForm(BuildContext context) {
           height: 40,
           child: TextFormField(
             controller: _descriptionController,
-            decoration: const InputDecoration(labelText: 'Description'),
+            decoration: InputDecoration(
+              hintText: 'Description',
+              border: OutlineInputBorder(),
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter the description';
@@ -135,7 +144,10 @@ Widget _buildWineForm(BuildContext context) {
           height: 40,
           child: TextFormField(
             controller: _priceController,
-            decoration: const InputDecoration(labelText: 'Price'),
+            decoration: InputDecoration(
+              hintText: 'Price',
+              border: OutlineInputBorder(),
+            ),
             keyboardType: TextInputType.number,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -146,10 +158,13 @@ Widget _buildWineForm(BuildContext context) {
           ),
         ),
         SizedBox(
-          height: 40, // Adjust the height as needed
+          height: 40,
           child: TextFormField(
             controller: _quantityController,
-            decoration: const InputDecoration(labelText: 'Quantity'),
+            decoration: InputDecoration(
+              hintText: 'Quantity',
+              border: OutlineInputBorder(),
+            ),
             keyboardType: TextInputType.number,
             validator: (value) {
               if (value == null || value.isEmpty) {

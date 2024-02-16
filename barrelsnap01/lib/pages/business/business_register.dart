@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:BarrelSnap/pages/business/main_page_business.dart';
-import 'package:BarrelSnap/pages/client/main_page_client.dart';
 import 'package:BarrelSnap/services/auth.dart';
 
 class BusinessSignIn extends StatefulWidget {
@@ -125,15 +124,13 @@ bool isValidPrefix(String prefix) {
     final CollectionReference usersCollection =
         FirebaseFirestore.instance.collection('business');
 
-    // Get the current user
     User? user = FirebaseAuth.instance.currentUser;
 
-    // Check if the user is authenticated
     if (user != null) {
-      // Add user data along with the user ID
       await usersCollection.doc(user.uid).set({
         'uid': user.uid,
         'email': user.email,
+        'birthdate' : birthdateController.text,
         'business_name': businessNameController.text,
         'manager_name': managerNameController.text,
         'phone_number': phoneNumberController.text,

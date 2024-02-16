@@ -13,7 +13,7 @@ class WineCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Icon(Icons.wine_bar),
+        leading: const Icon(Icons.wine_bar),
         title: Text(wine.name),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +26,7 @@ class WineCard extends StatelessWidget {
           onPressed: () {
             _showUpdateQuantityDialog(context, wine);
           },
-          child: Text('Update Quantity'),
+          child: const Text('Update Quantity'),
         ),
       ),
     );
@@ -39,7 +39,7 @@ class WineCard extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Update Quantity'),
+          title: const Text('Update Quantity'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -52,13 +52,13 @@ class WineCard extends StatelessWidget {
                         _quantityController.text = '${currentQuantity - 1}';
                       }
                     },
-                    child: Text('-'),
+                    child: const Text('-'),
                   ),
                   Expanded(
                     child: TextFormField(
                       controller: _quantityController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(labelText: 'New Quantity'),
+                      decoration: const InputDecoration(labelText: 'New Quantity'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter the new quantity';
@@ -76,7 +76,7 @@ class WineCard extends StatelessWidget {
                       int currentQuantity = int.parse(_quantityController.text);
                       _quantityController.text = '${currentQuantity + 1}';
                     },
-                    child: Text('+'),
+                    child: const Text('+'),
                   ),
                 ],
               ),
@@ -87,13 +87,13 @@ class WineCard extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             ElevatedButton(
               onPressed: () {
                 _updateQuantity(context, wine, int.parse(_quantityController.text));
               },
-              child: Text('Update'),
+              child: const Text('Update'),
             ),
           ],
         );
@@ -105,14 +105,14 @@ class WineCard extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     final String businessId = user?.uid ?? '';
     WineServices.updateWineQuantity(wine.id, businessId, newQuantity).then((_) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Quantity updated successfully'),
       ));
       onUpdate();
       Navigator.of(context).pop();
     }).catchError((error) {
       print('Error updating quantity: $error');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Failed to update quantity. Please try again.'),
       ));
     });

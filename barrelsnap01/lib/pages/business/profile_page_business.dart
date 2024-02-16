@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../business/business_register.dart';
 
 class ProfilePageBusiness extends StatefulWidget {
   final String? userId;
@@ -44,7 +43,6 @@ class _ProfilePageState extends State<ProfilePageBusiness> {
               TextFormField(
                 controller: businessNameController,
                 decoration: InputDecoration(labelText: 'Business Name'),
-                
               ),
               TextFormField(
                 controller: managerNameController,
@@ -129,7 +127,7 @@ Future<void> _populateTextControllers() async {
       final CollectionReference collRef =
           FirebaseFirestore.instance.collection('business');
       User? user = FirebaseAuth.instance.currentUser;
-      
+
       if (user == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('User not logged in')));
