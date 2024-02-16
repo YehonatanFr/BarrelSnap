@@ -13,6 +13,7 @@ class WineCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        leading: Icon(Icons.wine_bar),
         title: Text(wine.name),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,9 +108,8 @@ class WineCard extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Quantity updated successfully'),
       ));
-      // Call the onUpdate callback to update the UI in the parent widget
       onUpdate();
-      Navigator.of(context).pop(); // Close the dialog
+      Navigator.of(context).pop();
     }).catchError((error) {
       print('Error updating quantity: $error');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

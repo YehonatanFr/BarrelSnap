@@ -21,14 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   String email = '';
   String password = '';
   String error = '';
-  // double screenWidth = MediaQuery.of(context).size.width;
-  // double screenHeight = MediaQuery.of(context).size.height;
 
-  // bool isDesktop(BuildContext context) =>
-  //   MediaQuery.of(context).size.width >= 600;
-  
-  // bool isMoile(BuildContext context) =>
-  //   MediaQuery.of(context).size.width < 600;
 
   @override
   Widget build(BuildContext context) {

@@ -36,9 +36,6 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('My Wines'),
-      ),
       body: Column(
         children: [
           Expanded(
@@ -56,7 +53,7 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
               onPressed: () {
                 _showAddWineDialog(context);
               },
-              child: Text('Add New Wine'),
+              child: const Text('Add New Wine'),
             ),
           ),
         ],
@@ -69,14 +66,14 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Add New Wine'),
+          title: const Text('Add New Wine'),
           content: _buildWineForm(context),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );
@@ -84,20 +81,22 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
     );
   }
 
-  Widget _buildWineForm(BuildContext context) {
-    final TextEditingController _nameController = TextEditingController();
-    final TextEditingController _kindOfGrapeController = TextEditingController();
-    final TextEditingController _descriptionController = TextEditingController();
-    final TextEditingController _priceController = TextEditingController();
-    final TextEditingController _quantityController = TextEditingController();
+Widget _buildWineForm(BuildContext context) {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _kindOfGrapeController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
 
-    return Form(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextFormField(
+  return Form(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: 40,
+          child: TextFormField(
             controller: _nameController,
-            decoration: InputDecoration(labelText: 'Name'),
+            decoration: const InputDecoration(labelText: 'Name'),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter the name';
@@ -105,9 +104,12 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
               return null;
             },
           ),
-          TextFormField(
+        ),
+        SizedBox(
+          height: 40,
+          child: TextFormField(
             controller: _kindOfGrapeController,
-            decoration: InputDecoration(labelText: 'Kind of Grape'),
+            decoration: const InputDecoration(labelText: 'Kind of Grape'),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter the kind of grape';
@@ -115,9 +117,12 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
               return null;
             },
           ),
-          TextFormField(
+        ),
+        SizedBox(
+          height: 40,
+          child: TextFormField(
             controller: _descriptionController,
-            decoration: InputDecoration(labelText: 'Description'),
+            decoration: const InputDecoration(labelText: 'Description'),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter the description';
@@ -125,9 +130,12 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
               return null;
             },
           ),
-          TextFormField(
+        ),
+        SizedBox(
+          height: 40,
+          child: TextFormField(
             controller: _priceController,
-            decoration: InputDecoration(labelText: 'Price'),
+            decoration: const InputDecoration(labelText: 'Price'),
             keyboardType: TextInputType.number,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -136,9 +144,12 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
               return null;
             },
           ),
-          TextFormField(
+        ),
+        SizedBox(
+          height: 40, // Adjust the height as needed
+          child: TextFormField(
             controller: _quantityController,
-            decoration: InputDecoration(labelText: 'Quantity'),
+            decoration: const InputDecoration(labelText: 'Quantity'),
             keyboardType: TextInputType.number,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -147,27 +158,28 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
               return null;
             },
           ),
-          ElevatedButton(
-            onPressed: () {
-              _addWine(
-                context,
-                _nameController.text,
-                _kindOfGrapeController.text,
-                _descriptionController.text,
-                int.parse(_priceController.text),
-                int.parse(_quantityController.text),
-              );
-            },
-            child: Text('Add Wine'),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+        ElevatedButton(
+          onPressed: () {
+            _addWine(
+              context,
+              _nameController.text,
+              _kindOfGrapeController.text,
+              _descriptionController.text,
+              int.parse(_priceController.text),
+              int.parse(_quantityController.text),
+            );
+          },
+          child: const Text('Add Wine'),
+        ),
+      ],
+    ),
+  );
+}
 
   void _addWine(BuildContext context, String name, String kindOfGrape, String description, int price, int quantity) {
     final WineModel wine = WineModel(
-      id: '', // Setting id to an empty string
+      id: '',
       name: name,
       kindOfGrape: kindOfGrape,
       description: description,
@@ -177,8 +189,8 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
     final user = FirebaseAuth.instance.currentUser;
     final String businessId = user?.uid ?? '';
     WineServices.addWine(wine, businessId).then((_) {
-      Navigator.of(context).pop(); // Close the dialog
-      fetchWines(); // Refresh the list of wines
+      Navigator.of(context).pop();
+      fetchWines();
     });
   }
 }

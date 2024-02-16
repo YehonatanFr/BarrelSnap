@@ -12,7 +12,7 @@ class WineServices {
         'quantity': wine.quantity,
       });
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -26,7 +26,7 @@ class WineServices {
         'quantity': wine.quantity,
       });
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -34,7 +34,7 @@ class WineServices {
     try {
       await FirebaseFirestore.instance.collection('business').doc(businessId).collection('wines').doc(wineId).delete();
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -44,7 +44,7 @@ class WineServices {
       return snapshot.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;
         return WineModel(
-          id: doc.id, // Adding the id field
+          id: doc.id,
           name: data['name'] ?? '',
           kindOfGrape: data['kindOfGrape'] ?? '',
           description: data['description'] ?? '',
@@ -53,7 +53,7 @@ class WineServices {
         );
       }).toList();
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -63,7 +63,7 @@ class WineServices {
         'quantity': newQuantity,
       });
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }
