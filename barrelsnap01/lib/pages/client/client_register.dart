@@ -192,6 +192,7 @@ bool isValidPrefix(String prefix) {
                           controller: fnameController,
                           decoration: _buildInputDecoration('Private Name'),
                           style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Private name';
@@ -203,6 +204,7 @@ bool isValidPrefix(String prefix) {
                           controller: lnameController,
                           decoration: _buildInputDecoration('Family Name'),
                           style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Family name';
@@ -216,6 +218,7 @@ bool isValidPrefix(String prefix) {
                           onTap: _selectDate,
                           decoration: _buildInputDecoration('Date of Birth'),
                           style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Age over 18';
@@ -227,6 +230,7 @@ bool isValidPrefix(String prefix) {
                           controller: phonenumberController,
                           decoration: _buildInputDecoration('Phone Number'),
                           style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Phone Number';
@@ -240,6 +244,7 @@ bool isValidPrefix(String prefix) {
                           controller: cityController,
                           decoration: _buildInputDecoration('City'),
                           style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter City';
@@ -251,6 +256,7 @@ bool isValidPrefix(String prefix) {
                           controller: streetController,
                           decoration: _buildInputDecoration('Street'),
                           style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Street';
@@ -261,13 +267,21 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: streetnumberController,
                           decoration: _buildInputDecoration('Building Number'),
+                          keyboardType: TextInputType.number,
                           style: const TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Building Number';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           onChanged: (value) {
                             setState(() => email = value);
                           },
                           style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Enter an email';
@@ -284,6 +298,7 @@ bool isValidPrefix(String prefix) {
                           style: const TextStyle(color: Colors.white),
                           obscureText: true,
                           decoration: _buildInputDecoration('Password'),
+                          keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value == null || value.length < 6) {
                               return 'Enter a password 6+ chars long';

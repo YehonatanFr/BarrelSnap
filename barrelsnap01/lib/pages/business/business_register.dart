@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:BarrelSnap/pages/business/main_page_business.dart';
 import 'package:BarrelSnap/services/auth.dart';
@@ -30,45 +30,44 @@ class _BusinessSignInState extends State<BusinessSignIn> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-bool checkValidPhoneNumber(String phoneNumber) {
-  if (phoneNumber.length != 10) {
-    print('Phone number must be 10 digits long');
-    return false;
-  }
-
-  for (int i = 0; i < phoneNumber.length; i++) {
-    int? digit = int.tryParse(phoneNumber[i]);
-    if (digit == null) {
-      print('Phone number must contain only numeric digits');
+  bool checkValidPhoneNumber(String phoneNumber) {
+    if (phoneNumber.length != 10) {
+      print('Phone number must be 10 digits long');
       return false;
     }
-  }
 
-  String prefix = phoneNumber.substring(0, 3);
+    for (int i = 0; i < phoneNumber.length; i++) {
+      int? digit = int.tryParse(phoneNumber[i]);
+      if (digit == null) {
+        print('Phone number must contain only numeric digits');
+        return false;
+      }
+    }
+
+    String prefix = phoneNumber.substring(0, 3);
 
     if (!isValidPrefix(prefix)) {
       print('Invalid prefix');
       return false;
     }
 
-  return true;
-}
-
-bool isValidPrefix(String prefix) {
-  switch (prefix) {
-    case '050':
-    case '052':
-    case '053':
-    case '054':
-    case '055':
-    case '057':
-    case '058':
-      return true;
-    default:
-      return false;
+    return true;
   }
-}
 
+  bool isValidPrefix(String prefix) {
+    switch (prefix) {
+      case '050':
+      case '052':
+      case '053':
+      case '054':
+      case '055':
+      case '057':
+      case '058':
+        return true;
+      default:
+        return false;
+    }
+  }
 
   Future<void> _selectDate() async {
     final DateTime? picked = await showDatePicker(
@@ -101,8 +100,6 @@ bool isValidPrefix(String prefix) {
     }
   }
 
-
-
   InputDecoration _buildInputDecoration(String labelText) {
     return InputDecoration(
       enabledBorder: const OutlineInputBorder(
@@ -114,7 +111,7 @@ bool isValidPrefix(String prefix) {
       fillColor: Colors.grey.shade900,
       filled: true,
       labelText: labelText,
-      labelStyle: TextStyle(color: Colors.white),
+      labelStyle: const TextStyle(color: Colors.white),
       hintText: labelText,
       hintStyle: TextStyle(color: Colors.grey[500]),
     );
@@ -130,7 +127,7 @@ bool isValidPrefix(String prefix) {
       await usersCollection.doc(user.uid).set({
         'uid': user.uid,
         'email': user.email,
-        'birthdate' : birthdateController.text,
+        'birthdate': birthdateController.text,
         'business_name': businessNameController.text,
         'manager_name': managerNameController.text,
         'phone_number': phoneNumberController.text,
@@ -141,7 +138,6 @@ bool isValidPrefix(String prefix) {
     }
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -186,7 +182,8 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: businessNameController,
                           decoration: _buildInputDecoration('Business Name'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Business name';
@@ -197,7 +194,8 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: managerNameController,
                           decoration: _buildInputDecoration('Manager Full Name'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Business\'s Manager Full name';
@@ -208,7 +206,8 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: phoneNumberController,
                           decoration: _buildInputDecoration('Phone Number'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Phone Number';
@@ -231,11 +230,11 @@ bool isValidPrefix(String prefix) {
                             return null;
                           },
                         ),
-
                         TextFormField(
                           controller: cityController,
                           decoration: _buildInputDecoration('City'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter City';
@@ -246,7 +245,8 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: streetController,
                           decoration: _buildInputDecoration('Street'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Street';
@@ -257,12 +257,20 @@ bool isValidPrefix(String prefix) {
                         TextFormField(
                           controller: streetNumberController,
                           decoration: _buildInputDecoration('Building Number'),
-                          style: TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.number,
+                          style: const TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Building Number';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           onChanged: (value) {
                             setState(() => email = value);
                           },
+                          keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Enter an email';
@@ -270,16 +278,17 @@ bool isValidPrefix(String prefix) {
                             return null;
                           },
                           decoration: _buildInputDecoration('E-Mail'),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           obscureText: false,
                         ),
                         TextFormField(
                           onChanged: (value) {
                             setState(() => password = value);
                           },
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           obscureText: true,
                           decoration: _buildInputDecoration('Password'),
+                          keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value == null || value.length < 6) {
                               return 'Enter a password 6+ chars long';
@@ -287,31 +296,29 @@ bool isValidPrefix(String prefix) {
                             return null;
                           },
                         ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        // if (_formKey.currentState?.validate() ?? false) {
-                        dynamic result = await _auth
-                            .registerWithEmailAndPassword(email, password);
+                        ElevatedButton(
+                          onPressed: () async {
+                            dynamic result = await _auth
+                                .registerWithEmailAndPassword(email, password);
+                            if (result == null) {
+                              setState(() => error = 'Please supply a valid email');
+                            } else {
+                              await _saveUserDataToFirestore();
 
-                        if (result == null) {
-                          setState(() => error = 'Please supply a valid email');
-                        } else {
-                          await _saveUserDataToFirestore();
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MainPageBusiness(),
-                            ),
-                          );
-                        }
-                      },
-                      child: const Text('Submit'),
-                    ),
-                    SizedBox(height: 12.0),
-                    Text(
-                      error,
-                      style: TextStyle(color: Colors.red, fontSize: 14.0),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MainPageBusiness(),
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text('Submit'),
+                        ),
+                        const SizedBox(height: 12.0),
+                        Text(
+                          error,
+                          style: const TextStyle(color: Colors.red, fontSize: 14.0),
                         )
                       ],
                     ),

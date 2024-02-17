@@ -97,7 +97,7 @@ Widget _buildWineForm(BuildContext context) {
           child: TextFormField(
             controller: _nameController,
             decoration: InputDecoration(
-              hintText: 'Name', 
+              hintText: 'Name',
               border: OutlineInputBorder(),
             ),
             validator: (value) {
@@ -132,6 +132,7 @@ Widget _buildWineForm(BuildContext context) {
               hintText: 'Description',
               border: OutlineInputBorder(),
             ),
+            keyboardType: TextInputType.text,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter the description';
