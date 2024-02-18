@@ -35,8 +35,9 @@ class ClientShopPage extends StatelessWidget {
                       itemCount: businesses.length,
                       itemBuilder: (context, index) {
                         final business = businesses[index];
-                        return ListTile(
-                          title: Text(business.business_name),
+                        return BusinessCard(
+                          business: business,
+                          icon: Icons.business, // Specify the icon here
                           onTap: () {
                             Navigator.push(
                               context,
@@ -53,6 +54,62 @@ class ClientShopPage extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class BusinessCard extends StatelessWidget {
+  final BusinessModel business;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const BusinessCard({required this.business, required this.icon, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 3,
+        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                size: 40,
+                color: Colors.blue, // Customize the color if needed
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      business.business_name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Manager: ${business.manager_name}',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Location: ${business.city}, ${business.street} ${business.street_number}',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

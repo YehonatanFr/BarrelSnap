@@ -1,10 +1,11 @@
+import 'package:BarrelSnap/pages/client/client_wine_card.dart';
 import 'package:flutter/material.dart';
-import 'package:BarrelSnap/models/business.dart';
-import 'package:BarrelSnap/models/wines.dart';
-import 'package:BarrelSnap/services/wineService.dart';
-import 'package:BarrelSnap/pages/client/wines_page.dart';
+import '/models/business.dart';
+import '/models/wines.dart';
+import '/services/wineService.dart';
+import 'package:BarrelSnap/pages/client/client_wine_card.dart';
 
-// Wines Page for a Selected Business
+
 class WinesPage extends StatelessWidget {
   final String businessId;
 
@@ -13,40 +14,46 @@ class WinesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('The winery collaction')),
+      appBar: AppBar(title: Text('The Winery Collection')),
       body: FutureBuilder<List<dynamic>>(
         future: WineServices.fetchWines(businessId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
+            return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             final business = snapshot.data![0] as BusinessModel;
             final wines = snapshot.data![1] as List<WineModel>;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Business Name: ${business.business_name}'),
-                Text('Manager Name: ${business.manager_name}'),
-                // Add more details of the business as needed
-
-                SizedBox(height: 20),
-                Text('Wines:'),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: wines.length,
-                    itemBuilder: (context, index) {
-                      final wine = wines[index];
-                      return ListTile(
-                        title: Text(wine.name),
-                        subtitle: Text('Price: \$${wine.price}'),
-                        // You can display more details of wine if needed
-                      );
-                    },
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Business Name: ${business.business_name}',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-              ],
+                  SizedBox(height: 8),
+                  Text(
+                    'Manager Name: ${business.manager_name}',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Wines:',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 20),
+                  Column(
+                    children: wines.map((wine) {
+                      return ClientWineCard(wine: wine);
+                    }).toList(),
+                  ),
+                ],
+              ),
             );
           }
         },
