@@ -1,0 +1,39 @@
+lib/
+├── components/
+│   ├── my_bottom_nav_bar.dart
+│   ├── my_drawer.dart
+│   ├── my_square_tile.dart
+├── images/
+│   ├── apple.png
+│   ├── backgroung.jpg
+│   ├── backgroung1.jpg
+│   ├── google.png
+│   ├── logo.jpeg
+│   └── wine_barrel_background.jpg
+├── models/
+│   └── user.dart
+├── pages/
+│   ├── business/
+│   │   ├── about_page_business.dart
+│   │   ├── business_detail.dart
+│   │   ├── business_register.dart
+│   │   ├── home_page_business.dart
+│   │   ├── main_page_business.dart
+│   │   ├── profile_page_business.dart
+│   │   ├── setting_page_business.dart
+│   │   └── shop_page_business.dart
+│   ├── client/
+│   │   ├── about_page_client.dart
+│   │   ├── client_detail.dart
+│   │   ├── client_register.dart
+│   │   ├── home_page_client.dart
+│   │   ├── main_page_client.dart
+│   │   ├── profile_page_client.dart
+│   │   ├── setting_page_client.dart
+│   │   └── shop_page_client.dart
+│   ├── home.dart
+│   ├── login_page.dart
+│   ├── role_section_page.dart
+│   └── wrapper.dart
+└── services/
+    └── auth.dart

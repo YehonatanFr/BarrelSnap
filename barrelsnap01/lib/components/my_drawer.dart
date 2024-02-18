@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:startertemplate/pages/login_page.dart';
-import 'package:startertemplate/services/auth.dart';
+import '/pages/login_page.dart';
+import '/services/auth.dart';
 import '../pages/business/about_page_business.dart';
 import '../pages/client/about_page_client.dart';
 // import  '../login_page.dart';
@@ -79,9 +79,9 @@ class MyDrawer extends StatelessWidget {
                   await _auth.signOut();
                   print('Logout successful');
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                       builder: (context) => LoginPage(),
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
                     ),
                   );
                 } catch (e) {
@@ -99,4 +99,3 @@ class MyDrawer extends StatelessWidget {
     );
   }
 }
-

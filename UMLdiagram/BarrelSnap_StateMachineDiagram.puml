@@ -1,0 +1,16 @@
+@startuml BarrelSnap_StateMachineDiagram
+
+
+[*] -->  BuyWine: Click to Buy Wine
+BuyWine --> InStock: Wine in Stock?
+BuyWine --> OutOfStock: Wine out of Stock
+
+InStock --> PaymentPage: Proceed to Payment
+OutOfStock --> PromptMessage: Show Prompt Message
+
+PaymentPage --> DeleteWine: delete wine from stock
+
+DeleteWine --> [*]
+PromptMessage --> [*]
+
+@enduml

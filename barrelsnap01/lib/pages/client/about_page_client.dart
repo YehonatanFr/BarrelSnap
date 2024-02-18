@@ -40,12 +40,12 @@ class AboutPage extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
+          const Padding(
+            padding: EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 50),
+                SizedBox(height: 50),
                 Text(
                   'About',
                   style: TextStyle(
@@ -54,7 +54,7 @@ class AboutPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 Text(
                   'This app was designed to provide a comprehensive platform for both wineries and wine enthusiasts.',
                   style: TextStyle(
@@ -62,7 +62,7 @@ class AboutPage extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 Text(
                   'Features:',
                   style: TextStyle(
@@ -71,7 +71,7 @@ class AboutPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10),
                 Text(
                   '- Customers and winery owners can track the wine production process from grape stage to bottle purchase.',
                   style: TextStyle(
@@ -93,7 +93,7 @@ class AboutPage extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 Text(
                   'Benefits:',
                   style: TextStyle(
@@ -102,7 +102,7 @@ class AboutPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10),
                 Text(
                   '- Wineries can showcase their products and events to a wider audience, increasing sales and visibility.',
                   style: TextStyle(

@@ -1,0 +1,27 @@
+@startuml BarrelSnap_ActivityDiagram
+
+start
+:Start Application;
+if (Registered User?) then (yes)
+  :Login;
+else (no)
+  :Register;
+  :Choose Role;
+endif
+
+if (Client?) then (yes)
+  :Main Page (Client);
+  :View Available Wines;
+  :Buy Wines;
+  :Follow Wine Newsletter;
+else (no)
+  :Main Page (Manager);
+  :Manage Winery;
+  :Sell Wines;
+  :Add Wines for Sell;
+endif
+
+:End Application;
+stop
+
+@enduml

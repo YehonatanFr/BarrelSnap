@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:startertemplate/components/my_bottom_nav_bar.dart';
-import 'package:startertemplate/components/my_drawer.dart';
+import '/components/my_bottom_nav_bar.dart';
+import '/components/my_drawer.dart';
 import 'home_page_client.dart';
 import 'profile_page_client.dart';
 import 'setting_page_client.dart';
@@ -50,9 +50,6 @@ class _MainPageState extends State<MainPageClient> {
 
     // profile page
     const ProfilePageClient(),
-
-    // setting page
-    const SettingPageClient(),
   ];
 
   @override
