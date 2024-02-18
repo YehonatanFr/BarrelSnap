@@ -41,6 +41,16 @@ class WinesPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Winery\'s Address: ${business.city}, ${business.street} ${business.street_number}',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Winery\'s Phone: ${business.phone_number}',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   SizedBox(height: 20),
                   Text(
                     'Wines:',

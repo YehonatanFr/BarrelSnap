@@ -37,7 +37,7 @@ class ClientShopPage extends StatelessWidget {
                         final business = businesses[index];
                         return BusinessCard(
                           business: business,
-                          icon: Icons.business, // Specify the icon here
+                          icon: Icons.business,
                           onTap: () {
                             Navigator.push(
                               context,
