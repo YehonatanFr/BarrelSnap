@@ -13,8 +13,8 @@ class CartPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Center(
-            child: Padding(
+          Center(
+            child: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
                 'My Cart',
@@ -40,19 +40,40 @@ class CartPage extends StatelessWidget {
                 } else if (snapshot.data!.docs.isEmpty) {
                   return const Center(child: Text('Your cart is empty.'));
                 } else {
-                  return ListView(
-                    children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      final document = snapshot.data!.docs[index];
                       final data = document.data() as Map<String, dynamic>;
-                      final WineName = data['Wine Name'];
+                      final wineName = data['Wine Name'];
                       final quantity = data['quantity'];
 
-                      // TODO: Fetch wine details using wineId and display them
+                      // Fetch wine details using wineId and display them
+                      // Here you should fetch the wine details using the wineId
+                      // For now, let's assume wineName is a placeholder for the wine name
 
-                      return ListTile(
-                        title: Text('Wine Name: $WineName'),
-                        subtitle: Text('Quantity: $quantity'),
+                      return Card(
+                        margin: EdgeInsets.all(8),
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Row(
+                            children: [
+                              Icon(Icons.wine_bar),
+                              SizedBox(width: 8),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('$wineName'), // Replace wineName with actual wine name
+                                    Text('Quantity: $quantity'),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
-                    }).toList(),
+                    },
                   );
                 }
               },
@@ -61,21 +82,5 @@ class CartPage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-Future<void> addToCart(BuildContext context, WineModel wine, String customerId) async {
-  final cartRef = FirebaseFirestore.instance.collection('customer').doc(customerId).collection('cart');
-
-  try {
-    await cartRef.add({
-      'wineId': wine.id,
-      'quantity': wine.quantity,
-    });
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Item added to cart.'),
-    ));
-  } catch (e) {
-    rethrow;
   }
 }

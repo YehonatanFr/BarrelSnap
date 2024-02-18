@@ -52,9 +52,7 @@ class ClientWineCard extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                final user = FirebaseAuth.instance.currentUser;
-                final customerId = user?.uid;
-                _addToCartFirestore(wine, customerId);
+                _addToCartFirestore(context);
                 Navigator.of(context).pop(true);
               },
               child: Text('Yes'),
@@ -65,31 +63,29 @@ class ClientWineCard extends StatelessWidget {
     );
   }
 
-static Future<void> _addToCartFirestore(WineModel wine, String? customerId) async {
-  try {
-    final cartRef = FirebaseFirestore.instance
-        .collection('customer')
-        .doc(customerId)
-        .collection('cart');
+void _addToCartFirestore(BuildContext context) {
+  final user = FirebaseAuth.instance.currentUser;
+  final customerId = user?.uid;
+  final cartRef = FirebaseFirestore.instance.collection('carts').doc(customerId);
 
-    final existingWineQuery = await cartRef.where('Wine Name', isEqualTo: wine.name).get();
-    if (existingWineQuery.docs.isNotEmpty) {
-      // Wine already exists in the cart, update quantity
-      final existingWineDoc = existingWineQuery.docs.first;
-      final existingQuantity = existingWineDoc['quantity'] as int;
-      await existingWineDoc.reference.update({'quantity': existingQuantity + 1});
-    } else {
-      // Wine doesn't exist in the cart, add it
-      await cartRef.add({
-        'Wine Name': wine.name,
-        'quantity': 1,
-      });
+  cartRef.get().then((cartSnapshot) {
+    if (!cartSnapshot.exists) {
+      cartRef.set({});
     }
-  } catch (e) {
-    rethrow;
-  }
+
+    cartRef.collection('items').add({
+      'Wine Name': wine.name,
+      'quantity': 1,
+    }).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('${wine.name} added to cart.'),
+      ));
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Failed to add ${wine.name} to cart. Please try again.'),
+      ));
+    });
+  });
 }
 
-
 }
-
