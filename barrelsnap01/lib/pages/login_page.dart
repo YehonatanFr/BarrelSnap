@@ -5,6 +5,7 @@ import 'client/main_page_client.dart';
 import '../services/auth.dart';
 import '/pages/role_section_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '/forgotPassPage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key});
@@ -113,14 +114,11 @@ class _LoginPageState extends State<LoginPage> {
                             GestureDetector(
                               onTap: () async {
                                 try {
-                                  dynamic result =
-                                      await _auth.forgotPassword(email: email);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text("Password reset email sent!"),
-                                      backgroundColor: Colors.green,
-                                    ),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ForgotPassPage()),
                                   );
                                 } catch (error) {
                                   ScaffoldMessenger.of(context).showSnackBar(
