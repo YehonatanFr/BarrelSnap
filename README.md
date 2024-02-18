@@ -108,10 +108,10 @@ BarrelSnap is a revolutionary mobile application designed to empower wineries an
 
 ## Screenshots
 
-![Open App page](barrelsnap01/lib/images/OpenApp.png)   ![Login page](barrelsnap01/lib/images/LoginPage.png)
-![Choose Rule page](barrelsnap01/lib/images/ChooseRule.png)
-![Business Register page](barrelsnap01/lib/images/BusinessRegister.png)
-![Client Register page](barrelsnap01/lib/images/ClientRegister.png)
+![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ece2486d-6b56-4670-87d7-4195fdb82ea7)    ![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/cfd18cde-803a-4897-9453-3c453dcdc398)   ![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/76029dd5-ed38-450f-9246-c4c868c16269)  ![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/20a2d8a1-196c-48cb-a319-538757ccaf19)  ![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/c0270729-455f-4137-846a-9e3abfce7410)
+
+
+
 
 
 
