@@ -7,7 +7,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentUser = FirebaseAuth.instance.currentUser;
-    final customerId = currentUser?.uid;
+    final customerId = currentUser?.uid ?? '';
 
     return Scaffold(
       body: Column(
@@ -43,13 +43,13 @@ class CartPage extends StatelessWidget {
                   return ListView(
                     children: snapshot.data!.docs.map((DocumentSnapshot document) {
                       final data = document.data() as Map<String, dynamic>;
-                      final wineId = data['wineId'];
+                      final WineName = data['Wine Name'];
                       final quantity = data['quantity'];
 
                       // TODO: Fetch wine details using wineId and display them
 
                       return ListTile(
-                        title: Text('Wine ID: $wineId'),
+                        title: Text('Wine Name: $WineName'),
                         subtitle: Text('Quantity: $quantity'),
                       );
                     }).toList(),
