@@ -1,40 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:BarrelSnap/models/business.dart';
+import 'package:BarrelSnap/services/wineService.dart';
+import 'package:BarrelSnap/pages/client/wines_page.dart';
 
-/*
-
-S H O P P A G E
-
-This is the ShopPage.
-Currently it is just showing a grid of boxes.
-
-This page should be populated with products and services 
-that the user can buy $
-
-*/
-
-class ShopPageClient extends StatelessWidget {
-  const ShopPageClient({super.key});
-
+class BusinessesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: GridView.builder(
-          itemCount: 10,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
-          itemBuilder: (context, index) => Container(
-            height: 200,
-            margin: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: Colors.grey[200],
-            ),
-          ),
-        ),
+      appBar: AppBar(title: Text('All Businesses')),
+      body: FutureBuilder<List<BusinessModel>>(
+        future: WineServices.fetchBusinesses(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            final businesses = snapshot.data!;
+            return ListView.builder(
+              itemCount: businesses.length,
+              itemBuilder: (context, index) {
+                final business = businesses[index];
+                return ListTile(
+                  title: Text(business.business_name),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WinesPage(businessId: business.uid),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }
 }
+
+
+// class ShopPageClient extends StatelessWidget {
+//   const ShopPageClient({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Shop')),
+//       body: Padding(
+//         padding: const EdgeInsets.all(10.0),
+//         child: GridView.builder(
+//           itemCount: 10,
+//           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//             crossAxisCount: 2,
+//             mainAxisSpacing: 10.0,
+//             crossAxisSpacing: 10.0,
+//           ),
+//           itemBuilder: (context, index) => Container(
+//             height: 200,
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(4),
+//               color: Colors.grey[200],
+//             ),
+//             child: Center(
+//               child: Text('Product $index'),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
