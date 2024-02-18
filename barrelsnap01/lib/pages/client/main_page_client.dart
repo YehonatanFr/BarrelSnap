@@ -46,7 +46,7 @@ class _MainPageState extends State<MainPageClient> {
     const HomePageClient(),
 
     // shop page
-    BusinessesPage(),
+    ClientShopPage(),
 
     // profile page
     const ProfilePageClient(),

@@ -121,44 +121,41 @@ static Future<List<BusinessModel>> fetchBusinesses() async {
 
 
 
-static Future<List<dynamic>> fetchWines(String businessId) async {
-  try {
-    final businessDoc = await FirebaseFirestore.instance.collection('business').doc(businessId).get();
-    final businessData = businessDoc.data();
-    if (businessData != null) {
-      final business = BusinessModel(
-        uid: businessId,
-        business_name: businessData['business_name'] ?? '', // Correct the field name here
-        manager_name: businessData['manager_name'] ?? '', // Correct the field name here
-        birthdate: businessData['birthdate'] != null ? DateTime.parse(businessData['birthdate']) : DateTime.now(),
-        phone_number: businessData['phone_number'] ?? '', // Correct the field name here
-        city: businessData['city'] ?? '', // Correct the field name here
-        street: businessData['street'] ?? '', // Correct the field name here
-        street_number: businessData['street_number'] ?? '', // Correct the field name here
-      );
-
-      final winesSnapshot = await FirebaseFirestore.instance.collection('business').doc(businessId).collection('wines').get();
-      final wines = winesSnapshot.docs.map((doc) {
-        final data = doc.data();
-        return WineModel(
-          id: doc.id,
-          name: data['name'] ?? '',
-          kindOfGrape: data['kindOfGrape'] ?? '',
-          description: data['description'] ?? '',
-          price: data['price'] ?? 0,
-          quantity: data['quantity'] ?? 0,
+  static Future<List<dynamic>> fetchWines(String businessId) async {
+    try {
+      final businessDoc = await FirebaseFirestore.instance.collection('business').doc(businessId).get();
+      final businessData = businessDoc.data();
+      if (businessData != null) {
+        final business = BusinessModel(
+          uid: businessId,
+          business_name: businessData['business_name'] ?? '',
+          manager_name: businessData['manager_name'] ?? '',
+          phone_number: businessData['phone_number'] ?? '',
+          city: businessData['city'] ?? '',
+          street: businessData['street'] ?? '',
+          street_number: businessData['street_number'] ?? '',
         );
-      }).toList();
 
-      return [business, wines];
-    } else {
-      throw 'Business data is null';
+        final winesSnapshot = await FirebaseFirestore.instance.collection('business').doc(businessId).collection('wines').get();
+        final wines = winesSnapshot.docs.map((doc) {
+          final data = doc.data();
+          return WineModel(
+            id: doc.id,
+            name: data['name'] ?? '',
+            kindOfGrape: data['kindOfGrape'] ?? '',
+            description: data['description'] ?? '',
+            price: data['price'] ?? 0,
+            quantity: data['quantity'] ?? 0,
+          );
+        }).toList();
+
+        return [business, wines];
+      } else {
+        throw 'Business data is null';
+      }
+    } catch (e) {
+      rethrow;
     }
-  } catch (e) {
-    rethrow;
   }
-}
-
-
 }
 
