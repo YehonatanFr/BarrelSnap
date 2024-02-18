@@ -80,7 +80,7 @@ class _MainPageState extends State<MainPageClient> {
           ),
         ),
         title: Text(
-          'A P P',
+          'B a r r e l  S n a p',
           style: TextStyle(color: Colors.grey.shade800),
         ),
       ),
