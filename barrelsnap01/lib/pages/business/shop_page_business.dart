@@ -50,8 +50,8 @@ Widget build(BuildContext context) {
   return Scaffold(
     body: Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             'My Wines',
             style: TextStyle(
@@ -64,7 +64,7 @@ Widget build(BuildContext context) {
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             onChanged: _filterWines,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Search by Wine name',
               prefixIcon: Icon(Icons.search),
             ),
@@ -131,7 +131,7 @@ Widget build(BuildContext context) {
             height: 40,
             child: TextFormField(
               controller: _nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Name',
                 border: OutlineInputBorder(),
               ),
@@ -147,7 +147,7 @@ Widget build(BuildContext context) {
             height: 40,
             child: TextFormField(
               controller: _kindOfGrapeController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Kind of grape',
                 border: OutlineInputBorder(),
               ),
@@ -163,7 +163,7 @@ Widget build(BuildContext context) {
             height: 40,
             child: TextFormField(
               controller: _descriptionController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Description',
                 border: OutlineInputBorder(),
               ),
@@ -180,7 +180,7 @@ Widget build(BuildContext context) {
             height: 40,
             child: TextFormField(
               controller: _priceController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Price',
                 border: OutlineInputBorder(),
               ),
@@ -197,7 +197,7 @@ Widget build(BuildContext context) {
             height: 40,
             child: TextFormField(
               controller: _quantityController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Quantity',
                 border: OutlineInputBorder(),
               ),

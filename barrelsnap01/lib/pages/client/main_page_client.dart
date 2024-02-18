@@ -1,3 +1,4 @@
+import 'package:BarrelSnap/pages/client/cart_page.dart';
 import 'package:flutter/material.dart';
 import '/components/my_bottom_nav_bar.dart';
 import '/components/my_drawer.dart';
@@ -48,8 +49,12 @@ class _MainPageState extends State<MainPageClient> {
     // shop page
     ClientShopPage(),
 
+    // cart page
+    CartPage(),
+    
     // profile page
     const ProfilePageClient(),
+
   ];
 
   @override
