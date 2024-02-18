@@ -2,11 +2,10 @@ import 'package:BarrelSnap/forgotPassPage.dart';
 import 'package:BarrelSnap/pages/business/main_page_business.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:BarrelSnap/pages/client/main_page_client.dart';
-import 'package:BarrelSnap/services/auth.dart';
+import 'client/main_page_client.dart';
+import '../services/auth.dart';
 import '/pages/role_section_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key});
 
@@ -20,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   String email = '';
   String password = '';
   String error = '';
-
 
   @override
   Widget build(BuildContext context) {
@@ -148,50 +146,65 @@ class _LoginPageState extends State<LoginPage> {
                       ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                            dynamic result = await _auth
+                                .signInWithEmailAndPassword(email, password);
                             if (result == null) {
-                              setState(() => error = 'Could not sign in with these credentials');
+                              setState(() => error =
+                                  'Could not sign in with these credentials');
                             } else {
-                              final CollectionReference collRefBusiness = FirebaseFirestore.instance.collection('business');
-                              final CollectionReference collRefUsers = FirebaseFirestore.instance.collection('customer');
+                              final CollectionReference collRefBusiness =
+                                  FirebaseFirestore.instance
+                                      .collection('business');
+                              final CollectionReference collRefUsers =
+                                  FirebaseFirestore.instance
+                                      .collection('customer');
 
                               User? user = FirebaseAuth.instance.currentUser;
-                              final docSnapshotUser = await collRefUsers.doc(user!.uid).get();
+                              final docSnapshotUser =
+                                  await collRefUsers.doc(user!.uid).get();
 
-                              final docSnapshotBusiness = await collRefBusiness.doc(user.uid).get();
+                              final docSnapshotBusiness =
+                                  await collRefBusiness.doc(user.uid).get();
 
                               if (docSnapshotUser.exists) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const MainPageClient(),
+                                    builder: (context) =>
+                                        const MainPageClient(),
                                   ),
                                 );
                               } else if (docSnapshotBusiness.exists) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const MainPageBusiness(),
+                                    builder: (context) =>
+                                        const MainPageBusiness(),
                                   ),
                                 );
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to login in')));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Failed to login in')));
                               }
                             }
                           }
                         },
                         child: const Text('Sign in'),
                         style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 16), // button text style
+                          textStyle: const TextStyle(
+                              fontSize: 16), // button text style
                         ),
                       ),
                       const SizedBox(height: 5.0),
                       Text(
                         error,
-                        style: const TextStyle(color: Colors.red, fontSize: 14.0),  
+                        style:
+                            const TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 50.0),
                         child: ElevatedButton(
                           child: const Text('Sign in anon'),
                           onPressed: () async {
@@ -268,4 +281,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-

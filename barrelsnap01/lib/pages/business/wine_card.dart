@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:BarrelSnap/models/wines.dart';
+import '/models/wines.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:BarrelSnap/services/wineService.dart';
+import '/services/wineService.dart';
 
 class WineCard extends StatelessWidget {
   final WineModel wine;
@@ -33,7 +33,8 @@ class WineCard extends StatelessWidget {
   }
 
   void _showUpdateQuantityDialog(BuildContext context, WineModel wine) {
-    TextEditingController _quantityController = TextEditingController(text: '${wine.quantity}');
+    TextEditingController _quantityController =
+        TextEditingController(text: '${wine.quantity}');
 
     showDialog(
       context: context,
@@ -58,7 +59,8 @@ class WineCard extends StatelessWidget {
                     child: TextFormField(
                       controller: _quantityController,
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(labelText: 'New Quantity'),
+                      decoration:
+                          const InputDecoration(labelText: 'New Quantity'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter the new quantity';
@@ -91,7 +93,8 @@ class WineCard extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                _updateQuantity(context, wine, int.parse(_quantityController.text));
+                _updateQuantity(
+                    context, wine, int.parse(_quantityController.text));
               },
               child: const Text('Update'),
             ),

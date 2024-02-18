@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import'package:BarrelSnap/components/my_bottom_nav_bar.dart';
-import'package:BarrelSnap/components/my_drawer.dart';
+import '/components/my_bottom_nav_bar.dart';
+import '/components/my_drawer.dart';
 import 'home_page_business.dart';
 import 'profile_page_business.dart';
 import 'shop_page_business.dart';
-
-
 
 class MainPageBusiness extends StatefulWidget {
   const MainPageBusiness({super.key});
@@ -25,16 +23,12 @@ class _MainPageState extends State<MainPageBusiness> {
 
   final List<Widget> _pages = [
     const HomePageBusiness(),
-
     const ShopPageBusiness(),
-
     const ProfilePageBusiness(),
-
   ];
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(

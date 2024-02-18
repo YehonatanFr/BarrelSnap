@@ -17,7 +17,8 @@ class HomePageBusiness extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
-            final managerFullName = snapshot.data?.get('manager_name') as String?;
+            final managerFullName =
+                snapshot.data?.get('manager_name') as String?;
             return Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -56,7 +57,10 @@ class HomePageBusiness extends StatelessWidget {
   Future<DocumentSnapshot> _fetchManagerData() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
-      final docSnapshot = await FirebaseFirestore.instance.collection('business').doc(user?.uid).get();
+      final docSnapshot = await FirebaseFirestore.instance
+          .collection('business')
+          .doc(user?.uid)
+          .get();
       return docSnapshot;
     } catch (e) {
       throw Exception('Failed to fetch manager data: $e');
