@@ -13,6 +13,7 @@ class ShopPageBusiness extends StatefulWidget {
 
 class _ShopPageBusinessState extends State<ShopPageBusiness> {
   late List<WineModel> wines = [];
+  late List<WineModel> filteredWines = [];
 
   @override
   void initState() {
@@ -28,39 +29,70 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
           await WineServices.getBusinessWines(businessId);
       setState(() {
         wines = fetchedWines;
+        filteredWines = List.from(wines); // Initialize filteredWines with all wines
       });
     } catch (e) {
       print('Error fetching wines: $e');
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: wines.length,
-              itemBuilder: (context, index) => WineCard(
-                wine: wines[index],
-                onUpdate: () => fetchWines(),
-              ),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                _showAddWineDialog(context);
-              },
-              child: const Text('Add New Wine'),
-            ),
-          ),
-        ],
-      ),
-    );
+  void _filterWines(String query) {
+    setState(() {
+      filteredWines = wines
+          .where((wine) =>
+              wine.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
   }
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'My Wines',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Padding( // Add Padding for TextField
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            onChanged: _filterWines,
+            decoration: InputDecoration(
+              labelText: 'Search by Wine name',
+              prefixIcon: Icon(Icons.search),
+            ),
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: filteredWines.length,
+            itemBuilder: (context, index) => WineCard(
+              wine: filteredWines[index],
+              onUpdate: () => fetchWines(),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              _showAddWineDialog(context);
+            },
+            child: const Text('Add New Wine'),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 
   void _showAddWineDialog(BuildContext context) {
     showDialog(

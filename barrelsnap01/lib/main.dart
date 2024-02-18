@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:BarrelSnap/pages/login_page.dart';
-import '/pages/login_page.dart'; 
+import '/pages/login_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
