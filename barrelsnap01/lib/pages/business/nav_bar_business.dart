@@ -28,7 +28,7 @@ class MyBottomNavBar extends StatelessWidget {
             text: 'Shop',
           ),
           GButton(
-            icon: Icons.shopping_cart,
+            icon: Icons.receipt_long,
             text: 'My Orders',
           ),
           GButton(
