@@ -52,7 +52,9 @@ class ClientWineCard extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                _addToCartFirestore(context);
+                final user = FirebaseAuth.instance.currentUser;
+                final customerId = user?.uid;
+                _addToCartFirestore(wine, customerId);
                 Navigator.of(context).pop(true);
               },
               child: Text('Yes'),
@@ -63,29 +65,28 @@ class ClientWineCard extends StatelessWidget {
     );
   }
 
-void _addToCartFirestore(BuildContext context) {
-  final user = FirebaseAuth.instance.currentUser;
-  final customerId = user?.uid;
-  final cartRef = FirebaseFirestore.instance.collection('carts').doc(customerId);
+static Future<void> _addToCartFirestore(WineModel wine, String? customerId) async {
+  try {
+    final cartRef = FirebaseFirestore.instance
+        .collection('customer')
+        .doc(customerId)
+        .collection('cart');
 
-  cartRef.get().then((cartSnapshot) {
-    if (!cartSnapshot.exists) {
-      cartRef.set({});
+    final existingWineQuery = await cartRef.where('Wine Name', isEqualTo: wine.name).get();
+    if (existingWineQuery.docs.isNotEmpty) {
+      final existingWineDoc = existingWineQuery.docs.first;
+      final existingQuantity = existingWineDoc['quantity'] as int;
+      await existingWineDoc.reference.update({'quantity': existingQuantity + 1});
+    } else {
+      await cartRef.add({
+        'Wine Name': wine.name,
+        'quantity': 1,
+      });
     }
-
-    cartRef.collection('items').add({
-      'Wine Name': wine.name,
-      'quantity': 1,
-    }).then((value) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${wine.name} added to cart.'),
-      ));
-    }).catchError((error) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Failed to add ${wine.name} to cart. Please try again.'),
-      ));
-    });
-  });
+  } catch (e) {
+    rethrow;
+  }
 }
+
 
 }
