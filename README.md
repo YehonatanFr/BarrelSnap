@@ -111,15 +111,19 @@ BarrelSnap is a revolutionary mobile application designed to empower wineries an
 ![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ece2486d-6b56-4670-87d7-4195fdb82ea7)    ![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/cfd18cde-803a-4897-9453-3c453dcdc398)   ![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/76029dd5-ed38-450f-9246-c4c868c16269)  ![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/20a2d8a1-196c-48cb-a319-538757ccaf19)  ![image](https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/c0270729-455f-4137-846a-9e3abfce7410)
 
 ## Business screenshots
+<img width="331" alt="Screenshot 2024-02-18 at 22 37 57" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/3dd98ddb-c74b-415f-ae1c-307f7620a93a">
 <img width="336" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/b3aa1bff-8159-40e8-874b-6f8a9da3081c">
 <img width="338" alt="Screenshot 2024-02-18 at 21 21 17" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/d67b8d40-1cd3-4ea9-8db0-11d4bdb05815">
-<img width="335" alt="Screenshot 2024-02-18 at 21 21 39" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/1ced4bd8-2ceb-4e50-8075-4d74eaa227e9">
+<img width="338" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/f6df62b2-79de-4856-8e5b-923f22bf3647">
+
 
 
 ## Client screenshots
+<img width="334" alt="Screenshot 2024-02-18 at 22 40 09" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/1c1b25a3-747c-4d21-af88-2e2769128163">
 <img width="331" alt="Screenshot 2024-02-18 at 22 07 16" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/8e0fcbab-084c-4310-8ce8-bd325e1d4d27">
 <img width="332" alt="Screenshot 2024-02-18 at 22 07 42" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/dd159ae9-f151-4838-88bc-d4499c2d6b0d">
-<img width="331" alt="Screenshot 2024-02-18 at 22 07 59" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/d293d094-ef63-4a8b-956d-10e3739dab88">
+<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/57772699/cf5299ea-954a-47d6-a3ab-aed72c71c52a">
+
 
 
 
