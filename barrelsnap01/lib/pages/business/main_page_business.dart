@@ -1,5 +1,6 @@
+import 'package:BarrelSnap/pages/business/cart_page_business.dart';
 import 'package:flutter/material.dart';
-import '/components/my_bottom_nav_bar.dart';
+import 'nav_bar_business.dart';
 import '/components/my_drawer.dart';
 import 'home_page_business.dart';
 import 'profile_page_business.dart';
@@ -24,6 +25,7 @@ class _MainPageState extends State<MainPageBusiness> {
   final List<Widget> _pages = [
     const HomePageBusiness(),
     const ShopPageBusiness(),
+    CartPage(),
     const ProfilePageBusiness(),
   ];
 
@@ -44,7 +46,7 @@ class _MainPageState extends State<MainPageBusiness> {
           ),
         ),
         title: Text(
-          'A P P',
+          'B a r r e l  S n a p',
           style: TextStyle(color: Colors.grey.shade800),
         ),
       ),

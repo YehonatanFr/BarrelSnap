@@ -1,6 +1,6 @@
 import 'package:BarrelSnap/pages/client/cart_page.dart';
 import 'package:flutter/material.dart';
-import '/components/my_bottom_nav_bar.dart';
+import 'nav_bar_client.dart';
 import '/components/my_drawer.dart';
 import 'home_page_client.dart';
 import 'profile_page_client.dart';
