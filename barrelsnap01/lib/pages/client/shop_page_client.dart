@@ -3,60 +3,83 @@ import 'package:BarrelSnap/models/business.dart';
 import 'package:BarrelSnap/services/wineService.dart';
 import 'package:BarrelSnap/pages/client/wines_page.dart';
 
-class ClientShopPage extends StatelessWidget {
+class ClientShopPage extends StatefulWidget {
+  @override
+  _ClientShopPageState createState() => _ClientShopPageState();
+}
+
+class _ClientShopPageState extends State<ClientShopPage> {
+  late List<BusinessModel> _businesses;
+  late List<BusinessModel> _filteredBusinesses = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchBusinesses();
+  }
+
+  Future<void> _fetchBusinesses() async {
+    final businesses = await WineServices.fetchBusinesses();
+    setState(() {
+      _businesses = businesses;
+      _filteredBusinesses = businesses;
+    });
+  }
+
+  void _filterBusinesses(String query) {
+    setState(() {
+      _filteredBusinesses = _businesses
+          .where((business) =>
+              business.business_name.toLowerCase().contains(query.toLowerCase()) ||
+              business.manager_name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Our Wineries',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Search by business name or manager',
+                prefixIcon: Icon(Icons.search),
               ),
+              onChanged: _filterBusinesses,
             ),
-            Expanded(
-              child: FutureBuilder<List<BusinessModel>>(
-                future: WineServices.fetchBusinesses(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else {
-                    final businesses = snapshot.data!;
-                    return ListView.builder(
-                      itemCount: businesses.length,
-                      itemBuilder: (context, index) {
-                        final business = businesses[index];
-                        return BusinessCard(
-                          business: business,
-                          icon: Icons.business,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => WinesPage(businessId: business.uid),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: _buildBusinessList(),
+          ),
+        ],
       ),
     );
+  }
+
+  Widget _buildBusinessList() {
+    return _filteredBusinesses.isEmpty
+        ? Center(child: Text('No businesses found'))
+        : ListView.builder(
+            itemCount: _filteredBusinesses.length,
+            itemBuilder: (context, index) {
+              final business = _filteredBusinesses[index];
+              return BusinessCard(
+                business: business,
+                icon: Icons.business,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WinesPage(businessId: business.uid),
+                    ),
+                  );
+                },
+              );
+            },
+          );
   }
 }
 
@@ -81,7 +104,7 @@ class BusinessCard extends StatelessWidget {
               Icon(
                 icon,
                 size: 40,
-                color: Colors.blue, // Customize the color if needed
+                color: Colors.blue,
               ),
               SizedBox(width: 16),
               Expanded(
