@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:BarrelSnap/pages/business/main_page_business.dart';
-import 'package:BarrelSnap/services/auth.dart';
+import '/pages/business/main_page_business.dart';
+import '/services/auth.dart';
 
 class BusinessSignIn extends StatefulWidget {
   @override
@@ -77,7 +77,8 @@ class _BusinessSignInState extends State<BusinessSignIn> {
       lastDate: DateTime.now(),
     );
     if (picked != null && picked != DateTime.now()) {
-      final DateTime eighteenYearsAgo = DateTime.now().subtract(const Duration(days: 18 * 365));
+      final DateTime eighteenYearsAgo =
+          DateTime.now().subtract(const Duration(days: 18 * 365));
       if (picked.isBefore(eighteenYearsAgo)) {
         setState(() {
           birthdateController.text = DateFormat('yyyy-MM-dd').format(picked);
@@ -193,7 +194,8 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                         ),
                         TextFormField(
                           controller: managerNameController,
-                          decoration: _buildInputDecoration('Manager Full Name'),
+                          decoration:
+                              _buildInputDecoration('Manager Full Name'),
                           style: const TextStyle(color: Colors.white),
                           keyboardType: TextInputType.text,
                           validator: (value) {
@@ -211,7 +213,8 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Phone Number';
-                            } else if (!checkValidPhoneNumber(phoneNumberController.text)) {
+                            } else if (!checkValidPhoneNumber(
+                                phoneNumberController.text)) {
                               return 'Invalid Phone Number';
                             }
                             return null;
@@ -301,14 +304,16 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                             dynamic result = await _auth
                                 .registerWithEmailAndPassword(email, password);
                             if (result == null) {
-                              setState(() => error = 'Please supply a valid email');
+                              setState(
+                                  () => error = 'Please supply a valid email');
                             } else {
                               await _saveUserDataToFirestore();
 
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const MainPageBusiness(),
+                                  builder: (context) =>
+                                      const MainPageBusiness(),
                                 ),
                               );
                             }
@@ -318,7 +323,8 @@ class _BusinessSignInState extends State<BusinessSignIn> {
                         const SizedBox(height: 12.0),
                         Text(
                           error,
-                          style: const TextStyle(color: Colors.red, fontSize: 14.0),
+                          style: const TextStyle(
+                              color: Colors.red, fontSize: 14.0),
                         )
                       ],
                     ),

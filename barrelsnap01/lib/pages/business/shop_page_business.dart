@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:BarrelSnap/models/wines.dart';
+import '/models/wines.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:BarrelSnap/services/wineService.dart';
-import 'package:BarrelSnap/pages/business/wine_card.dart';
+import '/services/wineService.dart';
+import '/pages/business/wine_card.dart';
 
 class ShopPageBusiness extends StatefulWidget {
   const ShopPageBusiness({Key? key}) : super(key: key);
@@ -24,7 +24,8 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final String businessId = user?.uid ?? '';
-      final List<WineModel> fetchedWines = await WineServices.getBusinessWines(businessId);
+      final List<WineModel> fetchedWines =
+          await WineServices.getBusinessWines(businessId);
       setState(() {
         wines = fetchedWines;
       });
@@ -81,119 +82,122 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
     );
   }
 
-Widget _buildWineForm(BuildContext context) {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _kindOfGrapeController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _quantityController = TextEditingController();
+  Widget _buildWineForm(BuildContext context) {
+    final TextEditingController _nameController = TextEditingController();
+    final TextEditingController _kindOfGrapeController =
+        TextEditingController();
+    final TextEditingController _descriptionController =
+        TextEditingController();
+    final TextEditingController _priceController = TextEditingController();
+    final TextEditingController _quantityController = TextEditingController();
 
-  return Form(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          height: 40,
-          child: TextFormField(
-            controller: _nameController,
-            decoration: InputDecoration(
-              hintText: 'Name',
-              border: OutlineInputBorder(),
+    return Form(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 40,
+            child: TextFormField(
+              controller: _nameController,
+              decoration: InputDecoration(
+                hintText: 'Name',
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the name';
+                }
+                return null;
+              },
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the name';
-              }
-              return null;
-            },
           ),
-        ),
-        SizedBox(
-          height: 40,
-          child: TextFormField(
-            controller: _kindOfGrapeController,
-            decoration: InputDecoration(
-              hintText: 'Kind of grape', 
-              border: OutlineInputBorder(),
+          SizedBox(
+            height: 40,
+            child: TextFormField(
+              controller: _kindOfGrapeController,
+              decoration: InputDecoration(
+                hintText: 'Kind of grape',
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the kind of grape';
+                }
+                return null;
+              },
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the kind of grape';
-              }
-              return null;
-            },
           ),
-        ),
-        SizedBox(
-          height: 40,
-          child: TextFormField(
-            controller: _descriptionController,
-            decoration: InputDecoration(
-              hintText: 'Description',
-              border: OutlineInputBorder(),
+          SizedBox(
+            height: 40,
+            child: TextFormField(
+              controller: _descriptionController,
+              decoration: InputDecoration(
+                hintText: 'Description',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.text,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the description';
+                }
+                return null;
+              },
             ),
-            keyboardType: TextInputType.text,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the description';
-              }
-              return null;
-            },
           ),
-        ),
-        SizedBox(
-          height: 40,
-          child: TextFormField(
-            controller: _priceController,
-            decoration: InputDecoration(
-              hintText: 'Price',
-              border: OutlineInputBorder(),
+          SizedBox(
+            height: 40,
+            child: TextFormField(
+              controller: _priceController,
+              decoration: InputDecoration(
+                hintText: 'Price',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the price';
+                }
+                return null;
+              },
             ),
-            keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the price';
-              }
-              return null;
-            },
           ),
-        ),
-        SizedBox(
-          height: 40,
-          child: TextFormField(
-            controller: _quantityController,
-            decoration: InputDecoration(
-              hintText: 'Quantity',
-              border: OutlineInputBorder(),
+          SizedBox(
+            height: 40,
+            child: TextFormField(
+              controller: _quantityController,
+              decoration: InputDecoration(
+                hintText: 'Quantity',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter the quantity';
+                }
+                return null;
+              },
             ),
-            keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the quantity';
-              }
-              return null;
-            },
           ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            _addWine(
-              context,
-              _nameController.text,
-              _kindOfGrapeController.text,
-              _descriptionController.text,
-              int.parse(_priceController.text),
-              int.parse(_quantityController.text),
-            );
-          },
-          child: const Text('Add Wine'),
-        ),
-      ],
-    ),
-  );
-}
+          ElevatedButton(
+            onPressed: () {
+              _addWine(
+                context,
+                _nameController.text,
+                _kindOfGrapeController.text,
+                _descriptionController.text,
+                int.parse(_priceController.text),
+                int.parse(_quantityController.text),
+              );
+            },
+            child: const Text('Add Wine'),
+          ),
+        ],
+      ),
+    );
+  }
 
-  void _addWine(BuildContext context, String name, String kindOfGrape, String description, int price, int quantity) {
+  void _addWine(BuildContext context, String name, String kindOfGrape,
+      String description, int price, int quantity) {
     final WineModel wine = WineModel(
       id: '',
       name: name,

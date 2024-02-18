@@ -15,7 +15,6 @@ to give any feedback about the app.
 class AboutPageBusiness extends StatelessWidget {
   const AboutPageBusiness({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

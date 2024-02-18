@@ -1,12 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BarrelSnap/models/wines.dart';
 import 'package:BarrelSnap/models/business.dart';
+import '/models/wines.dart';
 
 
 class WineServices {
   static Future<void> addWine(WineModel wine, String businessId) async {
     try {
-      await FirebaseFirestore.instance.collection('business').doc(businessId).collection('wines').add({
+      await FirebaseFirestore.instance
+          .collection('business')
+          .doc(businessId)
+          .collection('wines')
+          .add({
         'name': wine.name,
         'kindOfGrape': wine.kindOfGrape,
         'description': wine.description,
@@ -18,9 +23,15 @@ class WineServices {
     }
   }
 
-  static Future<void> updateWine(WineModel wine, String businessId, String wineId) async {
+  static Future<void> updateWine(
+      WineModel wine, String businessId, String wineId) async {
     try {
-      await FirebaseFirestore.instance.collection('business').doc(businessId).collection('wines').doc(wineId).update({
+      await FirebaseFirestore.instance
+          .collection('business')
+          .doc(businessId)
+          .collection('wines')
+          .doc(wineId)
+          .update({
         'name': wine.name,
         'kindOfGrape': wine.kindOfGrape,
         'description': wine.description,
@@ -34,7 +45,12 @@ class WineServices {
 
   static Future<void> deleteWine(String businessId, String wineId) async {
     try {
-      await FirebaseFirestore.instance.collection('business').doc(businessId).collection('wines').doc(wineId).delete();
+      await FirebaseFirestore.instance
+          .collection('business')
+          .doc(businessId)
+          .collection('wines')
+          .doc(wineId)
+          .delete();
     } catch (e) {
       rethrow;
     }
@@ -42,7 +58,11 @@ class WineServices {
 
   static Future<List<WineModel>> getBusinessWines(String businessId) async {
     try {
-      final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('business').doc(businessId).collection('wines').get();
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('business')
+          .doc(businessId)
+          .collection('wines')
+          .get();
       return snapshot.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;
         return WineModel(
@@ -59,9 +79,15 @@ class WineServices {
     }
   }
 
-  static Future<void> updateWineQuantity(String wineId, String businessId, int newQuantity) async {
+  static Future<void> updateWineQuantity(
+      String wineId, String businessId, int newQuantity) async {
     try {
-      await FirebaseFirestore.instance.collection('business').doc(businessId).collection('wines').doc(wineId).update({
+      await FirebaseFirestore.instance
+          .collection('business')
+          .doc(businessId)
+          .collection('wines')
+          .doc(wineId)
+          .update({
         'quantity': newQuantity,
       });
     } catch (e) {

@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:BarrelSnap/pages/client/main_page_client.dart';
-import 'package:BarrelSnap/services/auth.dart';
+import '../client/main_page_client.dart';
+import '/services/auth.dart';
 
 class ClientSingIn extends StatefulWidget {
   @override
@@ -30,44 +30,43 @@ class _ClientSingInState extends State<ClientSingIn> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-bool checkValidPhoneNumber(String phoneNumber) {
-  if (phoneNumber.length != 10) {
-    print('Phone number must be 10 digits long');
-    return false;
-  }
-
-  for (int i = 0; i < phoneNumber.length; i++) {
-    int? digit = int.tryParse(phoneNumber[i]);
-    if (digit == null) {
-      print('Phone number must contain only numeric digits');
+  bool checkValidPhoneNumber(String phoneNumber) {
+    if (phoneNumber.length != 10) {
+      print('Phone number must be 10 digits long');
       return false;
     }
-  }
-  String prefix = phoneNumber.substring(0, 3);
 
-  if (!isValidPrefix(prefix)) {
-    print('Invalid prefix');
-    return false;
-  }
+    for (int i = 0; i < phoneNumber.length; i++) {
+      int? digit = int.tryParse(phoneNumber[i]);
+      if (digit == null) {
+        print('Phone number must contain only numeric digits');
+        return false;
+      }
+    }
+    String prefix = phoneNumber.substring(0, 3);
 
-  return true;
-}
-
-bool isValidPrefix(String prefix) {
-  switch (prefix) {
-    case '050':
-    case '052':
-    case '053':
-    case '054':
-    case '055':
-    case '057':
-    case '058':
-      return true;
-    default:
+    if (!isValidPrefix(prefix)) {
+      print('Invalid prefix');
       return false;
-  }
-}
+    }
 
+    return true;
+  }
+
+  bool isValidPrefix(String prefix) {
+    switch (prefix) {
+      case '050':
+      case '052':
+      case '053':
+      case '054':
+      case '055':
+      case '057':
+      case '058':
+        return true;
+      default:
+        return false;
+    }
+  }
 
   int calculateAge(DateTime birthDate) {
     final now = DateTime.now();
@@ -83,7 +82,8 @@ bool isValidPrefix(String prefix) {
       lastDate: DateTime.now(),
     );
     if (picked != null && picked != DateTime.now()) {
-      final DateTime eighteenYearsAgo = DateTime.now().subtract(const Duration(days: 18 * 365));
+      final DateTime eighteenYearsAgo =
+          DateTime.now().subtract(const Duration(days: 18 * 365));
       if (picked.isBefore(eighteenYearsAgo)) {
         setState(() {
           birthdateController.text = DateFormat('yyyy-MM-dd').format(picked);
@@ -234,7 +234,8 @@ bool isValidPrefix(String prefix) {
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
                               return 'Please enter Phone Number';
-                            } else if (!checkValidPhoneNumber(phonenumberController.text)) {
+                            } else if (!checkValidPhoneNumber(
+                                phonenumberController.text)) {
                               return 'Invalid Phone Number';
                             }
                             return null;
