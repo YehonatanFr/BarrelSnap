@@ -60,7 +60,7 @@ Widget build(BuildContext context) {
             ),
           ),
         ),
-        Padding( // Add Padding for TextField
+        Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             onChanged: _filterWines,

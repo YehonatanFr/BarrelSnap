@@ -40,36 +40,3 @@ class BusinessesPage extends StatelessWidget {
     );
   }
 }
-
-
-// class ShopPageClient extends StatelessWidget {
-//   const ShopPageClient({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('Shop')),
-//       body: Padding(
-//         padding: const EdgeInsets.all(10.0),
-//         child: GridView.builder(
-//           itemCount: 10,
-//           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//             crossAxisCount: 2,
-//             mainAxisSpacing: 10.0,
-//             crossAxisSpacing: 10.0,
-//           ),
-//           itemBuilder: (context, index) => Container(
-//             height: 200,
-//             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(4),
-//               color: Colors.grey[200],
-//             ),
-//             child: Center(
-//               child: Text('Product $index'),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

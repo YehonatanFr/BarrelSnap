@@ -100,18 +100,10 @@ static Future<List<BusinessModel>> fetchBusinesses() async {
     return snapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
       if (data != null) {
-        DateTime? birthdate;
-        if (data['birthdate'] is Timestamp) {
-          birthdate = (data['birthdate'] as Timestamp).toDate();
-        } else if (data['birthdate'] is String) {
-          birthdate = DateTime.parse(data['birthdate']);
-        }
-
         return BusinessModel(
           uid: doc.id,
           business_name: data['business_name'] ?? '',
           manager_name: data['manager_name'] ?? '',
-          birthdate: birthdate,
           phone_number: data['phone_number'] ?? '',
           city: data['city'] ?? '',
           street: data['street'] ?? '',
@@ -126,6 +118,7 @@ static Future<List<BusinessModel>> fetchBusinesses() async {
     throw e;
   }
 }
+
 
 
 static Future<List<dynamic>> fetchWines(String businessId) async {
