@@ -1,3 +1,4 @@
+import 'package:BarrelSnap/forgotPassPage.dart';
 import 'package:BarrelSnap/pages/business/main_page_business.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -114,12 +115,11 @@ class _LoginPageState extends State<LoginPage> {
                             GestureDetector(
                               onTap: () async {
                                 try {
-                                  dynamic result = await _auth.forgotPassword(email: email);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Password reset email sent!"),
-                                      backgroundColor: Colors.green,
-                                    ),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ForgotPassPage()),
                                   );
                                 } catch (error) {
                                   ScaffoldMessenger.of(context).showSnackBar(
