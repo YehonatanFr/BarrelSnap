@@ -10,7 +10,7 @@ class ClientShopPage extends StatefulWidget {
 
 class _ClientShopPageState extends State<ClientShopPage> {
   late List<BusinessModel> _businesses;
-  late List<BusinessModel> _filteredBusinesses = []; // Initialize with an empty list
+  late List<BusinessModel> _filteredBusinesses = [];
 
   @override
   void initState() {
@@ -104,7 +104,7 @@ class BusinessCard extends StatelessWidget {
               Icon(
                 icon,
                 size: 40,
-                color: Colors.blue, // Customize the color if needed
+                color: Colors.blue,
               ),
               SizedBox(width: 16),
               Expanded(
