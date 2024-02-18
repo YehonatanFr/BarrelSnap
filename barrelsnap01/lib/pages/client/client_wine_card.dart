@@ -16,6 +16,7 @@ class ClientWineCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Price: \$${wine.price}'),
+            Text('Description: \ ${wine.description}'),
             if (wine.quantity < 5)
               Text(
                 'Order soon! Last bottles in stock!',

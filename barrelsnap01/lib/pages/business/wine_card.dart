@@ -19,6 +19,7 @@ class WineCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Price: \$${wine.price}'),
+            Text('Description: ${wine.description}'),
             Text('Quantity: ${wine.quantity}'),
           ],
         ),
