@@ -11,15 +11,22 @@ class WineCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Card(
       child: ListTile(
-        leading: const Icon(Icons.wine_bar),
-        title: Text(wine.name),
+        leading: wine.imageUrl.isNotEmpty
+          ? Image.network(wine.imageUrl, width: 60, height: 60,)  
+          : Container(
+        width: 60,
+        height: 60,
+        child: Icon(Icons.wine_bar),
+      ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Price: \$${wine.price}'),
+            Text('${wine.name}', style: TextStyle(fontWeight: FontWeight.bold),),
             Text('Description: ${wine.description}'),
+            Text('Price: \$${wine.price}'),
             Text('Quantity: ${wine.quantity}'),
           ],
         ),
@@ -50,7 +57,7 @@ class WineCard extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       int currentQuantity = int.parse(_quantityController.text);
-                      if (currentQuantity > 0) {
+                      if (currentQuantity >= 0) {
                         _quantityController.text = '${currentQuantity - 1}';
                       }
                     },

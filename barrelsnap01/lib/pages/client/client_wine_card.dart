@@ -12,13 +12,20 @@ class ClientWineCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: const Icon(Icons.wine_bar),
-        title: Text(wine.name),
+      leading: wine.imageUrl.isNotEmpty
+          ? Image.network(wine.imageUrl, width: 60, height: 60,)  
+          : Container(
+        width: 60,
+        height: 60,
+        child: Icon(Icons.wine_bar),
+          ), 
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Price: \$${wine.price}'),
+            Text('${wine.name}', style: TextStyle(fontWeight: FontWeight.bold),),
             Text('Description: ${wine.description}'),
+            Text('Price: \$${wine.price}'),
+
             if (wine.quantity < 5)
               Text(
                 'Order soon! Last bottles in stock!',

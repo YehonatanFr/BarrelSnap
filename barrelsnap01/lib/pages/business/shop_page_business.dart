@@ -3,6 +3,10 @@ import '/models/wines.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '/services/wineService.dart';
 import '/pages/business/wine_card.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
 
 class ShopPageBusiness extends StatefulWidget {
   const ShopPageBusiness({Key? key}) : super(key: key);
@@ -14,6 +18,9 @@ class ShopPageBusiness extends StatefulWidget {
 class _ShopPageBusinessState extends State<ShopPageBusiness> {
   late List<WineModel> wines = [];
   late List<WineModel> filteredWines = [];
+  late File? _imageFile = null;
+ // Add this variable to store the selected image file
+
 
   @override
   void initState() {
@@ -45,8 +52,8 @@ class _ShopPageBusinessState extends State<ShopPageBusiness> {
     });
   }
 
-@override
-Widget build(BuildContext context) {
+  @override
+    Widget build(BuildContext context) {
   return Scaffold(
     body: Column(
       children: [
@@ -211,6 +218,28 @@ Widget build(BuildContext context) {
             ),
           ),
           ElevatedButton(
+            onPressed: () async {
+              final pickedImage = await ImagePicker().pickImage(
+                source: ImageSource.gallery,
+              );
+
+              if (pickedImage != null) {
+                setState(() {
+                  _imageFile = File(pickedImage.path);
+                });
+              }
+            },
+            child: const Text('Pick Image'),
+          ),
+          // Display the selected image
+          _imageFile != null
+              ? Image.file(
+                  _imageFile!,
+                  height: 100,
+                  width: 100,
+                )
+              : Container(),
+          ElevatedButton(
             onPressed: () {
               _addWine(
                 context,
@@ -228,21 +257,77 @@ Widget build(BuildContext context) {
     );
   }
 
+
   void _addWine(BuildContext context, String name, String kindOfGrape,
-      String description, int price, int quantity) {
-    final WineModel wine = WineModel(
-      id: '',
-      name: name,
-      kindOfGrape: kindOfGrape,
-      description: description,
-      price: price,
-      quantity: quantity,
-    );
+      String description, int price, int quantity) async {
+    WineModel wine;
+
+    if (_imageFile != null) {
+        final user = FirebaseAuth.instance.currentUser;
+        final String businessId = user?.uid ?? '';
+
+        // Upload image to Firebase Storage
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('businesses/$businessId/wines/${name}.jpg');
+
+        try {
+          await storageRef.putFile(_imageFile!);
+          final imageUrl = await storageRef.getDownloadURL();
+
+          wine = WineModel(
+            id: '',
+            name: name,
+            kindOfGrape: kindOfGrape,
+            description: description,
+            price: price,
+            quantity: quantity,
+            imageUrl: imageUrl,
+          );
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to upload image: $e'),
+            ),
+          );
+          return;
+        }
+    } else {
+        wine = WineModel(
+          id: '',
+          name: name,
+          kindOfGrape: kindOfGrape,
+          description: description,
+          price: price,
+          quantity: quantity,
+          imageUrl: '',
+        );
+    }
+
     final user = FirebaseAuth.instance.currentUser;
     final String businessId = user?.uid ?? '';
-    WineServices.addWine(wine, businessId).then((_) {
+
+    try {
+      // Add wine to Firestore
+      await WineServices.addWine(wine, businessId);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Wine added successfully.'),
+        ),
+      );
+
       Navigator.of(context).pop();
       fetchWines();
-    });
-  }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to add wine: $e'),
+        ),
+      );
+    }
 }
+}
+
+
+
