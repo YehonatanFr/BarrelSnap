@@ -21,6 +21,8 @@
     - [Wine Discovery](#wine-discovery)
     - [Ordering \& Delivery](#ordering--delivery)
     - [Connect with Wineries](#connect-with-wineries)
+  - [UML Diagrams](#uml-diagrams)
+    - [Activity Diagram](#activity-diagram)
   - [Screenshots](#screenshots)
   - [Contributing](#contributing)
   - [Tools Used](#tools-used)
@@ -105,6 +107,19 @@ BarrelSnap is a revolutionary mobile application designed to empower wineries an
 - Follow your favorite wineries and stay updated on their latest releases and events.
 - Engage with winemakers, ask questions, and participate in virtual tastings and events.
 - Receive personalized recommendations based on your preferences and purchase history.
+
+# UML Diagrams
+We created some UML Diagrams for better understanding.
+
+## Activity Diagram 
+The Activity Diagram illustrates the flow of user interactions within the BarrelSnap application. 
+It begins with the user launching the app and determining whether they are a registered user. 
+Based on this, they either log in or register. After authentication, users select their role, leading them to specific pages tailored to either clients (consumers) or managers (winery owners). 
+Clients can explore and purchase wines, while managers can manage their wineries and add products. Finally, the user's interaction with the app concludes.
+
+<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/74826869-1a5f-404f-b1e8-eb0d02b2f4ff">
+
+
 
 # Screenshots
 
