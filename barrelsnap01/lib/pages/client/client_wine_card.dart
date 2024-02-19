@@ -6,28 +6,34 @@ import '/models/wines.dart';
 class ClientWineCard extends StatelessWidget {
   final WineModel wine;
 
-  const ClientWineCard({required this.wine});
+  const ClientWineCard({super.key, required this.wine});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: const Icon(Icons.wine_bar),
-        title: Text(wine.name),
+      leading: wine.imageUrl.isNotEmpty
+          ? Image.network(wine.imageUrl, width: 60, height: 60,)
+          : const SizedBox(
+        width: 60,
+        height: 60,
+        child: Icon(Icons.wine_bar),
+          ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Price: \$${wine.price}'),
+            Text('${wine.name}', style: const TextStyle(fontWeight: FontWeight.bold),),
             Text('Description: ${wine.description}'),
+            Text('Price: \$${wine.price}'),
             if (wine.quantity < 5)
-              Text(
+              const Text(
                 'Order soon! Last bottles in stock!',
                 style: TextStyle(color: Colors.red),
               ),
           ],
         ),
         trailing: IconButton(
-          icon: Icon(Icons.shopping_cart),
+          icon: const Icon(Icons.shopping_cart),
           onPressed: () {
             _addToCart(context);
           },
@@ -41,14 +47,14 @@ class ClientWineCard extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Add to Cart?'),
-          content: Text('Are you sure you want to add this item to the cart?'),
+          title: const Text('Add to Cart?'),
+          content: const Text('Are you sure you want to add this item to the cart?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: Text('No'),
+              child: const Text('No'),
             ),
             TextButton(
               onPressed: () {
@@ -59,7 +65,7 @@ class ClientWineCard extends StatelessWidget {
                 }
                 Navigator.of(context).pop(true);
               },
-              child: Text('Yes'),
+              child: const Text('Yes'),
             ),
           ],
         );

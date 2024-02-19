@@ -16,6 +16,7 @@ class WineServices {
         'description': wine.description,
         'price': wine.price,
         'quantity': wine.quantity,
+        'imageUrl': wine.imageUrl,
       });
 
       final wineId = docRef.id;
@@ -40,6 +41,8 @@ class WineServices {
         'description': wine.description,
         'price': wine.price,
         'quantity': wine.quantity,
+        'imageUrl': "",
+
       });
     } catch (e) {
       rethrow;
@@ -75,6 +78,7 @@ class WineServices {
           description: data['description'] ?? '',
           price: data['price'] ?? 0,
           quantity: data['quantity'] ?? 0,
+          imageUrl: data['imageUrl'] ?? '',
         );
       }).toList();
     } catch (e) {
@@ -149,6 +153,7 @@ static Future<List<BusinessModel>> fetchBusinesses() async {
             description: data['description'] ?? '',
             price: data['price'] ?? 0,
             quantity: data['quantity'] ?? 0,
+            imageUrl: data['imageUrl'] ?? '',
           );
         }).toList();
 

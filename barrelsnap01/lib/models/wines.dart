@@ -5,6 +5,8 @@ class WineModel {
   final String description;
   final int price;
   final int quantity;
+  final String imageUrl; // Define the imageUrl property
+
 
   WineModel({
     required this.id,
@@ -13,5 +15,7 @@ class WineModel {
     required this.description,
     required this.price,
     required this.quantity,
+    required this.imageUrl, // Provide a default value if needed
+
   });
 }

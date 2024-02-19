@@ -172,7 +172,7 @@ class CartPage extends StatelessWidget {
       print('Error decrementing quantity: $e');
     }
   }
-
+  
 void _placeOrder(BuildContext context, String customerId) async {
   try {
     // Get cart items
@@ -270,5 +270,4 @@ void _placeOrder(BuildContext context, String customerId) async {
       // Handle error appropriately
     }
   }
-
 }
