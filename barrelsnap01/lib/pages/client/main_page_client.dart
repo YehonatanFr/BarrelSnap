@@ -4,7 +4,6 @@ import 'nav_bar_client.dart';
 import '/components/my_drawer.dart';
 import 'home_page_client.dart';
 import 'profile_page_client.dart';
-import 'setting_page_client.dart';
 import 'shop_page_client.dart';
 
 /*

@@ -98,7 +98,7 @@ class CartPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {
-                  _placeOrder(customerId);
+                  _placeOrder(context, customerId);
                 },
                 child: Text('Place Order'),
               ),
@@ -172,45 +172,102 @@ class CartPage extends StatelessWidget {
       print('Error decrementing quantity: $e');
     }
   }
+  
+void _placeOrder(BuildContext context, String customerId) async {
+  try {
+    // Get cart items
+    final cartItems = await FirebaseFirestore.instance
+        .collection('customer')
+        .doc(customerId)
+        .collection('cart')
+        .get();
 
-  void _placeOrder(String customerId) async {
+    // Iterate over cart items
+    for (final item in cartItems.docs) {
+      final wineId = item.data()['WineId'];
+
+      // Get the businesses that sell this wine
+      final businessesQuery = await FirebaseFirestore.instance
+          .collection('business')
+          .where('wines.$wineId', isEqualTo: true)
+          .get();
+
+      // Check if any business sells this wine
+      if (businessesQuery.docs.isEmpty) {
+        print('Error: No business sells the wine with ID $wineId');
+        continue; // Skip to the next item in the cart
+      }
+
+      // Iterate over each business that sells this wine
+      for (final businessDoc in businessesQuery.docs) {
+        final businessId = businessDoc.id;
+
+        // Get the wine details from the business's wine collection
+        final wineDoc = await FirebaseFirestore.instance
+            .collection('business')
+            .doc(businessId)
+            .collection('wines')
+            .doc(wineId)
+            .get();
+
+        // Check if the wine document exists
+        if (!wineDoc.exists) {
+          print('Error: Wine with ID $wineId not found in the wine collection of business $businessId');
+          continue; // Skip to the next business
+        }
+
+        // Create order data
+        final orderData = {
+          'customerId': customerId,
+          'wineName': wineDoc['name'],
+          'quantity': item.data()['quantity'],
+          'timestamp': DateTime.now(),
+          // Add other order details as needed
+        };
+
+        // Create order document within business collection
+        await FirebaseFirestore.instance
+            .collection('business')
+            .doc(businessId)
+            .collection('orders')
+            .add(orderData);
+      }
+    }
+
+    // Clear the user's cart after placing orders
+    await _clearCart(customerId);
+
+    // Show a success message or navigate to order history
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Orders placed successfully!'),
+    ));
+  } catch (e) {
+    print('Error placing orders: $e');
+    // Handle error appropriately
+  }
+}
+
+
+
+
+
+
+  // Function to clear the user's cart
+  Future<void> _clearCart(String customerId) async {
     try {
-      // Here you can implement the logic to place the order
-      // For example, you can move items from the cart to an orders collection
-      // and then clear the cart collection for this user
-
-      // Step 1: Get the cart items
       final cartItems = await FirebaseFirestore.instance
           .collection('customer')
           .doc(customerId)
           .collection('cart')
           .get();
 
-      // Step 2: Add the cart items to the orders collection
-      final ordersCollection = FirebaseFirestore.instance
-          .collection('customer')
-          .doc(customerId)
-          .collection('orders');
-
+      // Delete each item from the cart
       for (final item in cartItems.docs) {
-        await ordersCollection.add(item.data());
+        await item.reference.delete();
       }
-
-      // Step 3: Clear the cart collection
-      await FirebaseFirestore.instance
-          .collection('customer')
-          .doc(customerId)
-          .collection('cart')
-          .get()
-          .then((snapshot) {
-        for (DocumentSnapshot ds in snapshot.docs) {
-          ds.reference.delete();
-        }
-      });
-
-      print('Order placed successfully');
     } catch (e) {
-      print('Error placing order: $e');
+      print('Error clearing cart: $e');
+      // Handle error appropriately
     }
   }
 }

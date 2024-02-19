@@ -60,7 +60,9 @@ class ClientWineCard extends StatelessWidget {
               onPressed: () {
                 final user = FirebaseAuth.instance.currentUser;
                 final customerId = user?.uid;
-                _addToCartFirestore(wine, customerId);
+                if (customerId != null) {
+                  _addToCartFirestore(wine, customerId);
+                }
                 Navigator.of(context).pop(true);
               },
               child: const Text('Yes'),
@@ -71,28 +73,27 @@ class ClientWineCard extends StatelessWidget {
     );
   }
 
-static Future<void> _addToCartFirestore(WineModel wine, String? customerId) async {
-  try {
-    final cartRef = FirebaseFirestore.instance
-        .collection('customer')
-        .doc(customerId)
-        .collection('cart');
+  static Future<void> _addToCartFirestore(WineModel wine, String customerId) async {
+    try {
+      final cartRef = FirebaseFirestore.instance
+          .collection('customer')
+          .doc(customerId)
+          .collection('cart');
 
-    final existingWineQuery = await cartRef.where('Wine Name', isEqualTo: wine.name).get();
-    if (existingWineQuery.docs.isNotEmpty) {
-      final existingWineDoc = existingWineQuery.docs.first;
-      final existingQuantity = existingWineDoc['quantity'] as int;
-      await existingWineDoc.reference.update({'quantity': existingQuantity + 1});
-    } else {
-      await cartRef.add({
-        'Wine Name': wine.name,
-        'quantity': 1,
-      });
+      final existingWineQuery = await cartRef.where('Wine Name', isEqualTo: wine.name).get();
+      if (existingWineQuery.docs.isNotEmpty) {
+        final existingWineDoc = existingWineQuery.docs.first;
+        final existingQuantity = existingWineDoc['quantity'] as int;
+        await existingWineDoc.reference.update({'quantity': existingQuantity + 1});
+      } else {
+        await cartRef.add({
+          'WineId': wine.id,
+          'Wine Name': wine.name,
+          'quantity': 1,
+        });
+      }
+    } catch (e) {
+      print('Error adding to cart: $e');
     }
-  } catch (e) {
-    rethrow;
   }
-}
-
-
 }
