@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BarrelSnap/models/wines.dart';
 import 'package:BarrelSnap/models/business.dart';
-import '/models/wines.dart';
 
 
 class WineServices {
-  static Future<void> addWine(WineModel wine, String businessId) async {
+ static Future<void> addWine(WineModel wine, String businessId) async {
     try {
-      await FirebaseFirestore.instance
+      final docRef = await FirebaseFirestore.instance
           .collection('business')
           .doc(businessId)
           .collection('wines')
@@ -18,6 +17,10 @@ class WineServices {
         'price': wine.price,
         'quantity': wine.quantity,
       });
+
+      final wineId = docRef.id;
+
+      await docRef.update({'id': wineId});
     } catch (e) {
       rethrow;
     }
