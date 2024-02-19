@@ -11,11 +11,11 @@ class WineCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+
     return Card(
       child: ListTile(
         leading: wine.imageUrl.isNotEmpty
-          ? Image.network(wine.imageUrl, width: 60, height: 60,)  
+          ? Image.network(wine.imageUrl, width: 60, height: 60,)
           : Container(
         width: 60,
         height: 60,
