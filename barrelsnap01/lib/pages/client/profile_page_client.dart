@@ -12,6 +12,8 @@ class ProfilePageClient extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
+
+
 class _ProfilePageState extends State<ProfilePageClient> {
   final TextEditingController fnameController = TextEditingController();
   final TextEditingController lnameController = TextEditingController();
@@ -27,115 +29,77 @@ class _ProfilePageState extends State<ProfilePageClient> {
     _populateTextControllers();
   }
 
-  Future<void> _populateTextControllers() async {
-    try {
-      final CollectionReference collRef =
-          FirebaseFirestore.instance.collection('users');
-      User? user = FirebaseAuth.instance.currentUser;
-      final docSnapshot = await collRef.doc(user!.uid).get();
+Future<void> _populateTextControllers() async {
+  try {
+    final CollectionReference collRef =
+        FirebaseFirestore.instance.collection('customer');
+    User? user = FirebaseAuth.instance.currentUser;
+    final docSnapshot = await collRef.doc(user!.uid).get();
 
-      if (docSnapshot.exists) {
-        var userData = docSnapshot.data() as Map<String, dynamic>;
-        setState(() {
-          fnameController.text = userData['fname'];
-          lnameController.text = userData['lname'];
-          birthdateController.text = userData['birthdate'];
-          phonenumberController.text = userData['phonenumber'];
-          cityController.text = userData['city'];
-          streetController.text = userData['street'];
-          streetnumberController.text = userData['streetnumber'];
-        });
-      }
-    } catch (e) {
-      print('Failed to populate text controllers: $e');
+    if (docSnapshot.exists) {
+      var userData = docSnapshot.data() as Map<String, dynamic>;
+      setState(() {
+        fnameController.text = userData['lname'] ?? '';
+        lnameController.text = userData['fname'] ?? '';
+        birthdateController.text = userData['birthdate'] ?? '';
+        phonenumberController.text = userData['phonenumber'] ?? '';
+        cityController.text = userData['city'] ?? '';
+        streetController.text = userData['street'] ?? '';
+        streetnumberController.text = userData['streetnumber'] ?? '';
+      });
     }
+  } catch (e) {
+    print('Failed to populate text controllers: $e');
   }
+}
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('lib/images/backgroung1.jpg'), // Replace with your image path
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: fnameController,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.white),
-                    labelText: 'First Name',
-                  ),
-                  style: TextStyle(color: Colors.white),
-                ),
-                TextFormField(
-                  controller: lnameController,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.white),
-                    labelText: 'Last Name',
-                  ),
-                  style: TextStyle(color: Colors.white),
-                ),
-                TextFormField(
-                  readOnly: true,
-                  controller: birthdateController,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.white),
-                    labelText: 'Date of Birth',
-                  ),
-                  onTap: () => _selectDate(context),
-                ),
-                TextFormField(
-                  controller: phonenumberController,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.white),
-                    labelText: 'Phone Number',
-                  ),
-                  style: TextStyle(color: Colors.white),
-                ),
-                TextFormField(
-                  controller: cityController,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.white),
-                    labelText: 'City',
-                  ),
-                  style: TextStyle(color: Colors.white),
-                ),
-                TextFormField(
-                  controller: streetController,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.white),
-                    labelText: 'Street',
-                  ),
-                  style: TextStyle(color: Colors.white),
-                ),
-                TextFormField(
-                  controller: streetnumberController,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.white),
-                    labelText: 'Building Number',
-                  ),
-                  style: TextStyle(color: Colors.white),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    _updateProfile();
-                  },
-                  child: Text('Update Profile'),
-                ),
-              ],
-            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: fnameController,
+                decoration: InputDecoration(labelText: 'First Name'),
+              ),
+              TextFormField(
+                controller: lnameController,
+                decoration: InputDecoration(labelText: 'Last Name'),
+              ),
+              TextFormField(
+                readOnly: true,
+                controller: birthdateController,
+                decoration: InputDecoration(labelText: 'Date of Birth'),
+                onTap: () => _selectDate(context),
+              ),
+              TextFormField(
+                controller: phonenumberController,
+                decoration: InputDecoration(labelText: 'Phone Number'),
+              ),
+              TextFormField(
+                controller: cityController,
+                decoration: InputDecoration(labelText: 'City'),
+              ),
+              TextFormField(
+                controller: streetController,
+                decoration: InputDecoration(labelText: 'Street'),
+              ),
+              TextFormField(
+                controller: streetnumberController,
+                decoration: InputDecoration(labelText: 'Building Number'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  _updateProfile();
+                },
+                child: Text('Update Profile'),
+              ),
+            ],
           ),
         ),
       ),
@@ -155,17 +119,28 @@ class _ProfilePageState extends State<ProfilePageClient> {
       });
     }
   }
+  
+    Future<void> _updateProfile() async {
+  try {
+    final CollectionReference collRef =
+        FirebaseFirestore.instance.collection('customer');
+    User? user = FirebaseAuth.instance.currentUser;
+    
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User not logged in')));
+      return;
+    }
 
-  Future<void> _updateProfile() async {
-    try {
-      final CollectionReference collRef =
-          FirebaseFirestore.instance.collection('users');
-      User? user = FirebaseAuth.instance.currentUser;
-      final docSnapshot = await collRef.doc(user!.uid).get();
-      print(user.uid);
+    final docSnapshot = await collRef.doc(user.uid).get();
 
-      if (docSnapshot.exists) {
-        await collRef.doc(user.uid).update({
+    if (!docSnapshot.exists) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Profile does not exist')));
+      return;
+    }
+
+    await collRef.doc(user.uid).update({
           'fname': fnameController.text,
           'lname': lnameController.text,
           'birthdate': birthdateController.text,
@@ -173,17 +148,40 @@ class _ProfilePageState extends State<ProfilePageClient> {
           'city': cityController.text,
           'street': streetController.text,
           'streetnumber': streetnumberController.text,
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Profile updated successfully')));
-      } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Profile does not exist')));
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Failed to update profile')));
-      // }
-    }
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Profile updated successfully')));
+  } catch (e) {
+    print('Error updating profile: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to update profile: $e')));
   }
+}
+  // Future<void> _updateProfile() async {
+  //   try {
+  //     final CollectionReference collRef =
+  //         FirebaseFirestore.instance.collection('customer');
+  //     User? user = FirebaseAuth.instance.currentUser;
+  //     final docSnapshot = await collRef.doc(user!.uid).get();
+  //     print(user.uid);
+
+  //     if (docSnapshot.exists) {
+  //       await collRef.doc(widget.userId).update({
+  //         'fname': fnameController.text,
+  //         'lname': lnameController.text,
+  //         'birthdate': birthdateController.text,
+  //         'phonenumber': phonenumberController.text,
+  //         'city': cityController.text,
+  //         'street': streetController.text,
+  //         'streetnumber': streetnumberController.text,
+  //       });
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile updated successfully')));
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Profile does not exist')));
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profile')));
+  //   }
+  // }
 }

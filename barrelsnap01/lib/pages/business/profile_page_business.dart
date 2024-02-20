@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../business/business_register.dart';
 
 class ProfilePageBusiness extends StatefulWidget {
   final String? userId;
@@ -13,14 +12,18 @@ class ProfilePageBusiness extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
+
+
 class _ProfilePageState extends State<ProfilePageBusiness> {
-  final TextEditingController fnameController = TextEditingController();
-  final TextEditingController lnameController = TextEditingController();
-  final TextEditingController birthdateController = TextEditingController();
-  final TextEditingController phonenumberController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
-  final TextEditingController streetController = TextEditingController();
-  final TextEditingController streetnumberController = TextEditingController();
+  final businessNameController = TextEditingController();
+  final managerNameController = TextEditingController();
+  final birthdateController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+  final cityController = TextEditingController();
+  final streetController = TextEditingController();
+  final streetNumberController = TextEditingController();
+  final emailAdress = TextEditingController();
+  final passwordBusiness = TextEditingController();
 
   @override
   void initState() {
@@ -28,90 +31,54 @@ class _ProfilePageState extends State<ProfilePageBusiness> {
     _populateTextControllers();
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('lib/images/backgroung1.jpg'), // Replace with your image path
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextFormField(
-                      controller: fnameController,
-                      decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'First Name'),
-                        style: TextStyle(color: Colors.white),
-                    ),
-                    TextFormField(
-                      controller: lnameController,
-                      decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'Last Name'),
-                        style: TextStyle(color: Colors.white),
-
-                    ),
-                    TextFormField(
-                      readOnly: true,
-                      controller: birthdateController,
-                      decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'Date of Birth'),
-                      onTap: () => _selectDate(context),
-                    ),
-                    TextFormField(
-                      controller: phonenumberController,
-                      decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'Phone Number'),
-                        style: TextStyle(color: Colors.white),
-                    ),
-                    TextFormField(
-                      controller: cityController,
-                      decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'City'),
-                        style: TextStyle(color: Colors.white),
-                    ),
-                    TextFormField(
-                      controller: streetController,
-                      decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'Street'),
-                        style: TextStyle(color: Colors.white),
-                    ),
-                    TextFormField(
-                      controller: streetnumberController,
-                      decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'Building Number'),
-                        style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        _updateProfile();
-                      },
-                      child: Text('Update Profile'),
-                    ),
-                  ],
-                ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: businessNameController,
+                decoration: InputDecoration(labelText: 'Business Name'),
               ),
-            ),
-          ],
+              TextFormField(
+                controller: managerNameController,
+                decoration: InputDecoration(labelText: 'Manager Full Name'),
+              ),
+              TextFormField(
+                readOnly: true,
+                controller: birthdateController,
+                decoration: InputDecoration(labelText: 'Date of Birth'),
+                onTap: () => _selectDate(context),
+              ),
+              TextFormField(
+                controller: phoneNumberController,
+                decoration: InputDecoration(labelText: 'Phone Number'),
+              ),
+              TextFormField(
+                controller: cityController,
+                decoration: InputDecoration(labelText: 'City'),
+              ),
+              TextFormField(
+                controller: streetController,
+                decoration: InputDecoration(labelText: 'Street'),
+              ),
+              TextFormField(
+                controller: streetNumberController,
+                decoration: InputDecoration(labelText: 'Building Number'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  _updateProfile();
+                },
+                child: Text('Update Profile'),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -131,57 +98,68 @@ class _ProfilePageState extends State<ProfilePageBusiness> {
     }
   }
 
-  Future<void> _populateTextControllers() async {
-    try {
-      final CollectionReference collRef =
-          FirebaseFirestore.instance.collection('business');
-      User? user = FirebaseAuth.instance.currentUser;
-      final docSnapshot = await collRef.doc(user!.uid).get();
+Future<void> _populateTextControllers() async {
+  try {
+    final CollectionReference collRef =
+        FirebaseFirestore.instance.collection('business');
+    User? user = FirebaseAuth.instance.currentUser;
+    final docSnapshot = await collRef.doc(user!.uid).get();
 
-      if (docSnapshot.exists) {
-        var userData = docSnapshot.data() as Map<String, dynamic>;
-        setState(() {
-          fnameController.text = userData['fname'];
-          lnameController.text = userData['lname'];
-          birthdateController.text = userData['birthdate'];
-          phonenumberController.text = userData['phonenumber'];
-          cityController.text = userData['city'];
-          streetController.text = userData['street'];
-          streetnumberController.text = userData['streetnumber'];
-        });
-      }
-    } catch (e) {
-      print('Failed to populate text controllers: $e');
+    if (docSnapshot.exists) {
+      var userData = docSnapshot.data() as Map<String, dynamic>;
+      setState(() {
+        businessNameController.text = userData['business_name'] ?? '';
+        managerNameController.text = userData['manager_name'] ?? '';
+        birthdateController.text = userData['birthdate'] ?? '';
+        phoneNumberController.text = userData['phone_number'] ?? '';
+        cityController.text = userData['city'] ?? '';
+        streetController.text = userData['street'] ?? '';
+        streetNumberController.text = userData['street_number'] ?? '';
+      });
     }
+  } catch (e) {
+    print('Failed to populate text controllers: $e');
   }
+}
 
   Future<void> _updateProfile() async {
     try {
       final CollectionReference collRef =
           FirebaseFirestore.instance.collection('business');
       User? user = FirebaseAuth.instance.currentUser;
-      final docSnapshot = await collRef.doc(user!.uid).get();
 
-      if (docSnapshot.exists) {
-        await collRef.doc(user!.uid).update({
-          'fname': fnameController.text,
-          'lname': lnameController.text,
-          'birthdate': birthdateController.text,
-          'phonenumber': phonenumberController.text,
-          'city': cityController.text,
-          'street': streetController.text,
-          'streetnumber': streetnumberController.text,
-        });
+      if (user == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Profile updated successfully')));
-      } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Profile does not exist')));
+          SnackBar(content: Text('User not logged in')));
+        return;
       }
+
+      final docSnapshot = await collRef.doc(user.uid).get();
+
+      if (!docSnapshot.exists) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Profile does not exist')));
+        return;
+      }
+
+      // Perform the update
+      await collRef.doc(user.uid).update({
+        'business_name': businessNameController.text,
+        'manager_name': managerNameController.text,
+        'birthdate': birthdateController.text,
+        'phone_number': phoneNumberController.text,
+        'city': cityController.text,
+        'street': streetController.text,
+        'street_number': streetNumberController.text,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Profile updated successfully')));
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Failed to update profile')));
-      // }
+      print('Error updating profile: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update profile: $e')));
     }
   }
+
 }

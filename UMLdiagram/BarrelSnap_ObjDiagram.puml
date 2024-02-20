@@ -1,0 +1,72 @@
+@startuml BarrelSnap_ObjectDiagram
+
+object LoginPage {
+  _auth: AuthService
+  _formKey: GlobalKey<FormState>
+  email: "example@example.com"
+  password: "examplePassword"
+  error: ""
+}
+
+object ClientRegister {
+  lnameController: "Doe"
+  fnameController: "John"
+  birthdateController: "1990-01-01"
+  phonenumberController: "+1234567890"
+  cityController: "New York"
+  streetController: "Main Street"
+  streetnumberController: "123"
+  emailAdress: "john@example.com"
+  passwordClient: "securePassword"
+  _auth: AuthService
+  _formKey: GlobalKey<FormState>
+  email: "john@example.com"
+  password: "securePassword"
+  error: ""
+}
+
+object HomePageClient {
+  _selectedIndex: 0
+  _pages: [Widget1, Widget2, Widget3]  // Example list of widgets/pages
+}
+
+object MainPageClient {
+  _selectedIndex: 0
+  _pages: [Widget1, Widget2, Widget3]  // Example list of widgets/pages
+}
+
+object MyDrawer {
+}
+
+object MyBottomNavBar {
+  onTabChange: Function(int)
+}
+
+object ProfilePageClient {
+  fnameController: "John"
+  lnameController: "Doe"
+  birthdateController: "1990-01-01"
+  phonenumberController: "+1234567890"
+  cityController: "New York"
+  streetController: "Main Street"
+  streetnumberController: "123"
+}
+
+object SettingPageClient {
+}
+
+object ShopPageClient {
+}
+
+LoginPage --> ClientRegister
+LoginPage --> MyDrawer
+LoginPage --> MyBottomNavBar
+
+ClientRegister --> MainPageClient
+
+MainPageClient --> HomePageClient
+MainPageClient --> ShopPageClient
+MainPageClient --> ProfilePageClient
+MainPageClient --> SettingPageClient
+
+@enduml

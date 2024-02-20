@@ -12,15 +12,15 @@ class RoleSelectionScreen extends StatelessWidget {
           'Register Options',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.transparent, // Make app bar transparent
-        elevation: 0, // Remove app bar shadow
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      extendBodyBehindAppBar: true, // Extend background behind app bar
+      extendBodyBehindAppBar: true,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('lib/images/backgroung1.jpg'), // Add your background photo asset here
-            fit: BoxFit.cover, // Cover entire screen
+            image: AssetImage('lib/images/backgroung1.jpg'),
+            fit: BoxFit.cover,
           ),
         ),
         child: Center(
@@ -29,30 +29,28 @@ class RoleSelectionScreen extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to client details screen
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ClientSingIn()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.transparent, // Text color
-                  side: BorderSide(color: Colors.white), // Border color
+                foregroundColor: Colors.white, backgroundColor: Colors.transparent,
+                  side: const BorderSide(color: Colors.white),
                 ),
                 child: const Text('Register as Client'),
               ),
               const SizedBox(height: 25),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to manager details screen
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => BusinessSignIn()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.transparent, // Text color
-                  side: BorderSide(color: Colors.white), // Border color
+                foregroundColor: Colors.white, backgroundColor: Colors.transparent,
+                  side: const BorderSide(color: Colors.white),
                 ),
                 child: const Text('Register as Business'),
               ),

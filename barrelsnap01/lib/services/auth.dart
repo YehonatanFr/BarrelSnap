@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:startertemplate/models/user.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-// auth change user stream
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+ 
+  // create user obj based on  user fire base
   Stream<User?> get user {
     return _auth.authStateChanges().map((User? user) => user);
   }
+
 
   // sign in anon
   Future signInAnon() async {
@@ -27,7 +28,6 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-
       User? user = result.user;
       return user;
     } catch (error) {
@@ -36,10 +36,7 @@ class AuthService {
     }
   }
 
-  // sign with google
-
   // register with email & password
-
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
@@ -52,16 +49,28 @@ class AuthService {
     }
   }
 
-  // register with google
 
   // sign out
-  Future signOut() async {
-    try {
+  Future signOut() async{
+    try{
       print('logout succes');
       return await _auth.signOut();
-    } catch (e) {
+      
+    } catch (e){
       print(e.toString());
       return null;
+    }
+  }
+
+  // forgot password
+
+  Future forgotPassword({required String email}) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      } on FirebaseAuthException catch (err) {
+      throw Exception(err.message.toString());
+      } catch (err) {
+      throw Exception(err.toString());
     }
   }
 }

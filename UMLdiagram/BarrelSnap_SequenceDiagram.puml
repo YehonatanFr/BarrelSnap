@@ -1,0 +1,18 @@
+@startuml BarrelSnap_SequenceDiagram
+
+participant Client
+participant App
+
+Client -> App: Start Application
+App -> Client: Display Login Screen
+Client -> App: Login (with credentials)
+App -> App: Determine Role (Client/Manager)
+App -> Client: Display Main Page
+Client -> App: View Shopping Cart
+App -> Client: Display Shopping Cart
+Client -> App: Cancel Order
+App -> Client: Confirmation of Cancellation
+Client -> App: Logout
+App -> Client: End Application
+
+@enduml

@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:startertemplate/pages/client/main_page_client.dart';
-import 'package:startertemplate/services/auth.dart';
+import '../client/main_page_client.dart';
+import '/services/auth.dart';
 
 class ClientSingIn extends StatefulWidget {
   @override
@@ -18,8 +18,8 @@ class _ClientSingInState extends State<ClientSingIn> {
   final cityController = TextEditingController();
   final streetController = TextEditingController();
   final streetnumberController = TextEditingController();
-  final emailAdress = TextEditingController();
-  final passwordClient = TextEditingController();
+  // final emailAdress = TextEditingController();
+  // final passwordClient = TextEditingController();
 
   final _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
@@ -30,34 +30,48 @@ class _ClientSingInState extends State<ClientSingIn> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  bool checkValidPhoneNumber(String phoneNumber) {
+    if (phoneNumber.length != 10) {
+      print('Phone number must be 10 digits long');
+      return false;
+    }
+
+    for (int i = 0; i < phoneNumber.length; i++) {
+      int? digit = int.tryParse(phoneNumber[i]);
+      if (digit == null) {
+        print('Phone number must contain only numeric digits');
+        return false;
+      }
+    }
+    String prefix = phoneNumber.substring(0, 3);
+
+    if (!isValidPrefix(prefix)) {
+      print('Invalid prefix');
+      return false;
+    }
+
+    return true;
+  }
+
+  bool isValidPrefix(String prefix) {
+    switch (prefix) {
+      case '050':
+      case '052':
+      case '053':
+      case '054':
+      case '055':
+      case '057':
+      case '058':
+        return true;
+      default:
+        return false;
+    }
+  }
+
   int calculateAge(DateTime birthDate) {
     final now = DateTime.now();
     final difference = now.difference(birthDate);
     return (difference.inDays / 365).floor();
-  }
-
-  Future<void> _saveUserDataToFirestore() async {
-    final CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
-
-    // Get the current user
-    User? user = FirebaseAuth.instance.currentUser;
-
-    // Check if the user is authenticated
-    if (user != null) {
-      // Add user data along with the user ID
-      await usersCollection.doc(user.uid).set({
-        'uid': user.uid,
-        'email': user.email,
-        'fname': fnameController.text,
-        'lname': lnameController.text,
-        'birthdate': birthdateController.text,
-        'phonenumber': phonenumberController.text,
-        'city': cityController.text,
-        'street': streetController.text,
-        'streetnumber': streetnumberController.text,
-      });
-    }
   }
 
   Future<void> _selectDate() async {
@@ -69,7 +83,7 @@ class _ClientSingInState extends State<ClientSingIn> {
     );
     if (picked != null && picked != DateTime.now()) {
       final DateTime eighteenYearsAgo =
-          DateTime.now().subtract(Duration(days: 18 * 365));
+          DateTime.now().subtract(const Duration(days: 18 * 365));
       if (picked.isBefore(eighteenYearsAgo)) {
         setState(() {
           birthdateController.text = DateFormat('yyyy-MM-dd').format(picked);
@@ -92,6 +106,47 @@ class _ClientSingInState extends State<ClientSingIn> {
     }
   }
 
+  Future<void> _saveUserDataToFirestore() async {
+    final CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('customer');
+
+    // Get the current user
+    User? user = FirebaseAuth.instance.currentUser;
+
+    // Check if the user is authenticated
+    if (user != null) {
+      // Add user data along with the user ID
+      await usersCollection.doc(user.uid).set({
+        'uid': user.uid,
+        'email': user.email,
+        'fname': fnameController.text,
+        'lname': lnameController.text,
+        'birthdate': birthdateController.text,
+        'phonenumber': phonenumberController.text,
+        'city': cityController.text,
+        'street': streetController.text,
+        'streetnumber': streetnumberController.text,
+      });
+    }
+  }
+
+  InputDecoration _buildInputDecoration(String labelText) {
+    return InputDecoration(
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.shade400),
+      ),
+      fillColor: Colors.grey.shade900,
+      filled: true,
+      labelText: labelText,
+      labelStyle: const TextStyle(color: Colors.white),
+      hintText: labelText,
+      hintStyle: TextStyle(color: Colors.grey[500]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -101,7 +156,7 @@ class _ClientSingInState extends State<ClientSingIn> {
         key: scaffoldKey,
         appBar: AppBar(
           title: const Text(
-            'Sign In',
+            'Client Register',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.transparent,
@@ -135,89 +190,116 @@ class _ClientSingInState extends State<ClientSingIn> {
                       children: [
                         TextFormField(
                           controller: fnameController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Private Name',
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          decoration: _buildInputDecoration('Private Name'),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Private name';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: lnameController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Family Name',
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          decoration: _buildInputDecoration('Family Name'),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Family name';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           readOnly: true,
                           controller: birthdateController,
                           onTap: _selectDate,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Date of Birth',
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          decoration: _buildInputDecoration('Date of Birth'),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Age over 18';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: phonenumberController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Phone Number',
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          decoration: _buildInputDecoration('Phone Number'),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Phone Number';
+                            } else if (!checkValidPhoneNumber(
+                                phonenumberController.text)) {
+                              return 'Invalid Phone Number';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: cityController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'City',
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          decoration: _buildInputDecoration('City'),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter City';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: streetController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Street',
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          decoration: _buildInputDecoration('Street'),
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Street';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: streetnumberController,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Building Number',
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          decoration: _buildInputDecoration('Building Number'),
+                          keyboardType: TextInputType.number,
+                          style: const TextStyle(color: Colors.white),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return 'Please enter Building Number';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           onChanged: (value) {
                             setState(() => email = value);
                           },
+                          style: const TextStyle(color: Colors.white),
+                          keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Enter an email';
                             }
-                            return null; // Return null if the input is valid
+                            return null;
                           },
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'E-Mail',
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          decoration: _buildInputDecoration('E-Mail'),
                           obscureText: false,
                         ),
                         TextFormField(
                           onChanged: (value) {
                             setState(() => password = value);
                           },
+                          style: const TextStyle(color: Colors.white),
                           obscureText: true,
-                          decoration: const InputDecoration(
-                            labelStyle: TextStyle(color: Colors.white),
-                            labelText: 'Password',
-                          ),
-                          style: TextStyle(color: Colors.white),
+                          decoration: _buildInputDecoration('Password'),
+                          keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value == null || value.length < 6) {
                               return 'Enter a password 6+ chars long';

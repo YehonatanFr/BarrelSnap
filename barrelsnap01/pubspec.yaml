@@ -1,4 +1,4 @@
-name: startertemplate
+name: BarrelSnap
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -54,21 +54,43 @@ dependencies:
   intl: ^0.17.0 
 
   http: ^1.2.0
+  firebase_storage: ^11.6.5
+  image_picker: ^1.0.7
+  cached_network_image: ^3.3.1
 
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
+  # flutter_launcher_icons: "^0.11.0"
+  flutter_app_name: ^0.1.0
 
-flutter_launcher_icons:
-  android: true
-  ios: true
-  image_path: "lib/images/logo.jpeg"
-  min_sdk_android: 21 # android min sdk min:16, default 21
-  # remove_alpha_ios: true
-  adaptive_icon_background: null
-  adaptive_icon_foreground: "lib/images/logo.jpeg"
+  
+# flutter_launcher_icons:
+#   android: true
+#   adaptive_icon_background: "#000000"  # Set the background color to black for Android
+#   # adaptive_icon_forground: 
+#   image_path: "lib/images/playstore.png"
+#   ios: true
+#   # image_path: "lib/images/appstore.png"  # For iOS
+#   web:
+#     generate: true
+#     image_path: "lib/images/logoapp.png"
+#     background_color: "#000000"  # Set the background color to black for web
+#     theme_color: "#hexcode"
+#   windows:
+#     generate: true
+#     image_path: "lib/images/logoapp.png"
+#     icon_size: 48
+#   macos:
+#     generate: true
+#     image_path: "lib/images/logoapp.png"
+
+flutter_app_name:
+  name: "BarrelSnap"
+
+
+
 
 
   # The "flutter_lints" package below contains a set of recommended lints to

@@ -1,11 +1,11 @@
+import 'package:BarrelSnap/forgotPassPage.dart';
+import 'package:BarrelSnap/pages/business/main_page_business.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:startertemplate/pages/business/main_page_business.dart';
-import 'package:startertemplate/pages/client/main_page_client.dart';
-import 'package:startertemplate/services/auth.dart';
+import 'client/main_page_client.dart';
+import '../services/auth.dart';
 import '/pages/role_section_page.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key});
 
@@ -13,12 +13,9 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-final usernameController = TextEditingController();
-final passwordController = TextEditingController();
-
 class _LoginPageState extends State<LoginPage> {
   final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>(); // Add form key
+  final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
   String error = '';
@@ -37,8 +34,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             child: Form(
-              // Wrap your content in a Form widget
-              key: _formKey, // Assign the form key
+              key: _formKey,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SingleChildScrollView(
@@ -48,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 50),
                       const Icon(
                         Icons.lock,
-                        size: 75,
+                        size: 90,
                         color: Color.fromARGB(255, 198, 193, 193),
                       ),
                       const SizedBox(height: 30),
@@ -68,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (value == null || value.isEmpty) {
                             return 'Enter an email';
                           }
-                          return null; // Return null if the input is valid
+                          return null;
                         },
                         decoration: InputDecoration(
                           enabledBorder: const OutlineInputBorder(
@@ -92,14 +88,14 @@ class _LoginPageState extends State<LoginPage> {
                           if (value == null || value.length < 6) {
                             return 'Enter a password 6+ chars long';
                           }
-                          return null; // Return null if the input is valid
+                          return null;
                         },
                         decoration: InputDecoration(
                           enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey.shade400),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
                           ),
                           fillColor: Colors.grey.shade200,
                           filled: true,
@@ -108,24 +104,47 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         obscureText: true,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      const SizedBox(height: 25),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(
-                              'Forgot Password?',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 255, 253, 253),
+                            GestureDetector(
+                              onTap: () async {
+                                try {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ForgotPassPage()),
+                                  );
+                                } catch (error) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(error.toString()),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              },
+                              child: const Text(
+                                'Forgot Password?',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 25),
+                      const Padding(
+                        padding: EdgeInsets.all(25.0),
+                        child: SizedBox(height: 10),
+                      ),
                       ElevatedButton(
                         onPressed: () async {
-                          // Validate the form
                           if (_formKey.currentState!.validate()) {
                             dynamic result = await _auth
                                 .signInWithEmailAndPassword(email, password);
@@ -133,13 +152,12 @@ class _LoginPageState extends State<LoginPage> {
                               setState(() => error =
                                   'Could not sign in with these credentials');
                             } else {
-                              // If sign-in is successful, navigate to the MainPageClient
                               final CollectionReference collRefBusiness =
                                   FirebaseFirestore.instance
                                       .collection('business');
                               final CollectionReference collRefUsers =
                                   FirebaseFirestore.instance
-                                      .collection('users');
+                                      .collection('customer');
 
                               User? user = FirebaseAuth.instance.currentUser;
                               final docSnapshotUser =
@@ -166,24 +184,29 @@ class _LoginPageState extends State<LoginPage> {
                                 );
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                         content: Text('Failed to login in')));
                               }
                             }
                           }
                         },
                         child: const Text('Sign in'),
+                        style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(
+                              fontSize: 16), // button text style
+                        ),
                       ),
-                      SizedBox(height: 12.0),
+                      const SizedBox(height: 5.0),
                       Text(
                         error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),
+                        style:
+                            const TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             vertical: 20.0, horizontal: 50.0),
                         child: ElevatedButton(
-                          child: Text('Sign in anon'),
+                          child: const Text('Sign in anon'),
                           onPressed: () async {
                             dynamic result = await _auth.signInAnon();
                             if (result == null) {
@@ -227,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(width: 25),
+                          const SizedBox(width: 25),
                           TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -240,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text(
                               'Not a member? \n Register now',
                               style: TextStyle(
-                                color: Color.fromARGB(255, 254, 255, 255),
+                                color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

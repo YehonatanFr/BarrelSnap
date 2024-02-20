@@ -1,0 +1,40 @@
+@startuml BarrelSnap_UseCaseDiagram
+
+left to right direction
+
+actor User as U
+actor Client as C
+actor Manager as M
+
+rectangle WineApp {
+    usecase "Register" as UC0
+    usecase "Login" as UC1
+    usecase "Choose Role" as UC2
+    usecase "Main Page (Client)" as UC3
+    usecase "Main Page (Manager)" as UC4
+    usecase "Buy Wines" as UC5
+    usecase "Follow Wine Newsletter" as UC6
+    usecase "Manage Winery" as UC7
+    usecase "Sell Wines" as UC8
+    usecase "Add Wines for Sell" as UC9
+    usecase "View Available Wines" as UC10
+}
+
+U --> UC0: <<include>>
+U --> UC1: <<include>>
+U --> UC2: <<include>>
+C --> UC3: <<include>>
+M --> UC4: <<include>>
+C --> UC5: <<include>>
+C --> UC6: <<include>>
+M --> UC7: <<include>>
+M --> UC8: <<include>>
+M --> UC9: <<include>>
+C --> UC10: <<include>>
+
+UC2 --> C: <<extend>>
+UC2 --> M: <<extend>>
+UC1 --> C: <<extend>>
+UC1 --> M: <<extend>>
+
+@enduml

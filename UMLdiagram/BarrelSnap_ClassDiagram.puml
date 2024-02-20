@@ -1,0 +1,191 @@
+@startuml BarrelSnap_ClassDiagram
+
+class LoginPage {
+  - final AuthService _auth
+  - final GlobalKey<FormState> _formKey
+  - String email
+  - String password
+  - String error
+  <<constructor>> + LoginPage()
+  # Widget build(BuildContext context)
+}
+
+class _LoginPageState {
+  - final AuthService _auth
+  - final GlobalKey<FormState> _formKey
+  - String email
+  - String password
+  - String error
+  <<constructor>> + _LoginPageState()
+  # Widget build(BuildContext context)
+}
+
+class AboutPageClient {
+  <<constructor>> + AboutPage()
+  # Widget build(BuildContext context)
+}
+
+' class ClientDetailsScreen {
+'   <<constructor>> + ClientDetailsScreen()
+'   # Widget build(BuildContext context)
+' }
+
+class ClientSingIn {
+  - final TextEditingController lnameController
+  - final TextEditingController fnameController
+  - final TextEditingController birthdateController
+  - final TextEditingController phonenumberController
+  - final TextEditingController cityController
+  - final TextEditingController streetController
+  - final TextEditingController streetnumberController
+  - final TextEditingController emailAdress
+  - final TextEditingController passwordClient
+  - final AuthService _auth
+  - final GlobalKey<FormState> _formKey
+  - String email
+  - String password
+  - String error
+  <<constructor>> + ClientSingIn()
+  # Future<void> _selectDate(BuildContext context)
+
+}
+
+class HomePageClient {
+  <<constructor>> + HomePageClient()
+  # Widget build(BuildContext context)
+}
+
+class MainPageClient {
+  - int _selectedIndex
+  - List<Widget> _pages
+  <<constructor>> + MainPageClient()
+  # void navigateBottomBar(int index)
+  # Widget build(BuildContext context)
+}
+
+class MyDrawer {
+  <<constructor>> + MyDrawer()
+  # Widget build(BuildContext context)
+}
+
+class MyBottomNavBar {
+  <<constructor>> + MyBottomNavBar({onTabChange})
+  # final Function(int) onTabChange
+  # Widget build(BuildContext context)
+}
+
+class ProfilePageClient {
+  - final TextEditingController fnameController
+  - final TextEditingController lnameController
+  - final TextEditingController birthdateController
+  - final TextEditingController phonenumberController
+  - final TextEditingController cityController
+  - final TextEditingController streetController
+  - final TextEditingController streetnumberController
+  <<constructor>> + ProfilePageClient()
+  # Widget build(BuildContext context)
+  # Future<void> _selectDate(BuildContext context)
+  # Future<void> _updateProfile()
+}
+
+class SettingPageClient {
+  <<constructor>> + SettingPageClient()
+  # Widget build(BuildContext context)
+}
+
+class ShopPageClient {
+  <<constructor>> + ShopPageClient()
+  # Widget build(BuildContext context)
+}
+
+' class ClientDetailsScreen {
+'   <<constructor>> + ClientDetailsScreen()
+'   # Widget build(BuildContext context)
+' }
+
+class BusinessSingIn {
+  - final TextEditingController businessNameController
+  - final TextEditingController managerNameController
+  - final TextEditingController birthdateController
+  - final TextEditingController phonenumberController
+  - final TextEditingController cityController
+  - final TextEditingController streetController
+  - final TextEditingController streetnumberController
+  - final AuthService _auth
+  - final GlobalKey<FormState> _formKey
+  final passwordBusiness
+  - String email
+  - String password
+  - String error
+  <<constructor>> + BusinessSingIn()
+  # Future<void> _selectDate(BuildContext context)
+
+}
+
+class ProfilePageBusiness {
+  - final TextEditingController businessNameController
+  - final TextEditingController managerNameController
+  - final TextEditingController birthdateController
+  - final TextEditingController phonenumberController
+  - final TextEditingController cityController
+  - final TextEditingController streetController
+  - final TextEditingController streetnumberController
+  <<constructor>> + ProfilePageBusiness()
+  # Widget build(BuildContext context)
+  # Future<void> _selectDate(BuildContext context)
+  # Future<void> _updateProfile()
+}
+
+class HomePageBusiness {
+  <<constructor>> + HomePageBusiness()
+  # Widget build(BuildContext context)
+}
+class SettingPageBusiness {
+  <<constructor>> + SettingPageBusiness()
+  # Widget build(BuildContext context)
+}
+
+class ShopPageBusiness {
+  <<constructor>> + ShopPageBusiness()
+  # Widget build(BuildContext context)
+}
+
+' class BusinessDetailsScreen {
+'   <<constructor>> + BusinessDetailsScreen()
+'   # Widget build(BuildContext context)
+' }
+class MainPageBusiness {
+  - int _selectedIndex
+  - List<Widget> _pages
+  <<constructor>> + MainPageClient()
+  # void navigateBottomBar(int index)
+  # Widget build(BuildContext context)
+}
+
+LoginPage --> _LoginPageState
+LoginPage --> AuthService
+_LoginPageState --> AuthService
+LoginPage --> ClientSingIn
+LoginPage --> BusinessSingIn
+LoginPage --> MyDrawer
+LoginPage --> MyBottomNavBar
+ClientSingIn --> MainPageClient
+BusinessSingIn --> MainPageBusiness
+ProfilePageClient --> DateFormat
+ProfilePageClient --> FirebaseFirestore
+ProfilePageClient --> SnackBar
+ProfilePageBusiness --> DateFormat
+ProfilePageBusiness --> FirebaseFirestore
+ProfilePageBusiness --> SnackBar
+MainPageClient --> HomePageClient
+MainPageClient --> ShopPageClient
+MainPageClient --> ProfilePageClient
+MainPageClient --> SettingPageClient
+MainPageClient --> AboutPageClient
+MainPageBusiness --> AboutPageBusiness
+MainPageBusiness --> HomePageBusiness
+MainPageBusiness --> ShopPageBusiness
+MainPageBusiness --> ProfilePageBusiness
+MainPageBusiness --> SettingPageBusiness
+
+@enduml

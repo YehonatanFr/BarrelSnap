@@ -1,53 +1,69 @@
 import 'package:flutter/material.dart';
-
-/*
-
-H O M E P A G E
-
-This is the HomePage, the first page the user will see based off what was configured in the MainPage.
-Currently it is just showing a vertical list of boxes.
-
-What should the HomePage for your app look like?
-
-You should place the most important aspect of your app on this page
-as this is the very first page the user will see!
-
-*/
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePageClient extends StatelessWidget {
-  const HomePageClient({Key? key});
+  const HomePageClient({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          // Background image or color
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('lib/images/backgroung1.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) => Container(
-                height: 200,
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.grey[200], // Adjust opacity as needed
+      body: FutureBuilder<DocumentSnapshot>(
+        future: _fetchManagerData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            final managerFullName =
+                snapshot.data?.get('fname') as String?;
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (managerFullName != null)
+                      Text(
+                        'Hello, $managerFullName!',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Welcome back!',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
-        ],
+            );
+          }
+        },
       ),
     );
+  }
+
+  Future<DocumentSnapshot> _fetchManagerData() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      final docSnapshot = await FirebaseFirestore.instance
+          .collection('customer')
+          .doc(user?.uid)
+          .get();
+      return docSnapshot;
+    } catch (e) {
+      throw Exception('Failed to fetch manager data: $e');
+    }
   }
 }
