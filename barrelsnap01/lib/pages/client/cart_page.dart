@@ -209,12 +209,10 @@ void _placeOrder(BuildContext context, String customerId) async {
 
     for (final item in cartItems.docs) {
       final wineId = item.data()['WineId'];
-      print(wineId);
 
       bool wineFound = false;
       for (final businessDoc in allBusinesses.docs) {
         final businessId = businessDoc.id;
-        print(businessId);
 
         final winesCollection = await FirebaseFirestore.instance
             .collection('business')

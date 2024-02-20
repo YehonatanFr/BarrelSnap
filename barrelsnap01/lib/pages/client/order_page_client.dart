@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:BarrelSnap/models/order.dart';
+import 'package:intl/intl.dart';
 
 class OrdersPage extends StatelessWidget {
   final String customerId;
@@ -48,6 +49,8 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formattedDate = DateFormat.yMMMd().format(order.timestamp.toDate());
+
     return Card(
       margin: EdgeInsets.all(8),
       child: ListTile(
@@ -57,8 +60,8 @@ class OrderCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Quantity: ${order.quantity}'),
-            Text('Ordered on: ${order.timestamp.toDate().toString()}'),
-            Text('Business: ${order.businessName}'),
+            Text('Ordered on: $formattedDate'),
+            Text('From Business: ${order.businessName}'),
           ],
         ),
       ),
