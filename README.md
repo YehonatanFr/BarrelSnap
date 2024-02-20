@@ -143,7 +143,7 @@ Clients can explore and purchase wines, while managers can manage their wineries
 <img width="331" alt="Screenshot 2024-02-18 at 22 37 57" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/07b56161-c399-49d1-bc77-5255960b6e6c">
 <img width="336" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3a4e4870-c962-4dd2-9003-d55a396f44b2)">
 <img width="338" alt="Screenshot 2024-02-18 at 21 21 17" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/767d4f1d-8273-4b52-b858-43b9f7ed263a">
-<img width="338" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/1e3db0e1-d9e7-44a4-850e-b92b9b0a581c">
+<img width="338" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/9ba00d9b-91b8-4fe2-83b1-b5d0a001a623">
 <img width="338" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/e1658935-fb00-464f-9edf-00a105db054d">
 
 
@@ -153,7 +153,7 @@ Clients can explore and purchase wines, while managers can manage their wineries
 
 <img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/80569906-8013-4707-9265-11db1746bd73">
 <img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/8a0e0e16-1204-4c57-80f3-5079e0c00d83">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/66edffd3-05e3-4123-9824-6ba81f45ebc5">
+<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/05e7dd36-f4a7-45f2-9401-796082da5bd9">
 <img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/f16169f2-ae3a-4812-8ad1-fedb673036f6">
 
 
