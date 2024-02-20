@@ -1,3 +1,4 @@
+import 'package:BarrelSnap/pages/client/order_page_client.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,9 +13,9 @@ class CartPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
+          const Center(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'My Cart',
                 style: TextStyle(
@@ -33,11 +34,11 @@ class CartPage extends StatelessWidget {
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (snapshot.data!.docs.isEmpty) {
-                  return Center(child: Text('Your cart is empty.'));
+                  return const Center(child: Text('Your cart is empty.'));
                 } else {
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
@@ -48,13 +49,13 @@ class CartPage extends StatelessWidget {
                       final quantity = data['quantity'];
 
                       return Card(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         child: Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           child: Row(
                             children: [
-                              Icon(Icons.wine_bar),
-                              SizedBox(width: 8),
+                              const Icon(Icons.wine_bar),
+                              const SizedBox(width: 8),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,20 +66,20 @@ class CartPage extends StatelessWidget {
                                 ),
                               ),
                               IconButton(
-                                icon: Icon(Icons.remove),
+                                icon: const Icon(Icons.remove),
                                 onPressed: () {
                                   _decrementQuantity(customerId, document.id);
                                 },
                               ),
                               Text(quantity.toString()),
                               IconButton(
-                                icon: Icon(Icons.add),
+                                icon: const Icon(Icons.add),
                                 onPressed: () {
                                   _incrementQuantity(customerId, document.id);
                                 },
                               ),
                               IconButton(
-                                icon: Icon(Icons.delete),
+                                icon: const Icon(Icons.delete),
                                 onPressed: () {
                                   _removeFromCart(customerId, document.id);
                                 },
@@ -96,11 +97,29 @@ class CartPage extends StatelessWidget {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  _placeOrder(context, customerId);
-                },
-                child: Text('Place Order'),
+              child: Column(
+                children: [
+                  const Divider(),
+                  ElevatedButton(
+                    onPressed: () {
+                      _placeOrder(context, customerId);
+                    },
+                    child: const Text('Place Order'),
+                  ),
+                  const SizedBox(height: 8),
+                  const Divider(),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OrdersPage(customerId: customerId),
+                        ),
+                      );
+                    },
+                    child: const Text('My Last orders'),
+                  ),
+                ],
               ),
             ),
           ),
@@ -172,87 +191,89 @@ class CartPage extends StatelessWidget {
       print('Error decrementing quantity: $e');
     }
   }
-  
+
 void _placeOrder(BuildContext context, String customerId) async {
   try {
-    // Get cart items
     final cartItems = await FirebaseFirestore.instance
         .collection('customer')
         .doc(customerId)
         .collection('cart')
         .get();
 
-    // Iterate over cart items
+
+    final allBusinesses = await FirebaseFirestore.instance
+        .collection('business')
+        .get();
+
+    String? foundBusinessId;
+
     for (final item in cartItems.docs) {
       final wineId = item.data()['WineId'];
+      print(wineId);
 
-      // Get the businesses that sell this wine
-      final businessesQuery = await FirebaseFirestore.instance
-          .collection('business')
-          .where('wines.$wineId', isEqualTo: true)
-          .get();
-
-      // Check if any business sells this wine
-      if (businessesQuery.docs.isEmpty) {
-        print('Error: No business sells the wine with ID $wineId');
-        continue; // Skip to the next item in the cart
-      }
-
-      // Iterate over each business that sells this wine
-      for (final businessDoc in businessesQuery.docs) {
+      bool wineFound = false;
+      for (final businessDoc in allBusinesses.docs) {
         final businessId = businessDoc.id;
+        print(businessId);
 
-        // Get the wine details from the business's wine collection
-        final wineDoc = await FirebaseFirestore.instance
+        final winesCollection = await FirebaseFirestore.instance
             .collection('business')
             .doc(businessId)
             .collection('wines')
-            .doc(wineId)
             .get();
 
-        // Check if the wine document exists
-        if (!wineDoc.exists) {
-          print('Error: Wine with ID $wineId not found in the wine collection of business $businessId');
-          continue; // Skip to the next business
+        for (final wineDoc in winesCollection.docs) {
+          if (wineDoc.id == wineId) {
+            wineFound = true;
+            foundBusinessId = businessId;
+
+            final orderData = {
+              'customerId': customerId,
+              'wineName': wineDoc['name'],
+              'quantity': item.data()['quantity'],
+              'timestamp': DateTime.now(),
+              'businessName': businessDoc['business_name'],
+            };
+
+            await FirebaseFirestore.instance
+                .collection('business')
+                .doc(businessId)
+                .collection('orders')
+                .add(orderData);
+
+           await FirebaseFirestore.instance
+                .collection('customer')
+                .doc(customerId)
+                .collection('orders')
+                .add(orderData);
+            break;
+          }
         }
 
-        // Create order data
-        final orderData = {
-          'customerId': customerId,
-          'wineName': wineDoc['name'],
-          'quantity': item.data()['quantity'],
-          'timestamp': DateTime.now(),
-          // Add other order details as needed
-        };
+        if (wineFound) {
+          break;
+        }
+      }
 
-        // Create order document within business collection
-        await FirebaseFirestore.instance
-            .collection('business')
-            .doc(businessId)
-            .collection('orders')
-            .add(orderData);
+      if (!wineFound) {
+        print('Error: No business sells the wine with ID $wineId');
       }
     }
 
-    // Clear the user's cart after placing orders
-    await _clearCart(customerId);
+    if (foundBusinessId != null) {
+      await _clearCart(customerId);
 
-    // Show a success message or navigate to order history
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('Orders placed successfully!'),
-    ));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Orders placed successfully!'),
+      ));
+    }
   } catch (e) {
     print('Error placing orders: $e');
-    // Handle error appropriately
   }
 }
 
 
 
-
-
-
-  // Function to clear the user's cart
   Future<void> _clearCart(String customerId) async {
     try {
       final cartItems = await FirebaseFirestore.instance
@@ -261,13 +282,11 @@ void _placeOrder(BuildContext context, String customerId) async {
           .collection('cart')
           .get();
 
-      // Delete each item from the cart
       for (final item in cartItems.docs) {
         await item.reference.delete();
       }
     } catch (e) {
       print('Error clearing cart: $e');
-      // Handle error appropriately
     }
   }
 }
