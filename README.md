@@ -117,8 +117,10 @@ It begins with the user launching the app and determining whether they are a reg
 Based on this, they either log in or register. After authentication, users select their role, leading them to specific pages tailored to either clients (consumers) or managers (winery owners). 
 Clients can explore and purchase wines, while managers can manage their wineries and add products. Finally, the user's interaction with the app concludes.
 
-<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/74826869-1a5f-404f-b1e8-eb0d02b2f4ff">
 
+| Activity Diagram                                                                                           | Start Machime Diagram                                                                                        | Sequence Diagram                                                                                          |
+|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------|
+| <img width="333" height="643" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/74826869-1a5f-404f-b1e8-eb0d02b2f4ff">| <img width="400" height="600" alt="Screenshot 2" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/bcaea5b6-434b-4896-816b-78c772427311"> | <img width="570" height="640" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/837c7740-82d8-4cf2-ad22-1b4d550dd2f5"> |
 
 
 # Screenshots
@@ -149,7 +151,7 @@ Clients can explore and purchase wines, while managers can manage their wineries
 
 | Home page Business                                                                                           | Shop page Business                                                                                         | Order page business                                                                                           | Profile page business                                                                                           |
 |-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------| 
-| <img width="250" alt="Screenshot 2024-02-18 at 22 37 57" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/07b56161-c399-49d1-bc77-5255960b6e6c"> | <img width="250" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3a4e4870-c962-4dd2-9003-d55a396f44b2)">| <img width="250" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/9ba00d9b-91b8-4fe2-83b1-b5d0a001a623"> | <img width="250" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/e1658935-fb00-464f-9edf-00a105db054d"> |
+| <img width="350" alt="Screenshot 2024-02-18 at 22 37 57" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/07b56161-c399-49d1-bc77-5255960b6e6c"> | <img width="350" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3a4e4870-c962-4dd2-9003-d55a396f44b2)">| <img width="350" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/9ba00d9b-91b8-4fe2-83b1-b5d0a001a623"> | <img width="350" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/e1658935-fb00-464f-9edf-00a105db054d"> |
 
 
 | Add Wine option                                                                                           | Update quantity option                                                                                         |
@@ -163,7 +165,7 @@ Clients can explore and purchase wines, while managers can manage their wineries
 
 | Home page Client                                                                                          | Shop page Client                                                                                         | Cart page client                                                                        | profile page client                                                                                         |
 |-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------|
-| <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/80569906-8013-4707-9265-11db1746bd73"> | <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/8a0e0e16-1204-4c57-80f3-5079e0c00d83"> | <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/b0ca1518-538f-4bef-8deb-b11217537ed7"> | <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/1d92e6e0-79ce-4e07-ad84-3bfc0de251c1"> |
+| <img width="350" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/80569906-8013-4707-9265-11db1746bd73"> | <img width="350" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/8a0e0e16-1204-4c57-80f3-5079e0c00d83"> | <img width="350" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/b0ca1518-538f-4bef-8deb-b11217537ed7"> | <img width="350" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/1d92e6e0-79ce-4e07-ad84-3bfc0de251c1"> |
 
 
 | Add to cart option                                                                                         | See wines collection of some business                                                                                         | My Last orders option                                                                                           |
@@ -188,6 +190,4 @@ We welcome contributions from the community to help improve BarrelSnap. If you h
 
 - **UI Improvement and Optimization**
 - **New Features/Functionalities**
-- **Generalization for Flexible Usage**
-- **Login with Google account**
 
