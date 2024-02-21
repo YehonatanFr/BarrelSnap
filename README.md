@@ -117,7 +117,7 @@ It begins with the user launching the app and determining whether they are a reg
 Based on this, they either log in or register. After authentication, users select their role, leading them to specific pages tailored to either clients (consumers) or managers (winery owners). 
 Clients can explore and purchase wines, while managers can manage their wineries and add products. Finally, the user's interaction with the app concludes.
 
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/74826869-1a5f-404f-b1e8-eb0d02b2f4ff">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/74826869-1a5f-404f-b1e8-eb0d02b2f4ff">
 
 
 
@@ -125,14 +125,14 @@ Clients can explore and purchase wines, while managers can manage their wineries
 
 ## Login & register creenshots
 
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ece2486d-6b56-4670-87d7-4195fdb82ea7">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/cfd18cde-803a-4897-9453-3c453dcdc398">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/76029dd5-ed38-450f-9246-c4c868c16269">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/20a2d8a1-196c-48cb-a319-538757ccaf19">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ece2486d-6b56-4670-87d7-4195fdb82ea7">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/cfd18cde-803a-4897-9453-3c453dcdc398">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/76029dd5-ed38-450f-9246-c4c868c16269">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/20a2d8a1-196c-48cb-a319-538757ccaf19">
 
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/c0270729-455f-4137-846a-9e3abfce7410">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/83d745a2-feab-48df-aeae-25417f4e5daf">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ef316aa5-65d8-4239-8412-2e75cf18a2bb">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/c0270729-455f-4137-846a-9e3abfce7410">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/83d745a2-feab-48df-aeae-25417f4e5daf">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ef316aa5-65d8-4239-8412-2e75cf18a2bb">
 
 
 
@@ -140,24 +140,24 @@ Clients can explore and purchase wines, while managers can manage their wineries
 ## Business screenshots
 
 
-<img width="331" alt="Screenshot 2024-02-18 at 22 37 57" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/07b56161-c399-49d1-bc77-5255960b6e6c">
-<img width="336" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3a4e4870-c962-4dd2-9003-d55a396f44b2)">
-<img width="336" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/7973cc7c-2597-45d7-b8b9-4a4b0215f658)">
-<img width="338" alt="Screenshot 2024-02-18 at 21 21 17" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/767d4f1d-8273-4b52-b858-43b9f7ed263a">
-<img width="338" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/9ba00d9b-91b8-4fe2-83b1-b5d0a001a623">
-<img width="338" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/e1658935-fb00-464f-9edf-00a105db054d">
+<img width="250" alt="Screenshot 2024-02-18 at 22 37 57" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/07b56161-c399-49d1-bc77-5255960b6e6c">
+<img width="250" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3a4e4870-c962-4dd2-9003-d55a396f44b2)">
+<img width="250" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/7973cc7c-2597-45d7-b8b9-4a4b0215f658)">
+<img width="250" alt="Screenshot 2024-02-18 at 21 21 17" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/767d4f1d-8273-4b52-b858-43b9f7ed263a">
+<img width="250" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/9ba00d9b-91b8-4fe2-83b1-b5d0a001a623">
+<img width="250" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/e1658935-fb00-464f-9edf-00a105db054d">
 
 
 
 
 ## Client screenshots
 
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/80569906-8013-4707-9265-11db1746bd73">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/8a0e0e16-1204-4c57-80f3-5079e0c00d83">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/7c48b53d-4273-4fef-a86d-a4d70183edba">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/d9bb27e6-9171-4e66-9138-a0e9b89abc46">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/b0ca1518-538f-4bef-8deb-b11217537ed7">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/1d92e6e0-79ce-4e07-ad84-3bfc0de251c1">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/80569906-8013-4707-9265-11db1746bd73">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/8a0e0e16-1204-4c57-80f3-5079e0c00d83">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/7c48b53d-4273-4fef-a86d-a4d70183edba">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/d9bb27e6-9171-4e66-9138-a0e9b89abc46">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/b0ca1518-538f-4bef-8deb-b11217537ed7">
+<img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/1d92e6e0-79ce-4e07-ad84-3bfc0de251c1">
 
 
 
