@@ -117,49 +117,60 @@ It begins with the user launching the app and determining whether they are a reg
 Based on this, they either log in or register. After authentication, users select their role, leading them to specific pages tailored to either clients (consumers) or managers (winery owners). 
 Clients can explore and purchase wines, while managers can manage their wineries and add products. Finally, the user's interaction with the app concludes.
 
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/74826869-1a5f-404f-b1e8-eb0d02b2f4ff">
 
+| Activity Diagram                                                                                           | Start Machime Diagram                                                                                        | Sequence Diagram                                                                                          |
+|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------|
+| <img width="333" height="643" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/74826869-1a5f-404f-b1e8-eb0d02b2f4ff">| <img width="400" height="600" alt="Screenshot 2" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/bcaea5b6-434b-4896-816b-78c772427311"> | <img width="570" height="640" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/837c7740-82d8-4cf2-ad22-1b4d550dd2f5"> |
 
 
 # Screenshots
-
+| Our Logo                                                                                             |
+|-----------------------------------------------------------------------------------------------------|
+| <img width="700" height="500" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/c3a3dbae-388d-4bf4-8685-949cc3c95574"> |
 ## Login & register creenshots
 
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ece2486d-6b56-4670-87d7-4195fdb82ea7">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/cfd18cde-803a-4897-9453-3c453dcdc398">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/76029dd5-ed38-450f-9246-c4c868c16269">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/20a2d8a1-196c-48cb-a319-538757ccaf19">
+| Run The app                                                                                             | Login Page                                                                                         | Choose Rule page                                                                                           |
+|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------|
+| <img width="250" alt="Screenshot 1" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ece2486d-6b56-4670-87d7-4195fdb82ea7"> | <img width="250" alt="Screenshot 2" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/cfd18cde-803a-4897-9453-3c453dcdc398"> | <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/76029dd5-ed38-450f-9246-c4c868c16269"> |
 
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/c0270729-455f-4137-846a-9e3abfce7410">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/83d745a2-feab-48df-aeae-25417f4e5daf">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ef316aa5-65d8-4239-8412-2e75cf18a2bb">
+
+
+| Client Register page                                                                                           | Business Register page                                                                                       | 
+|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| 
+|  <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/20a2d8a1-196c-48cb-a319-538757ccaf19"> | <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/c0270729-455f-4137-846a-9e3abfce7410">  |
+
+
+| In each user scroll option page                                                                                           | About page in each user                                                                                       | 
+|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| 
+|  <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/83d745a2-feab-48df-aeae-25417f4e5daf"> | <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ef316aa5-65d8-4239-8412-2e75cf18a2bb">  | 
 
 
 
 
 ## Business screenshots
 
+| Home page Business                                                                                           | Shop page Business                                                                                         | Order page business                                                                                           | Profile page business                                                                                           |
+|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------| 
+| <img width="350" alt="Screenshot 2024-02-18 at 22 37 57" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/07b56161-c399-49d1-bc77-5255960b6e6c"> | <img width="350" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3a4e4870-c962-4dd2-9003-d55a396f44b2)">| <img width="350" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/9ba00d9b-91b8-4fe2-83b1-b5d0a001a623"> | <img width="350" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/e1658935-fb00-464f-9edf-00a105db054d"> |
 
-<img width="331" alt="Screenshot 2024-02-18 at 22 37 57" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/07b56161-c399-49d1-bc77-5255960b6e6c">
-<img width="336" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3a4e4870-c962-4dd2-9003-d55a396f44b2)">
-<img width="338" alt="Screenshot 2024-02-18 at 21 21 17" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/767d4f1d-8273-4b52-b858-43b9f7ed263a">
-<img width="338" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/1e3db0e1-d9e7-44a4-850e-b92b9b0a581c">
-<img width="338" alt="Screenshot 2024-02-18 at 22 37 38" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/e1658935-fb00-464f-9edf-00a105db054d">
+
+| Add Wine option                                                                                           | Update quantity option                                                                                         |
+|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| 
+| <img width="250" alt="Screenshot 2024-02-18 at 21 21 17" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/767d4f1d-8273-4b52-b858-43b9f7ed263a"> |  <img width="250" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3a4e4870-c962-4dd2-9003-d55a396f44b2)"> | 
 
 
 
 
 ## Client screenshots
 
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/80569906-8013-4707-9265-11db1746bd73">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/8a0e0e16-1204-4c57-80f3-5079e0c00d83">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/66edffd3-05e3-4123-9824-6ba81f45ebc5">
-<img width="336" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/f16169f2-ae3a-4812-8ad1-fedb673036f6">
+| Home page Client                                                                                          | Shop page Client                                                                                         | Cart page client                                                                        | profile page client                                                                                         |
+|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------|
+| <img width="350" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/80569906-8013-4707-9265-11db1746bd73"> | <img width="350" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/8a0e0e16-1204-4c57-80f3-5079e0c00d83"> | <img width="350" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/b0ca1518-538f-4bef-8deb-b11217537ed7"> | <img width="350" alt="Screenshot 2024-02-18 at 22 39 58" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/1d92e6e0-79ce-4e07-ad84-3bfc0de251c1"> |
 
 
-
-
-
+| Add to cart option                                                                                         | See wines collection of some business                                                                                         | My Last orders option                                                                                           |
+|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------|
+| <img width="250" alt="Screenshot 1" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/d9bb27e6-9171-4e66-9138-a0e9b89abc46"> | <img width="250" alt="Screenshot 2" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/7c48b53d-4273-4fef-a86d-a4d70183edba">| <img width="250" alt="Screenshot 3" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/179e9c37-a696-4aff-b386-5a2245b18c98"> |
 
 
 
@@ -179,6 +190,4 @@ We welcome contributions from the community to help improve BarrelSnap. If you h
 
 - **UI Improvement and Optimization**
 - **New Features/Functionalities**
-- **Generalization for Flexible Usage**
-- **Login with Google account**
 

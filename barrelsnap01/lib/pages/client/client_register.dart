@@ -18,8 +18,6 @@ class _ClientSingInState extends State<ClientSingIn> {
   final cityController = TextEditingController();
   final streetController = TextEditingController();
   final streetnumberController = TextEditingController();
-  // final emailAdress = TextEditingController();
-  // final passwordClient = TextEditingController();
 
   final _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
@@ -304,7 +302,7 @@ class _ClientSingInState extends State<ClientSingIn> {
                             if (value == null || value.length < 6) {
                               return 'Enter a password 6+ chars long';
                             }
-                            return null; // Return null if the input is valid
+                            return null;
                           },
                         ),
                         ElevatedButton(

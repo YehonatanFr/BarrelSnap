@@ -62,29 +62,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  # flutter_launcher_icons: "^0.11.0"
   flutter_app_name: ^0.1.0
 
-  
-# flutter_launcher_icons:
-#   android: true
-#   adaptive_icon_background: "#000000"  # Set the background color to black for Android
-#   # adaptive_icon_forground: 
-#   image_path: "lib/images/playstore.png"
-#   ios: true
-#   # image_path: "lib/images/appstore.png"  # For iOS
-#   web:
-#     generate: true
-#     image_path: "lib/images/logoapp.png"
-#     background_color: "#000000"  # Set the background color to black for web
-#     theme_color: "#hexcode"
-#   windows:
-#     generate: true
-#     image_path: "lib/images/logoapp.png"
-#     icon_size: 48
-#   macos:
-#     generate: true
-#     image_path: "lib/images/logoapp.png"
 
 flutter_app_name:
   name: "BarrelSnap"
@@ -112,8 +91,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - lib/images/
+  # assets:
+  #   - lib/images/
 
     
   #   - images/a_dot_ham.jpeg

@@ -1,6 +1,8 @@
+import 'package:BarrelSnap/models/order.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class CartPage extends StatelessWidget {
   @override
@@ -42,16 +44,9 @@ class CartPage extends StatelessWidget {
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
-                      final order = snapshot.data!.docs[index];
-                      final data = order.data() as Map<String, dynamic>;
-                      final wineName = data['wineName'];
-                      final quantity = data['quantity'];
-                      final timestamp = data['timestamp'];
-
+                      final order = OrderModel.fromMap(snapshot.data!.docs[index].data() as Map<String, dynamic>);
                       return OrderCard(
-                        wineName: wineName,
-                        quantity: quantity,
-                        timestamp: timestamp,
+                        order: order,
                       );
                     },
                   );
@@ -66,25 +61,29 @@ class CartPage extends StatelessWidget {
 }
 
 class OrderCard extends StatelessWidget {
-  final String wineName;
-  final int quantity;
-  final Timestamp timestamp;
+  final OrderModel order;
 
   const OrderCard({
-    required this.wineName,
-    required this.quantity,
-    required this.timestamp,
+    required this.order,
   });
 
   @override
   Widget build(BuildContext context) {
+    final formattedDate = DateFormat.yMMMd().format(order.timestamp.toDate());
+
     return Card(
       margin: EdgeInsets.all(8),
       child: ListTile(
-        leading: Icon(Icons.shopping_cart),
-        title: Text(wineName),
-        subtitle: Text('Quantity: $quantity'),
-        trailing: Text('Ordered on: ${timestamp.toDate().toString()}'),
+        leading: Icon(Icons.receipt),
+        title: Text(order.wineName),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Quantity: ${order.quantity}'),
+            Text('Ordered on: $formattedDate'),
+          ],
+        ),
+        trailing: Text(order.businessName),
       ),
     );
   }
