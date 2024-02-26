@@ -129,9 +129,14 @@ Clients can explore and purchase wines, while managers can manage their wineries
 | <img width="700" height="500" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/c3a3dbae-388d-4bf4-8685-949cc3c95574"> |
 ## Login & register creenshots
 
-| Run The app                                                                                             | Login Page                                                                                         | Choose Rule page                                                                                           |
+| Run The app                                                                                             |
+|-----------------------------------------------------------------------------------------------------|
+|  <img width="250" alt="Screenshot 1" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ece2486d-6b56-4670-87d7-4195fdb82ea7">  | 
+
+
+| Login Page                                                                                           | Forgot Password page                                                                                       | Choose Rule page                                                                                           |
 |-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| -----------------------------------------------------------------------------------------------------|
-| <img width="250" alt="Screenshot 1" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/ece2486d-6b56-4670-87d7-4195fdb82ea7"> | <img width="250" alt="Screenshot 2" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/cfd18cde-803a-4897-9453-3c453dcdc398"> | <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/76029dd5-ed38-450f-9246-c4c868c16269"> |
+| <img width="250" alt="Screenshot 2" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/cfd18cde-803a-4897-9453-3c453dcdc398">  | <img width="250" alt="Screenshot 2" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3da458ff-7161-41d1-98e8-cc7b3e4508d3"> | <img width="250" alt="Screenshot 2024-02-18 at 22 39 58" src= "https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/76029dd5-ed38-450f-9246-c4c868c16269"> |
 
 
 
@@ -146,7 +151,6 @@ Clients can explore and purchase wines, while managers can manage their wineries
 
 
 
-
 ## Business screenshots
 
 | Home page Business                                                                                           | Shop page Business                                                                                         | Order page business                                                                                           | Profile page business                                                                                           |
@@ -156,7 +160,7 @@ Clients can explore and purchase wines, while managers can manage their wineries
 
 | Add Wine option                                                                                           | Update quantity option                                                                                         |
 |-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| 
-| <img width="250" alt="Screenshot 2024-02-18 at 21 21 17" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/767d4f1d-8273-4b52-b858-43b9f7ed263a"> |  <img width="250" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/3a4e4870-c962-4dd2-9003-d55a396f44b2)"> | 
+| <img width="250" alt="Screenshot 2024-02-18 at 21 21 17" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/767d4f1d-8273-4b52-b858-43b9f7ed263a"> |  <img width="250" alt="Screenshot 2024-02-18 at 21 18 32" src="https://github.com/YehonatanFr/BarrelSnap01/assets/118724971/a47b5606-6a20-4f29-810c-81c15894fd6d"> | 
 
 
 
