@@ -84,6 +84,9 @@ flutter_app_name:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - lib/images/backgroung1.jpg
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -4,6 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartPage extends StatelessWidget {
+final GlobalKey<State> _buttonKey = GlobalKey();
+bool _isPlacingOrder = false;
+
+
   @override
   Widget build(BuildContext context) {
     final currentUser = FirebaseAuth.instance.currentUser;
@@ -192,83 +196,117 @@ class CartPage extends StatelessWidget {
     }
   }
 
-void _placeOrder(BuildContext context, String customerId) async {
-  try {
-    final cartItems = await FirebaseFirestore.instance
-        .collection('customer')
-        .doc(customerId)
-        .collection('cart')
-        .get();
+  void _placeOrder(BuildContext context, String customerId) async {
+    // Check if an order is already being placed
+    if (_isPlacingOrder) {
+      return;
+    }
 
+    try {
+      // Disable the button to prevent multiple clicks
+      (_buttonKey.currentState as dynamic)?.setState(() {
+        (_buttonKey.currentState as dynamic)?.widget.enabled = false;
+      });
 
-    final allBusinesses = await FirebaseFirestore.instance
-        .collection('business')
-        .get();
+      // Set the flag to indicate an order is being placed
+      _isPlacingOrder = true;
 
-    String? foundBusinessId;
+      // Show loading indicator
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Placing order...'),
+        duration: Duration(days: 1), // Ensure the SnackBar is persistent
+      ));
 
-    for (final item in cartItems.docs) {
-      final wineId = item.data()['WineId'];
+      final cartItems = await FirebaseFirestore.instance
+          .collection('customer')
+          .doc(customerId)
+          .collection('cart')
+          .get();
 
-      bool wineFound = false;
-      for (final businessDoc in allBusinesses.docs) {
-        final businessId = businessDoc.id;
+      final allBusinesses = await FirebaseFirestore.instance
+          .collection('business')
+          .get();
 
-        final winesCollection = await FirebaseFirestore.instance
-            .collection('business')
-            .doc(businessId)
-            .collection('wines')
-            .get();
+      String? foundBusinessId;
 
-        for (final wineDoc in winesCollection.docs) {
-          if (wineDoc.id == wineId) {
-            wineFound = true;
-            foundBusinessId = businessId;
+      for (final item in cartItems.docs) {
+        final wineId = item.data()['WineId'];
 
-            final orderData = {
-              'customerId': customerId,
-              'wineName': wineDoc['name'],
-              'quantity': item.data()['quantity'],
-              'timestamp': DateTime.now(),
-              'businessName': businessDoc['business_name'],
-            };
+        bool wineFound = false;
+        for (final businessDoc in allBusinesses.docs) {
+          final businessId = businessDoc.id;
 
-            await FirebaseFirestore.instance
-                .collection('business')
-                .doc(businessId)
-                .collection('orders')
-                .add(orderData);
+          final winesCollection = await FirebaseFirestore.instance
+              .collection('business')
+              .doc(businessId)
+              .collection('wines')
+              .get();
 
-           await FirebaseFirestore.instance
-                .collection('customer')
-                .doc(customerId)
-                .collection('orders')
-                .add(orderData);
+          for (final wineDoc in winesCollection.docs) {
+            if (wineDoc.id == wineId) {
+              wineFound = true;
+              foundBusinessId = businessId;
+
+              final orderData = {
+                'customerId': customerId,
+                'wineName': wineDoc['name'],
+                'quantity': item.data()['quantity'],
+                'timestamp': DateTime.now(),
+                'businessName': businessDoc['business_name'],
+              };
+
+              await FirebaseFirestore.instance
+                  .collection('business')
+                  .doc(businessId)
+                  .collection('orders')
+                  .add(orderData);
+
+              await FirebaseFirestore.instance
+                  .collection('customer')
+                  .doc(customerId)
+                  .collection('orders')
+                  .add(orderData);
+              break;
+            }
+          }
+
+          if (wineFound) {
             break;
           }
         }
 
-        if (wineFound) {
-          break;
+        if (!wineFound) {
+          print('Error: No business sells the wine with ID $wineId');
         }
       }
 
-      if (!wineFound) {
-        print('Error: No business sells the wine with ID $wineId');
+      if (foundBusinessId != null) {
+        await _clearCart(customerId);
+
+        ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Hide loading indicator
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Orders placed successfully!'),
+        ));
       }
-    }
+    } catch (e) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Hide loading indicator
 
-    if (foundBusinessId != null) {
-      await _clearCart(customerId);
-
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Orders placed successfully!'),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error placing orders: $e'),
       ));
+      print('Error placing orders: $e');
+    } finally {
+      // Re-enable the button after the process completes
+      (_buttonKey.currentState as dynamic)?.setState(() {
+        (_buttonKey.currentState as dynamic)?.widget.enabled = true;
+      });
+
+      // Reset the flag after completing the order process
+      _isPlacingOrder = false;
     }
-  } catch (e) {
-    print('Error placing orders: $e');
   }
-}
+
 
 
 

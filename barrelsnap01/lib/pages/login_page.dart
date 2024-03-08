@@ -196,28 +196,13 @@ class _LoginPageState extends State<LoginPage> {
                               fontSize: 16), // button text style
                         ),
                       ),
-                      const SizedBox(height: 5.0),
+                      const SizedBox(height: 20.0),
                       Text(
                         error,
                         style:
                             const TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20.0, horizontal: 50.0),
-                        child: ElevatedButton(
-                          child: const Text('Sign in anon'),
-                          onPressed: () async {
-                            dynamic result = await _auth.signInAnon();
-                            if (result == null) {
-                              print('error sign in');
-                            } else {
-                              print('signed in');
-                              print(result.uid);
-                            }
-                          },
-                        ),
-                      ),
+
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 25.0),
                         child: Row(
@@ -250,7 +235,7 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(width: 25),
+                          const SizedBox(width: 40),
                           TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -270,6 +255,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 100.0),
                     ],
                   ),
                 ),
